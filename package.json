@@ -1,0 +1,33 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "Front end for NUS Workload Predictor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NUS-Workload-Predictor/front-end.git"
+  },
+  "author": "Dd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NUS-Workload-Predictor/front-end/issues"
+  },
+  "homepage": "https://github.com/NUS-Workload-Predictor/front-end#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.16.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "webpack": "^1.13.2"
+  }
+}
