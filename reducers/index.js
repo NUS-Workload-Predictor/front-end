@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux';
 
-export default const rootReducer = combineReducers({
-  
+import module from './module';
+import widget from './widget';
+
+const rootReducer = combineReducers({
+  module,
+  widget
 });
+
+export default rootReducer;

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import AddWidget from '../components/AddWidget';
+import ModuleList from './ModuleList';
+import WidgetBoard from './WidgetBoard';
+import AddWidget from './AddWidget';
 
 class Dashboard extends Component {
   render() {

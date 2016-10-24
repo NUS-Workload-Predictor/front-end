@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Header from '../components/Header'
 import Dashboard from '../components/Dashboard';
 
-@connect(state => ({}))
 class App extends Component {
   render() {
     return (
@@ -19,4 +18,4 @@ App.propTypes = {
 
 };
 
-export default App;
+export default connect()(App);
