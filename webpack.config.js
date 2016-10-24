@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './js/index.jsx',
+    entry: './index.js',
     output: {
         path: './dist',
         filename: 'bundle.js'
@@ -8,10 +8,16 @@ module.exports = {
         extensions: ['', '.js', '.jsx']
     },
     module: {
-        loaders: [{
+        loaders: [
+        {
             test: /\.jsx?$/,
             loader: 'babel',
             exclude: [/node_modules/]
-        }]
+        },
+        {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }
+      ]
     }
 }
