@@ -4,20 +4,17 @@ module.exports = {
         path: './dist',
         filename: 'bundle.js'
     },
-    resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
     module: {
         loaders: [
-        {
-            test: /\.jsx?$/,
-            loader: 'babel',
-            exclude: [/node_modules/]
-        },
-        {
-            test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
-        }
-      ]
+          {
+              test: /\.jsx?$/,
+              loader: 'babel',
+              exclude: [/node_modules/]
+          },
+          {
+              test: /\.scss$/,
+              loaders: ['style', 'css', 'sass']
+          }
+        ]
     }
 }

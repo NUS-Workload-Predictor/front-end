@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 import ModuleList from './ModuleList';
 import WidgetBoard from './WidgetBoard';
 import AddWidget from './AddWidget';
