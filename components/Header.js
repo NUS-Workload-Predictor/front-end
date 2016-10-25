@@ -3,6 +3,7 @@ import { AppBar, Drawer, FlatButton, IconButton, IconMenu, MenuItem, Toggle } fr
 import { deepOrangeA400, grey50, grey400 } from 'material-ui/styles/colors';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import ModuleList from './ModuleList';
@@ -31,6 +32,7 @@ class Header extends Component {
       <div>
         <AppBar
           title="NUS Workload Predictor"
+          style={{position: 'fixed'}}
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={<IconButton><NavigationExpandMore /></IconButton>}
           iconElementRight={this.state.logged

@@ -4,8 +4,9 @@ import Widget from './Widget';
 class WidgetBoard extends Component {
   render() {
     return (
-      <div>
-
+      <div style={{paddingTop: '80px', paddingLeft: '20px'}}>
+        <Widget />
+        <Widget />
       </div>
     );
   }

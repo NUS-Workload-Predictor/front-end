@@ -924,6 +924,10 @@ change-emitter@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.2.tgz#6b88ca4d5d864e516f913421b11899a860aee8db"
 
+chart.js@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-1.1.1.tgz#a9b17054220bd45cbdb176fd6bcb8783ef871a7d"
+
 chokidar@^1.0.0:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.6.1.tgz#2f4447ab5e96e50fb3d789fd90d4c72e0e4c70c2"
@@ -2747,6 +2751,10 @@ react-addons-create-fragment@^15.0.0:
 react-addons-transition-group@^15.0.0:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-addons-transition-group/-/react-addons-transition-group-15.3.2.tgz#64f758d18bd1e59128726b1c9a4db79127c4f1ed"
+
+react-chartjs:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-chartjs/-/react-chartjs-0.8.0.tgz#d41386b3d3cbfef9003f5a655e7ea48a49fbfa19"
 
 react-dom@^15.3.2:
   version "15.3.2"
