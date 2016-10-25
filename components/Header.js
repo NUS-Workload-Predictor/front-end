@@ -14,12 +14,12 @@ class Header extends Component {
     super(props);
     this.state = {logged: false, open: false};
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  handleChange(event, logged) {
-    this.setState({logged: logged});
+  handleLogin() {
+    this.setState({logged: !this.state.logged});
   }
 
   handleToggle() {
@@ -29,13 +29,6 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <Toggle
-          label="Logged"
-          defaultToggled={false}
-          onToggle={this.handleChange}
-          labelPosition="right"
-          style={{margin: 20}}
-        />
         <AppBar
           title="NUS Workload Predictor"
           onLeftIconButtonTouchTap={this.handleToggle}
@@ -51,9 +44,9 @@ class Header extends Component {
               style={{color: grey50}}>
                 <MenuItem primaryText="Refresh" />
                 <MenuItem primaryText="Help" />
-                <MenuItem primaryText="Sign out" />
+                <MenuItem onTouchTap={this.handleLogin} primaryText="Sign out" />
               </IconMenu>
-            : <FlatButton style={{color: grey50}} label="Login" />
+            : <FlatButton onTouchTap={this.handleLogin} style={{color: grey50}} label="Login" />
           }
         />
         <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{height: '70%', top: 70}}>

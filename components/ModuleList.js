@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Divider, List, Subheader } from 'material-ui';
+import { Divider, FloatingActionButton, List, ListItem, RaisedButton, Subheader } from 'material-ui';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Module from './Module';
 import AddModule from './AddModule';
@@ -7,12 +8,20 @@ import AddModule from './AddModule';
 class ModuleList extends Component {
   render() {
     return (
-      <List>
-        <Subheader inset={true}>Modules</Subheader>
-        <Module />
-        <Divider inset={true} />
-        <Module />
-      </List>
+      <div>
+        <List>
+          <Subheader inset={true}>Modules</Subheader>
+          <Module />
+          <Divider inset={true} />
+          <Module />
+          <Divider inset={true} />
+        </List>
+        <div>
+          <FloatingActionButton mini={true} style={{position: 'absolute', right: '20px', bottom: '20px'}}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </div>
+      </div>
     );
   }
 }
