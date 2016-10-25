@@ -1,21 +1,29 @@
 import React, { Component, PropTypes } from 'react';
-import { AppBar, FlatButton, IconButton, IconMenu, MenuItem, Toggle } from 'material-ui';
+import { AppBar, Drawer, FlatButton, IconButton, IconMenu, MenuItem, Toggle } from 'material-ui';
 import { deepOrangeA400, grey50, grey400 } from 'material-ui/styles/colors';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import ModuleList from './ModuleList';
+
+injectTapEventPlugin();
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {logged: false};
+    this.state = {logged: false, open: false};
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
   handleChange(event, logged) {
     this.setState({logged: logged});
+  }
+
+  handleToggle() {
+    this.setState({open: !this.state.open});
   }
 
   render() {
@@ -30,6 +38,7 @@ class Header extends Component {
         />
         <AppBar
           title="NUS Workload Predictor"
+          onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={<IconButton><NavigationExpandMore /></IconButton>}
           iconElementRight={this.state.logged
             ? <IconMenu iconButtonElement={
@@ -47,6 +56,9 @@ class Header extends Component {
             : <FlatButton style={{color: grey50}} label="Login" />
           }
         />
+        <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
+          <ModuleList />
+        </Drawer>
       </div>
     );
   }

@@ -8,7 +8,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <ModuleList />
         <WidgetBoard />
         <AddWidget />
       </div>
