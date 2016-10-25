@@ -56,7 +56,7 @@ class Header extends Component {
             : <FlatButton style={{color: grey50}} label="Login" />
           }
         />
-        <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
+        <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{height: '70%', top: 70}}>
           <ModuleList />
         </Drawer>
       </div>
