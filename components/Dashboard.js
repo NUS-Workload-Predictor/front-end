@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-import WidgetBoard from './WidgetBoard';
+import WidgetBoardContainer from '../containers/WidgetBoardContainer';
 import AddWidget from './AddWidget';
 
 class Dashboard extends Component {
   render() {
     return (
       <div>
-        <WidgetBoard />
+        <WidgetBoardContainer />
         <AddWidget />
       </div>
     );

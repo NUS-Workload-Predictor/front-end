@@ -6,7 +6,7 @@ import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import ModuleList from './ModuleList';
+import ModuleListContainer from '../containers/ModuleListContainer';
 
 injectTapEventPlugin();
 
@@ -52,7 +52,7 @@ class Header extends Component {
           }
         />
         <Drawer docked={false} width={200} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{height: '70%', top: 70}}>
-          <ModuleList />
+          <ModuleListContainer />
         </Drawer>
       </div>
     );

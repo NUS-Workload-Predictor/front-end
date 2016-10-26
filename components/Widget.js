@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Resizable, ResizableBox } from 'react-resizable';
 import { Line } from 'react-chartjs';
 
 import 'style!css!../stylesheets/style.css';
@@ -18,7 +17,7 @@ const chartData = {
             'rgba(255, 159, 64, 0.2)'
         ],
         borderColor: [
-            'rgba(255,99,132,1)',
+            'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
@@ -46,11 +45,9 @@ class Widget extends Component {
 
   render() {
     return (
-      <ResizableBox width={600} height={250}>
-        <div style={{height: '100%', width: '100%'}}>
-          <Line data={chartData} options={chartOptions} width="600" height="250"/>
-        </div>
-      </ResizableBox>
+      <div>
+        <Line data={chartData} options={chartOptions} width="600" height="250"/>
+      </div>
     );
   }
 }

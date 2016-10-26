@@ -6,7 +6,6 @@ class WidgetBoard extends Component {
     return (
       <div style={{paddingTop: '80px', paddingLeft: '20px'}}>
         <Widget />
-        <Widget />
       </div>
     );
   }

@@ -10,11 +10,9 @@ class ModuleList extends Component {
     return (
       <div>
         <List>
-          <Subheader inset={true}>Modules</Subheader>
+          <Subheader>{'Module List'}</Subheader>
           <Module />
-          <Divider inset={true} />
-          <Module />
-          <Divider inset={true} />
+          <Divider />
         </List>
         <div>
           <FloatingActionButton mini={true} style={{position: 'absolute', right: '20px', bottom: '20px'}}>
