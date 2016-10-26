@@ -5,12 +5,19 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 
 import { deleteModule } from '../actions/module';
+import EditModule from './EditModule';
 
 class Module extends Component {
   constructor(props) {
     super(props);
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  handleEdit() {
+    console.log(this);
+    this.refs.editModule.setState({open: true});
   }
 
   handleDelete() {
@@ -27,6 +34,7 @@ class Module extends Component {
         <ListItem
           leftIcon={<FileFolder />}
           rightIconButton={<IconButton onTouchTap={this.handleDelete}><NavigationClose /></IconButton>}
+          onTouchTap={this.handleEdit}
           primaryText={module.code}
           secondaryText={
             <p>
@@ -34,6 +42,7 @@ class Module extends Component {
             </p>
           }
         />
+        <EditModule ref="editModule" module={module}/>
         <Divider />
       </div>
     );
