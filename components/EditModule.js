@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Dialog, FlatButton, TextField } from 'material-ui';
+import { Dialog, FlatButton, FontIcon, Tab, Tabs, TextField } from 'material-ui';
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
+import ActionBook from 'material-ui/svg-icons/action/book';
+import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
+import ActionSpellcheck from 'material-ui/svg-icons/action/spellcheck';
+import AvMic from 'material-ui/svg-icons/av/mic';
+import AvPlaylistAddCheck from 'material-ui/svg-icons/av/playlist-add-check';
 
 class EditModule extends Component {
   constructor(props) {
@@ -28,6 +34,7 @@ class EditModule extends Component {
       <div>
         <Dialog
           title="Edit Module Details"
+          contentStyle={{width: '80%', maxWidth: 'none'}}
           actions={[<FlatButton
             label="Cancel"
             primary={true}
@@ -44,7 +51,29 @@ class EditModule extends Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
         >
-          
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <Tab label="Assignment" icon={<ActionAssignment />} value="assignment" >
+
+            </Tab>
+            <Tab label="Project" icon={<ActionDashboard />} value="project" >
+
+            </Tab>
+            <Tab label="Presentation" icon={<AvMic />} value="presentation" >
+
+            </Tab>
+            <Tab label="Reading" icon={<ActionBook />} value="reading" >
+
+            </Tab>
+            <Tab label="Test" icon={<ActionSpellcheck />} value="test" >
+
+            </Tab>
+            <Tab label="Exam" icon={<AvPlaylistAddCheck />} value="exam" >
+
+            </Tab>
+          </Tabs>
         </Dialog>
       </div>
     );
