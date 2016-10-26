@@ -18,10 +18,10 @@ class ModuleList extends Component {
         <List>
           <Subheader>{'Module List'}</Subheader>
           {modules.map((module, i) =>
-            <Module key={i} module={module}/>
+            <Module key={i} index={i} module={module} dispatch={dispatch} />
           )}
         </List>
-        <AddModule dispatch={dispatch}/>
+        <AddModule dispatch={dispatch} />
       </div>
     );
   }

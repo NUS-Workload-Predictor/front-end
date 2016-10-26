@@ -14,7 +14,7 @@ export default function modules(state = INITIAL_STATE.modules, action) {
       return state;
 
     case MODULE_DELETE:
-      return state;
+      return [...state.slice(0, action.payload), ...state.slice(action.payload + 1)];
 
     default:
       return state;

@@ -24,7 +24,9 @@ class AddModule extends Component {
   }
 
   handleSubmit() {
-    this.props.dispatch(addModule(this.state.code));
+    const { dispatch } = this.props;
+
+    dispatch(addModule(this.state.code));
     this.setState({open: false});
   }
 

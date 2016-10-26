@@ -16,9 +16,9 @@ export function editModule(info) {
   };
 }
 
-export function deleteModule(code) {
+export function deleteModule(index) {
   return {
     type: MODULE_DELETE,
-    payload: code
+    payload: index
   };
 }
