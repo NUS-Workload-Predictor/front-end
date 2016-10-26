@@ -40,12 +40,17 @@ class AddModule extends Component {
         </FloatingActionButton>
         <Dialog
           title="Add New Module"
-          actions={<FlatButton
+          actions={[<FlatButton
+            label="Cancel"
+            primary={true}
+            onTouchTap={this.handleClose}
+          />,
+          <FlatButton
             label="OK"
             primary={true}
             keyboardFocused={true}
             onTouchTap={this.handleSubmit}
-          />}
+          />]}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
