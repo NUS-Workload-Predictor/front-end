@@ -4,11 +4,7 @@ import { deepOrangeA400, grey50, grey400 } from 'material-ui/styles/colors';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import ModuleListContainer from '../containers/ModuleListContainer';
-
-injectTapEventPlugin();
 
 class Header extends Component {
   constructor(props) {

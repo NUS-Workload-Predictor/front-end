@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../components/Header'
 import Dashboard from '../components/Dashboard';
+
+injectTapEventPlugin();
 
 class App extends Component {
   render() {
@@ -15,8 +17,4 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-
-};
-
-export default connect()(App);
+export default App;

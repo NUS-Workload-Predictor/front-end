@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import module from './module';
-import widget from './widget';
+import modules from './module';
+import widgets from './widget';
 
 const rootReducer = combineReducers({
-  module,
-  widget
+  modules,
+  widgets
 });
 
 export default rootReducer;

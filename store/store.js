@@ -1,6 +1,11 @@
 import { createStore } from 'redux';
 import rootReducer from '../reducers/index'
 
-const store = createStore(rootReducer);
+const INITIAL_STATE = {
+  modules: [],
+  widgets: []
+}
+
+const store = createStore(rootReducer, INITIAL_STATE);
 
 export default store;

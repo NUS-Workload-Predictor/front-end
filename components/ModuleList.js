@@ -1,24 +1,27 @@
 import React, { Component, PropTypes } from 'react';
-import { Divider, FloatingActionButton, List, ListItem, RaisedButton, Subheader } from 'material-ui';
+import { FloatingActionButton, List, RaisedButton, Subheader } from 'material-ui';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import Module from './Module';
 import AddModule from './AddModule';
 
 class ModuleList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    const { modules, dispatch } = this.props;
+
     return (
       <div>
         <List>
           <Subheader>{'Module List'}</Subheader>
-          <Module />
-          <Divider />
+          {modules.map((module, i) =>
+            <Module key={i} module={module}/>
+          )}
         </List>
-        <div>
-          <FloatingActionButton mini={true} style={{position: 'absolute', right: '20px', bottom: '20px'}}>
-            <ContentAdd />
-          </FloatingActionButton>
-        </div>
+        <AddModule dispatch={dispatch}/>
       </div>
     );
   }
