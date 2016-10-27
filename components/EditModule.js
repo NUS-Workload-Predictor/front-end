@@ -8,6 +8,11 @@ import AvMic from 'material-ui/svg-icons/av/mic';
 import AvPlaylistAddCheck from 'material-ui/svg-icons/av/playlist-add-check';
 
 import AssignmentList from './module/AssignmentList';
+import ExamList from './module/ExamList';
+import PresentationList from './module/PresentationList';
+import ProjectList from './module/ProjectList';
+import ReadingList from './module/ReadingList';
+import TestList from './module/TestList';
 
 class EditModule extends Component {
   constructor(props) {
@@ -40,7 +45,7 @@ class EditModule extends Component {
           title="Edit Module Details"
           contentStyle={{width: '80%', maxWidth: 'none'}}
           actions={[<FlatButton
-            label="Add Assignment"
+            label="Add New"
             primary={true}
             keyboardFocused={true}
             onTouchTap={this.handleSubmit}
@@ -69,19 +74,19 @@ class EditModule extends Component {
               <AssignmentList assignments={assignments} dispatch={dispatch} />
             </Tab>
             <Tab label="Project" icon={<ActionDashboard />} value="project" >
-
+              <ProjectList projects={projects} dispatch={dispatch} />
             </Tab>
             <Tab label="Presentation" icon={<AvMic />} value="presentation" >
-
+              <PresentationList presentations={presentations} dispatch={dispatch} />
             </Tab>
             <Tab label="Reading" icon={<ActionBook />} value="reading" >
-
+              <ReadingList readings={readings} dispatch={dispatch} />
             </Tab>
             <Tab label="Test" icon={<ActionSpellcheck />} value="test" >
-
+              <TestList tests={tests} dispatch={dispatch} />
             </Tab>
             <Tab label="Exam" icon={<AvPlaylistAddCheck />} value="exam" >
-
+              <ExamList exams={exams} dispatch={dispatch} />
             </Tab>
           </Tabs>
         </Dialog>

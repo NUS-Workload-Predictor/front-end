@@ -33,11 +33,46 @@ const INITIAL_STATE = {
         }
       ],
 
-      projects: [],
-      presentations: [],
-      readings: [],
+      projects: [
+        {
+          name: 'Project 1',
+          released: '2016-10-26',
+          due: '2016-11-08',
+          percentage: 5,
+          coverage: 5,
+          people: 4
+
+        }
+      ],
+      presentations: [
+        {
+          name: 'Presentation 1',
+          released: '2016-10-23',
+          due: '2016-11-02',
+          percentage: 4,
+          coverage: 4,
+          people: 4,
+          duration: 20,
+        }
+      ],
+      readings: [
+        {
+          name: 'Reading 1',
+          week: 3,
+          amount: 10,
+          difficulty: 3
+        }
+      ],
       tests: [],
-      exams: []
+      exams: [
+        {
+          name: 'Exam 1',
+          date: '2016-11-29',
+          percentage: 30,
+          coverage: 10,
+          duration: 2
+        }
+      ]
     }
   ],
   widgets: []

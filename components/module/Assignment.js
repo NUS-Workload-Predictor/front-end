@@ -24,7 +24,7 @@ class Assignment extends Component {
   }
 
   render() {
-    const { assignment } = this.props;
+    const { dispatch, assignment } = this.props;
     const releasedDate = new Date(assignment.released);
     const dueDate = new Date(assignment.due);
 

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
-import ContentCreate from 'material-ui/svg-icons/content/create'
-import ContentClear from 'material-ui/svg-icons/content/clear'
+import ContentCreate from 'material-ui/svg-icons/content/create';
+import ContentClear from 'material-ui/svg-icons/content/clear';
 
 import Assignment from './Assignment';
 
@@ -43,7 +43,7 @@ class AssignmentList extends Component {
         >
           {assignments.map((assignment, i) =>
             <TableRow key={i}>
-              <TableRowColumn>{i}</TableRowColumn>
+              <TableRowColumn>{i + 1}</TableRowColumn>
               <TableRowColumn>{assignment.name}</TableRowColumn>
               <TableRowColumn>{assignment.due}</TableRowColumn>
               <TableRowColumn>
