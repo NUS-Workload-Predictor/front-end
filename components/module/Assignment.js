@@ -26,8 +26,8 @@ class Assignment extends Component {
   render() {
     return (
       <Dialog
-        title="Edit Module Details"
-        contentStyle={{width: '50%', maxWidth: 'none'}}
+        title="Edit Assignment Details"
+        contentStyle={{width: '40%', maxWidth: 'none'}}
         actions={[<FlatButton
           label="Cancel"
           primary={true}
@@ -44,7 +44,35 @@ class Assignment extends Component {
         onRequestClose={this.handleClose}
         autoScrollBodyContent={true}
       >
-
+        <br />
+        <TextField
+          hintText="Enter assignment name"
+          floatingLabelText="Assignment Name"
+          floatingLabelFixed={true}
+        />
+        <br />
+        <DatePicker autoOk={true} hintText="Select released date" floatingLabelText="Released Date" />
+        <br />
+        <DatePicker autoOk={true} hintText="Select due date" floatingLabelText="Due Date" />
+        <br />
+        <TextField
+          hintText="Enter assignment percentage"
+          floatingLabelText="Assignment Percentage"
+          floatingLabelFixed={true}
+        />
+        <br />
+        <TextField
+          hintText="Enter assignment coverage"
+          floatingLabelText="Assignment Coverage"
+          floatingLabelFixed={true}
+        />
+        <br />
+        <TextField
+          hintText="Enter assignment People"
+          floatingLabelText="Assignment People"
+          floatingLabelFixed={true}
+        />
+        <br />
       </Dialog>
     );
   }

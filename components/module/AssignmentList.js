@@ -13,7 +13,7 @@ class AssignmentList extends Component {
   }
 
   handleEdit() {
-    this.refs.editAssignment.setState({open: true});
+    this.refs.assignment.setState({open: true});
   }
 
   render() {
@@ -41,7 +41,7 @@ class AssignmentList extends Component {
             <TableRowColumn>
               <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
               <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
-              <Assignment ref="editAssignment" />
+              <Assignment ref="assignment" />
             </TableRowColumn>
           </TableRow>
           <TableRow>
