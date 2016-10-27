@@ -24,6 +24,10 @@ class Assignment extends Component {
   }
 
   render() {
+    const { assignment } = this.props;
+    const releasedDate = new Date(assignment.released);
+    const dueDate = new Date(assignment.due);
+
     return (
       <Dialog
         title="Edit Assignment Details"
@@ -49,28 +53,32 @@ class Assignment extends Component {
           hintText="Enter assignment name"
           floatingLabelText="Assignment Name"
           floatingLabelFixed={true}
+          defaultValue={assignment.name}
         />
         <br />
-        <DatePicker autoOk={true} hintText="Select released date" floatingLabelText="Released Date" />
+        <DatePicker autoOk={true} defaultDate={releasedDate} hintText="Select released date" floatingLabelText="Released Date" />
         <br />
-        <DatePicker autoOk={true} hintText="Select due date" floatingLabelText="Due Date" />
+        <DatePicker autoOk={true} defaultDate={dueDate} hintText="Select due date" floatingLabelText="Due Date" />
         <br />
         <TextField
           hintText="Enter assignment percentage"
           floatingLabelText="Assignment Percentage"
           floatingLabelFixed={true}
+          defaultValue={assignment.percentage}
         />
         <br />
         <TextField
           hintText="Enter assignment coverage"
           floatingLabelText="Assignment Coverage"
           floatingLabelFixed={true}
+          defaultValue={assignment.coverage}
         />
         <br />
         <TextField
-          hintText="Enter assignment People"
+          hintText="Enter assignment people"
           floatingLabelText="Assignment People"
           floatingLabelFixed={true}
+          defaultValue={assignment.people}
         />
         <br />
       </Dialog>

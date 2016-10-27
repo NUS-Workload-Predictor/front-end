@@ -9,7 +9,12 @@ class AssignmentList extends Component {
   constructor(props) {
     super(props);
 
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  handleDelete() {
+
   }
 
   handleEdit() {
@@ -17,6 +22,8 @@ class AssignmentList extends Component {
   }
 
   render() {
+    const { dispatch, assignments } = this.props;
+
     return (
       <Table
         fixedHeader={true}
@@ -34,35 +41,18 @@ class AssignmentList extends Component {
           deselectOnClickaway={false}
           showRowHover={true}
         >
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>Assignment 1</TableRowColumn>
-            <TableRowColumn>2016-10-30</TableRowColumn>
-            <TableRowColumn>
-              <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
-              <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
-              <Assignment ref="assignment" />
-            </TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>Assignment 1</TableRowColumn>
-            <TableRowColumn>2016-10-30</TableRowColumn>
-            <TableRowColumn>
-              <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
-              <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
-
-            </TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>Assignment 1</TableRowColumn>
-            <TableRowColumn>2016-10-30</TableRowColumn>
-            <TableRowColumn>
-              <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
-              <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
-            </TableRowColumn>
-          </TableRow>
+          {assignments.map((assignment, i) =>
+            <TableRow key={i}>
+              <TableRowColumn>{i}</TableRowColumn>
+              <TableRowColumn>{assignment.name}</TableRowColumn>
+              <TableRowColumn>{assignment.due}</TableRowColumn>
+              <TableRowColumn>
+                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleDelete}><ContentClear /></IconButton>
+                <Assignment ref="assignment" index={i} assignment={assignment} dispatch={dispatch} />
+              </TableRowColumn>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     );

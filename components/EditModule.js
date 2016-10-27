@@ -12,7 +12,7 @@ import AssignmentList from './module/AssignmentList';
 class EditModule extends Component {
   constructor(props) {
     super(props);
-    this.state = { open: false, module: '' };
+    this.state = {open: false};
 
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -32,6 +32,8 @@ class EditModule extends Component {
   }
 
   render() {
+    const { dispatch, assignments, projects, presentations, readings, tests, exams } = this.props.module;
+
     return (
       <div>
         <Dialog
@@ -64,7 +66,7 @@ class EditModule extends Component {
             onChange={this.handleChange}
           >
             <Tab label="Assignment" icon={<ActionAssignment />} value="assignment" >
-              <AssignmentList />
+              <AssignmentList assignments={assignments} dispatch={dispatch} />
             </Tab>
             <Tab label="Project" icon={<ActionDashboard />} value="project" >
 

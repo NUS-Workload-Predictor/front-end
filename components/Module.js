@@ -26,7 +26,7 @@ class Module extends Component {
   }
 
   render() {
-    const { module } = this.props;
+    const { dispatch, module } = this.props;
 
     return (
       <div>
@@ -41,7 +41,7 @@ class Module extends Component {
             </p>
           }
         />
-        <EditModule ref="editModule" module={module}/>
+        <EditModule ref="editModule" module={module} dispatch={dispatch} />
         <Divider />
       </div>
     );
