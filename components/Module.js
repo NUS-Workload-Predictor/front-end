@@ -16,7 +16,6 @@ class Module extends Component {
   }
 
   handleEdit() {
-    console.log(this);
     this.refs.editModule.setState({open: true});
   }
 

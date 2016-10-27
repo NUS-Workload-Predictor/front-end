@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-class PresentationBoard extends Component {
+class ExamList extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,8 +12,8 @@ class PresentationBoard extends Component {
   }
 }
 
-PresentationBoard.propTypes = {
+ExamList.propTypes = {
 
 };
 
-export default PresentationBoard;
+export default ExamList;

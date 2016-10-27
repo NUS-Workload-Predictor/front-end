@@ -7,6 +7,8 @@ import ActionSpellcheck from 'material-ui/svg-icons/action/spellcheck';
 import AvMic from 'material-ui/svg-icons/av/mic';
 import AvPlaylistAddCheck from 'material-ui/svg-icons/av/playlist-add-check';
 
+import AssignmentList from './module/AssignmentList';
+
 class EditModule extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +58,7 @@ class EditModule extends Component {
             onChange={this.handleChange}
           >
             <Tab label="Assignment" icon={<ActionAssignment />} value="assignment" >
-
+              <AssignmentList />
             </Tab>
             <Tab label="Project" icon={<ActionDashboard />} value="project" >
 

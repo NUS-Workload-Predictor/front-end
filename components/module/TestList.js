@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-class ProjectBoard extends Component {
+class TestList extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,8 +12,8 @@ class ProjectBoard extends Component {
   }
 }
 
-ProjectBoard.propTypes = {
+TestList.propTypes = {
 
 };
 
-export default ProjectBoard;
+export default TestList;
