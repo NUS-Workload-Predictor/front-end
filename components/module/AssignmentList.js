@@ -1,24 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import { IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
 
-import NavigationClose from 'material-ui/svg-icons/navigation/close'
+import ContentCreate from 'material-ui/svg-icons/content/create'
+import ContentClear from 'material-ui/svg-icons/content/clear'
 
 class AssignmentList extends Component {
   constructor(props) {
     super(props);
+
+    this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  handleEdit(event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   render() {
     return (
       <Table
         fixedHeader={true}
-        multiSelectable={true}
+        selectable={false}
       >
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn>NO</TableHeaderColumn>
+            <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Deadline</TableHeaderColumn>
+            <TableHeaderColumn></TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody
@@ -29,16 +38,28 @@ class AssignmentList extends Component {
             <TableRowColumn>1</TableRowColumn>
             <TableRowColumn>Assignment 1</TableRowColumn>
             <TableRowColumn>2016-10-30</TableRowColumn>
+            <TableRowColumn>
+              <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+              <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
+            </TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>1</TableRowColumn>
             <TableRowColumn>Assignment 1</TableRowColumn>
             <TableRowColumn>2016-10-30</TableRowColumn>
+            <TableRowColumn>
+              <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+              <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
+            </TableRowColumn>
           </TableRow>
           <TableRow>
             <TableRowColumn>1</TableRowColumn>
             <TableRowColumn>Assignment 1</TableRowColumn>
             <TableRowColumn>2016-10-30</TableRowColumn>
+            <TableRowColumn>
+              <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+              <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
+            </TableRowColumn>
           </TableRow>
         </TableBody>
       </Table>
