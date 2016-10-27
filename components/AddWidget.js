@@ -33,8 +33,7 @@ class AddWidget extends Component {
         <MenuItem value="1" primaryText="Time Table" />
         <MenuItem value="2" primaryText="Module Time Table" />
         <MenuItem value="3" primaryText="Module Time Line-Chart" />
-        <MenuItem value="4" primaryText="Module Time Pie-Chart" />
-        <MenuItem value="5" primaryText="Difficulty Table" />
+        <MenuItem value="4" primaryText="Difficulty Table" />
       </IconMenu>
 
     );

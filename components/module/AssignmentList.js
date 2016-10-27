@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
-
 import ContentCreate from 'material-ui/svg-icons/content/create'
 import ContentClear from 'material-ui/svg-icons/content/clear'
+
+import Assignment from './Assignment';
 
 class AssignmentList extends Component {
   constructor(props) {
@@ -11,9 +12,8 @@ class AssignmentList extends Component {
     this.handleEdit = this.handleEdit.bind(this);
   }
 
-  handleEdit(event) {
-    event.preventDefault();
-    event.stopPropagation();
+  handleEdit() {
+    this.refs.editAssignment.setState({open: true});
   }
 
   render() {
@@ -41,6 +41,7 @@ class AssignmentList extends Component {
             <TableRowColumn>
               <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
               <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
+              <Assignment ref="editAssignment" />
             </TableRowColumn>
           </TableRow>
           <TableRow>
@@ -50,6 +51,7 @@ class AssignmentList extends Component {
             <TableRowColumn>
               <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
               <IconButton onTouchTap={this.handleEdit}><ContentClear /></IconButton>
+
             </TableRowColumn>
           </TableRow>
           <TableRow>
