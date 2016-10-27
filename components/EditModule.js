@@ -38,6 +38,12 @@ class EditModule extends Component {
           title="Edit Module Details"
           contentStyle={{width: '80%', maxWidth: 'none'}}
           actions={[<FlatButton
+            label="Delete Selected"
+            primary={true}
+            keyboardFocused={true}
+            onTouchTap={this.handleSubmit}
+          />,
+          <FlatButton
             label="Cancel"
             primary={true}
             onTouchTap={this.handleClose}
