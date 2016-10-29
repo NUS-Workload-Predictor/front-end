@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import ContentClear from 'material-ui/svg-icons/content/clear';
+import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Assignment from './Assignment';
 
@@ -25,7 +26,7 @@ class AssignmentList extends Component {
     const { dispatch, assignments } = this.props;
 
     return (
-      <Table
+      assignments.length !== 0 ? <Table
         fixedHeader={true}
         selectable={false}
       >
@@ -54,7 +55,12 @@ class AssignmentList extends Component {
             </TableRow>
           )}
         </TableBody>
-      </Table>
+      </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
+        <ActionNoteAdd style={{opacity: '.2', fill: '#848484', strokeWidth: '5px', verticalAlign: 'middle', height: '40px', width: '40px'}} />
+        <br />
+        <br />
+        <span style={{opacity: '.3'}}>{"No assignment now! Add assignment if this module has!"}</span>
+      </div>
     );
   }
 }
