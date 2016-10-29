@@ -12,6 +12,7 @@ class TestList extends Component {
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleDelete() {
@@ -19,6 +20,10 @@ class TestList extends Component {
   }
 
   handleEdit() {
+    this.refs.test.setState({open: true});
+  }
+
+  handleAdd() {
     this.refs.test.setState({open: true});
   }
 
@@ -56,12 +61,13 @@ class TestList extends Component {
           )}
         </TableBody>
       </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
-        <FloatingActionButton>
+        <FloatingActionButton secondary={true} onTouchTap={this.handleAdd}>
           <ActionNoteAdd />
         </FloatingActionButton>
         <br />
         <br />
         <span style={{opacity: '.3'}}>{"No test now! Add test if this module has!"}</span>
+        <Test ref="test" />
       </div>
     );
   }
