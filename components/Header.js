@@ -27,7 +27,7 @@ class Header extends Component {
     return (
       <div>
         <AppBar
-          title="NUS Workload Predictor"
+          title="NUSWorks"
           style={{position: 'fixed'}}
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={<IconButton><NavigationExpandMore /></IconButton>}
