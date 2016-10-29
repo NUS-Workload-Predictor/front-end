@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
+import { FloatingActionButton, IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
@@ -56,7 +56,9 @@ class PresentationList extends Component {
           )}
         </TableBody>
       </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
-        <ActionNoteAdd style={{opacity: '.2', fill: '#848484', strokeWidth: '5px', verticalAlign: 'middle', height: '40px', width: '40px'}} />
+        <FloatingActionButton>
+          <ActionNoteAdd />
+        </FloatingActionButton>
         <br />
         <br />
         <span style={{opacity: '.3'}}>{"No presentation now! Add presentation if this module has!"}</span>

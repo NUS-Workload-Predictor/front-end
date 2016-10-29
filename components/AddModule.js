@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Dialog, FlatButton, FloatingActionButton, TextField } from 'material-ui';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import FileCreateNewFolder from 'material-ui/svg-icons/file/create-new-folder';
 
 import { addModule } from '../actions/module';
 
@@ -38,7 +38,7 @@ class AddModule extends Component {
     return (
       <div>
         <FloatingActionButton onTouchTap={this.handleOpen} mini={true} style={{position: 'absolute', right: '20px', bottom: '20px'}}>
-          <ContentAdd />
+          <FileCreateNewFolder />
         </FloatingActionButton>
         <Dialog
           title="Add New Module"
