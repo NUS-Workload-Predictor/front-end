@@ -8,7 +8,16 @@ const INITIAL_STATE = {
 export default function modules(state = INITIAL_STATE.modules, action) {
   switch (action.type) {
     case MODULE_ADD:
-      return [ ...state, { code: action.payload }];
+      return [ ...state,
+        {
+          code: action.payload,
+          assignments: [],
+          projects: [],
+          presentations: [],
+          readings: [],
+          tests: [],
+          exams: []
+        }];
 
     case MODULE_EDIT:
       return state;
