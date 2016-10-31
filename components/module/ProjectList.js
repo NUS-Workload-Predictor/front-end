@@ -56,7 +56,7 @@ class ProjectList extends Component {
           )}
         </TableBody>
       </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
-        <FloatingActionButton>
+        <FloatingActionButton secondary={true}>
           <ActionNoteAdd />
         </FloatingActionButton>
         <br />

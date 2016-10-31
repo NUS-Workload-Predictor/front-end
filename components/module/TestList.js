@@ -5,6 +5,7 @@ import ContentClear from 'material-ui/svg-icons/content/clear';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Test from './Test';
+import TestAdd from './TestAdd';
 
 class TestList extends Component {
   constructor(props) {
@@ -24,11 +25,11 @@ class TestList extends Component {
   }
 
   handleAdd() {
-    this.refs.test.setState({open: true});
+    this.refs.testAdd.setState({open: true});
   }
 
   render() {
-    const { dispatch, tests } = this.props;
+    const { dispatch, moduleCode, tests } = this.props;
 
     return (
       tests.length !== 0 ? <Table
@@ -67,7 +68,7 @@ class TestList extends Component {
         <br />
         <br />
         <span style={{opacity: '.3'}}>{"No test now! Add test if this module has!"}</span>
-        <Test ref="test" />
+        <TestAdd ref="testAdd" dispatch={dispatch} moduleCode={moduleCode} />
       </div>
     );
   }

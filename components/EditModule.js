@@ -37,7 +37,8 @@ class EditModule extends Component {
   }
 
   render() {
-    const { dispatch, assignments, projects, presentations, readings, tests, exams } = this.props.module;
+    const { dispatch } = this.props;
+    const { code, assignments, projects, presentations, readings, tests, exams } = this.props.module;
 
     return (
       <div>
@@ -71,22 +72,22 @@ class EditModule extends Component {
             onChange={this.handleChange}
           >
             <Tab label="Assignment" icon={<ActionAssignment />} value="assignment" >
-              <AssignmentList assignments={assignments} dispatch={dispatch} />
+              <AssignmentList assignments={assignments} dispatch={dispatch} moduleCode={code} />
             </Tab>
             <Tab label="Project" icon={<ActionDashboard />} value="project" >
-              <ProjectList projects={projects} dispatch={dispatch} />
+              <ProjectList projects={projects} dispatch={dispatch} moduleCode={code} />
             </Tab>
             <Tab label="Presentation" icon={<AvMic />} value="presentation" >
-              <PresentationList presentations={presentations} dispatch={dispatch} />
+              <PresentationList presentations={presentations} dispatch={dispatch} moduleCode={code} />
             </Tab>
             <Tab label="Reading" icon={<ActionBook />} value="reading" >
-              <ReadingList readings={readings} dispatch={dispatch} />
+              <ReadingList readings={readings} dispatch={dispatch} moduleCode={code} />
             </Tab>
             <Tab label="Test" icon={<ActionSpellcheck />} value="test" >
-              <TestList tests={tests} dispatch={dispatch} />
+              <TestList tests={tests} dispatch={dispatch} moduleCode={code} />
             </Tab>
             <Tab label="Exam" icon={<AvPlaylistAddCheck />} value="exam" >
-              <ExamList exams={exams} dispatch={dispatch} />
+              <ExamList exams={exams} dispatch={dispatch} moduleCode={code} />
             </Tab>
           </Tabs>
         </Dialog>
