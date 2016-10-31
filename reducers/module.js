@@ -20,13 +20,9 @@ export default function modules(state = [], action) {
       return [...state.slice(0, action.payload), ...state.slice(action.payload + 1)];
 
     case TEST_ADD:
-      return state.map(m => test(m, action));
-
     case TEST_EDIT:
-      return state;
-
     case TEST_DELETE:
-      return state;
+      return state.map(m => test(m, action));
 
     default:
       return state;
