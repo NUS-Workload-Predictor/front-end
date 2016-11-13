@@ -6,7 +6,7 @@ import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Assignment from './Assignment';
 import AssignmentAdd from './AssignmentAdd';
-import { deleteAssignment } from '../../actions/module/assignment'
+import { deleteAssignment } from '../../actions/module/assignment';
 
 class AssignmentList extends Component {
   constructor(props) {

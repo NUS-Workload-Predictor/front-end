@@ -6,7 +6,7 @@ export function addExam(moduleCode, exam) {
   return {
     type: EXAM_ADD,
     payload: {
-      moduleCode: moduleCode, 
+      moduleCode: moduleCode,
       exam: exam
     }
   };
@@ -22,9 +22,12 @@ export function editExam(moduleCode, index, exam) {
   };
 }
 
-export function deleteExam(index) {
+export function deleteExam(moduleCode, index) {
   return {
     type: EXAM_DELETE,
-    payload: index
+    payload: {
+      moduleCode: moduleCode,
+      index: index
+    }
   };
 }
