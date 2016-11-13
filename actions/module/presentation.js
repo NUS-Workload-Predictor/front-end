@@ -22,9 +22,12 @@ export function editPresentation(moduleCode, index, presentation) {
   };
 }
 
-export function deletePresentation(index) {
+export function deletePresentation(moduleCode, index) {
   return {
     type: PRESENTATION_DELETE,
-    payload: index
+    payload: {
+      moduleCode: moduleCode,
+      index: index
+    }
   };
 }

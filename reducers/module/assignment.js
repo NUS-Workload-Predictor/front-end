@@ -3,12 +3,12 @@ import { ASSIGNMENT_ADD, ASSIGNMENT_EDIT, ASSIGNMENT_DELETE } from '../../action
 export default function assignment(state = {}, action) {
   const { moduleCode, assignment, index } = action.payload;
 
+  if (moduleCode != state.code) {
+    return state;
+  }
+
   switch (action.type) {
     case ASSIGNMENT_ADD:
-      if (moduleCode !== state.code) {
-        return state;
-      }
-
       return {
         ...state,
         assignments: state.assignments ? [...state.assignments, assignment] : [assignment]
@@ -17,10 +17,6 @@ export default function assignment(state = {}, action) {
     case ASSIGNMENT_EDIT:
 
     case ASSIGNMENT_DELETE:
-      if (moduleCode != state.code) {
-        return state;
-      }
-
       return {
         ...state,
         assignments: [...state.assignments.slice(0, index), ...state.assignments.slice(index + 1)]
