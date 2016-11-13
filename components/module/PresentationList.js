@@ -5,6 +5,7 @@ import ContentClear from 'material-ui/svg-icons/content/clear';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Presentation from './Presentation';
+import PresentationAdd from './PresentationAdd';
 
 class PresentationList extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class PresentationList extends Component {
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleDelete() {
@@ -22,8 +24,12 @@ class PresentationList extends Component {
     this.refs.presentation.setState({open: true});
   }
 
+  handleAdd() {
+    this.refs.presentationAdd.setState({open: true});
+  }
+
   render() {
-    const { dispatch, presentations } = this.props;
+    const { dispatch, moduleCode, presentations } = this.props;
 
     return (
       presentations.length !== 0 ? <Table
@@ -56,12 +62,13 @@ class PresentationList extends Component {
           )}
         </TableBody>
       </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
-        <FloatingActionButton secondary={true}>
+        <FloatingActionButton secondary={true} onTouchTap={this.handleAdd}>
           <ActionNoteAdd />
         </FloatingActionButton>
         <br />
         <br />
         <span style={{opacity: '.3'}}>{"No presentation now! Add presentation if this module has!"}</span>
+        <PresentationAdd ref="presentationAdd" dispatch={dispatch} moduleCode={moduleCode} />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import ContentClear from 'material-ui/svg-icons/content/clear';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Reading from './Reading';
+import ReadingAdd from './ReadingAdd';
 
 class ReadingList extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class ReadingList extends Component {
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleDelete() {
@@ -22,8 +24,12 @@ class ReadingList extends Component {
     this.refs.reading.setState({open: true});
   }
 
+  handleAdd() {
+    this.refs.readingAdd.setState({open: true});
+  }
+
   render() {
-    const { dispatch, readings } = this.props;
+    const { dispatch, moduleCode, readings } = this.props;
 
     return (
       readings.length !== 0 ? <Table
@@ -56,12 +62,13 @@ class ReadingList extends Component {
           )}
         </TableBody>
       </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
-        <FloatingActionButton secondary={true}>
+        <FloatingActionButton secondary={true} onTouchTap={this.handleAdd}>
           <ActionNoteAdd />
         </FloatingActionButton>
         <br />
         <br />
         <span style={{opacity: '.3'}}>{"No reading now! Add reading if this module has!"}</span>
+        <ReadingAdd ref="readingAdd" dispatch={dispatch} moduleCode={moduleCode} />
       </div>
     );
   }

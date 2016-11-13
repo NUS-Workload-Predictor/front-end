@@ -5,6 +5,7 @@ import ContentClear from 'material-ui/svg-icons/content/clear';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Assignment from './Assignment';
+import AssignmentAdd from './AssignmentAdd';
 
 class AssignmentList extends Component {
   constructor(props) {
@@ -24,11 +25,11 @@ class AssignmentList extends Component {
   }
 
   handleAdd() {
-    console.log("haha");
+    this.refs.assignmentAdd.setState({open: true});
   }
 
   render() {
-    const { dispatch, assignments } = this.props;
+    const { dispatch, moduleCode, assignments } = this.props;
 
     return (
       assignments.length !== 0 ? <Table
@@ -61,12 +62,13 @@ class AssignmentList extends Component {
           )}
         </TableBody>
       </Table> : <div style={{width: '100%', height: '80px', textAlign: 'center', paddingTop: '20px'}}>
-        <FloatingActionButton secondary={true}>
+        <FloatingActionButton secondary={true} onTouchTap={this.handleAdd}>
           <ActionNoteAdd />
         </FloatingActionButton>
         <br />
         <br />
         <span style={{opacity: '.3'}}>{"No assignment now! Add assignment if this module has!"}</span>
+        <AssignmentAdd ref="assignmentAdd" dispatch={dispatch} moduleCode={moduleCode} />
       </div>
     );
   }
