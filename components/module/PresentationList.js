@@ -23,8 +23,8 @@ class PresentationList extends Component {
     dispatch(deletePresentation(moduleCode, index));
   }
 
-  handleEdit() {
-    this.refs.presentation.setState({open: true});
+  handleEdit(index) {
+    this.refs['presentation' + index].setState({open: true});
   }
 
   handleAdd() {
@@ -57,9 +57,9 @@ class PresentationList extends Component {
               <TableRowColumn>{presentation.name}</TableRowColumn>
               <TableRowColumn>{presentation.due}</TableRowColumn>
               <TableRowColumn>
-                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleEdit.bind(this, i)}><ContentCreate /></IconButton>
                 <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
-                <Presentation ref="presentation" index={i} presentation={presentation} dispatch={dispatch} />
+                <Presentation ref={'presentation' + i} index={i} presentation={presentation} dispatch={dispatch} moduleCode={moduleCode} />
               </TableRowColumn>
             </TableRow>
           )}

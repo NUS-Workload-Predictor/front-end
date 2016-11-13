@@ -1,14 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
 
+import { editReading } from '../../actions/module/reading';
+
 class Reading extends Component {
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    const { reading } = this.props;
 
+    this.state = {
+      open: false,
+      reading: reading
+    };
+
+    this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange() {
+    this.setState({
+      reading: {
+        name: this.refs.name.getValue(),
+        week: this.refs.week.getValue(),
+        amount: this.refs.amount.getValue(),
+        difficulty: this.refs.difficulty.getValue()
+      }
+    });
   }
 
   handleOpen() {
@@ -20,7 +39,10 @@ class Reading extends Component {
   }
 
   handleSubmit() {
+    const { moduleCode, dispatch, index } = this.props;
+    dispatch(editReading(moduleCode, index, {...this.state.reading}));
 
+    this.setState({open: false});
   }
 
   render() {
@@ -52,6 +74,8 @@ class Reading extends Component {
           floatingLabelText="Reading Name"
           floatingLabelFixed={true}
           defaultValue={reading.name}
+          onChange={this.handleChange}
+          ref="name"
         />
         <br />
         <TextField
@@ -59,6 +83,8 @@ class Reading extends Component {
           floatingLabelText="Reading Week"
           floatingLabelFixed={true}
           defaultValue={reading.week}
+          onChange={this.handleChange}
+          ref="week"
         />
         <br />
         <TextField
@@ -66,6 +92,8 @@ class Reading extends Component {
           floatingLabelText="Reading Amount"
           floatingLabelFixed={true}
           defaultValue={reading.amount}
+          onChange={this.handleChange}
+          ref="amount"
         />
         <br />
         <TextField
@@ -73,6 +101,8 @@ class Reading extends Component {
           floatingLabelText="Reading Difficulty"
           floatingLabelFixed={true}
           defaultValue={reading.difficulty}
+          onChange={this.handleChange}
+          ref="difficulty"
         />
         <br />
       </Dialog>

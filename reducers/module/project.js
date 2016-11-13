@@ -15,6 +15,10 @@ export default function project(state = {}, action) {
       };
 
     case PROJECT_EDIT:
+      return {
+        ...state,
+        projects: [...state.projects.slice(0, index), project, ...state.projects.slice(index + 1)]
+      };
 
     case PROJECT_DELETE:
       return {

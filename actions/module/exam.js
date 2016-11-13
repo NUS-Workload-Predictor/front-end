@@ -16,6 +16,7 @@ export function editExam(moduleCode, index, exam) {
   return {
     type: EXAM_EDIT,
     payload: {
+      moduleCode: moduleCode,
       index: index,
       exam: exam
     }

@@ -23,8 +23,8 @@ class ReadingList extends Component {
     dispatch(deleteReading(moduleCode, index));
   }
 
-  handleEdit() {
-    this.refs.reading.setState({open: true});
+  handleEdit(index) {
+    this.refs['reading' + index].setState({open: true});
   }
 
   handleAdd() {
@@ -57,9 +57,9 @@ class ReadingList extends Component {
               <TableRowColumn>{reading.name}</TableRowColumn>
               <TableRowColumn>{reading.week}</TableRowColumn>
               <TableRowColumn>
-                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleEdit.bind(this, i)}><ContentCreate /></IconButton>
                 <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
-                <Reading ref="reading" index={i} reading={reading} dispatch={dispatch} />
+                <Reading ref={'reading' + i} index={i} reading={reading} dispatch={dispatch} moduleCode={moduleCode} />
               </TableRowColumn>
             </TableRow>
           )}

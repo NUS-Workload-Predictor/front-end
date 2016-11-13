@@ -23,8 +23,8 @@ class ExamList extends Component {
     dispatch(deleteExam(moduleCode, index));
   }
 
-  handleEdit() {
-    this.refs.exam.setState({open: true});
+  handleEdit(index) {
+    this.refs['exam' + index].setState({open: true});
   }
 
   handleAdd() {
@@ -57,9 +57,9 @@ class ExamList extends Component {
               <TableRowColumn>{exam.name}</TableRowColumn>
               <TableRowColumn>{exam.date}</TableRowColumn>
               <TableRowColumn>
-                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleEdit.bind(this, i)}><ContentCreate /></IconButton>
                 <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
-                <Exam ref="exam" index={i} exam={exam} dispatch={dispatch} />
+                <Exam ref={'exam' + i} index={i} exam={exam} dispatch={dispatch} moduleCode={moduleCode} />
               </TableRowColumn>
             </TableRow>
           )}

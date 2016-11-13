@@ -16,6 +16,7 @@ export function editTest(moduleCode, index, test) {
   return {
     type: TEST_EDIT,
     payload: {
+      moduleCode: moduleCode,
       index: index,
       test: test
     }

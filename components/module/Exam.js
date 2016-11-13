@@ -1,15 +1,46 @@
 import React, { Component, PropTypes } from 'react';
 import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
 
+import { editExam } from '../../actions/module/exam';
+
 class Exam extends Component {
   constructor(props) {
     super(props);
+    const { exam } = this.props;
 
-    this.state = {open: false};
+    this.state = {
+      open: false,
+      exam: exam
+    };
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  formatDate(date) {
+    if (date) {
+      let year = date.getFullYear();
+      let month = date.getMonth() < 9 ? '0' + date.getMonth() : date.getMonth() + 1;
+      let day = date.getDate() <= 9 ? '0' + date.getDate() : date.getDate();
+
+      return year + '-' + month + '-' + day;
+    }
+
+    return '';
+  }
+
+  handleChange() {
+    this.setState({
+      exam: {
+        name: this.refs.name.getValue(),
+        date: this.formatDate(this.refs.date.state.date),
+        percentage: this.refs.percentage.getValue(),
+        coverage: this.refs.coverage.getValue(),
+        duration: this.refs.duration.getValue()
+      }
+    });
   }
 
   handleOpen() {
@@ -21,7 +52,10 @@ class Exam extends Component {
   }
 
   handleSubmit() {
+    const { moduleCode, dispatch, index } = this.props;
+    dispatch(editExam(moduleCode, index, {...this.state.exam}));
 
+    this.setState({open: false});
   }
 
   render() {
@@ -54,15 +88,26 @@ class Exam extends Component {
           floatingLabelText="Exam Name"
           floatingLabelFixed={true}
           defaultValue={exam.name}
+          onChange={this.handleChange}
+          ref="name"
         />
         <br />
-        <DatePicker autoOk={true} defaultDate={examDate} hintText="Select exam date" floatingLabelText="Exam Date" />
+        <DatePicker
+          autoOk={true}
+          defaultDate={examDate}
+          hintText="Select exam date"
+          floatingLabelText="Exam Date"
+          onChange={this.handleChange}
+          ref="date"
+        />
         <br />
         <TextField
           hintText="Enter exam percentage"
           floatingLabelText="Exam Percentage"
           floatingLabelFixed={true}
           defaultValue={exam.percentage}
+          onChange={this.handleChange}
+          ref="percentage"
         />
         <br />
         <TextField
@@ -70,6 +115,8 @@ class Exam extends Component {
           floatingLabelText="Exam Coverage"
           floatingLabelFixed={true}
           defaultValue={exam.coverage}
+          onChange={this.handleChange}
+          ref="coverage"
         />
         <br />
         <TextField
@@ -77,6 +124,8 @@ class Exam extends Component {
           floatingLabelText="Exam Duration"
           floatingLabelFixed={true}
           defaultValue={exam.duration}
+          onChange={this.handleChange}
+          ref="duration"
         />
         <br />
       </Dialog>

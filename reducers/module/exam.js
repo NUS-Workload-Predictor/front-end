@@ -15,6 +15,10 @@ export default function exam(state = {}, action) {
       }
 
     case EXAM_EDIT:
+      return {
+        ...state,
+        exams: [...state.exams.slice(0, index), exam, ...state.exams.slice(index + 1)]
+      }
 
     case EXAM_DELETE:
       return {

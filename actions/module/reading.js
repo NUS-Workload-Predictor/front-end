@@ -16,6 +16,7 @@ export function editReading(moduleCode, index, reading) {
   return {
     type: READING_EDIT,
     payload: {
+      moduleCode: moduleCode,
       index: index,
       reading: reading
     }

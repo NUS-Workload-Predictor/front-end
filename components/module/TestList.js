@@ -23,8 +23,8 @@ class TestList extends Component {
     dispatch(deleteTest(moduleCode, index));
   }
 
-  handleEdit() {
-    this.refs.test.setState({open: true});
+  handleEdit(index) {
+    this.refs['test' + index].setState({open: true});
   }
 
   handleAdd() {
@@ -57,9 +57,9 @@ class TestList extends Component {
               <TableRowColumn>{test.name}</TableRowColumn>
               <TableRowColumn>{test.date}</TableRowColumn>
               <TableRowColumn>
-                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleEdit.bind(this, i)}><ContentCreate /></IconButton>
                 <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
-                <Test ref="test" index={i} test={test} dispatch={dispatch} />
+                <Test ref={'test' + i} index={i} test={test} dispatch={dispatch} moduleCode={moduleCode} />
               </TableRowColumn>
             </TableRow>
           )}

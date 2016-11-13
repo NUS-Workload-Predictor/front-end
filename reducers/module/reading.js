@@ -15,6 +15,10 @@ export default function reading(state = {}, action) {
       }
 
     case READING_EDIT:
+      return  {
+        ...state,
+        readings: [...state.readings.slice(0, index), reading, ...state.readings.slice(index + 1)]
+      };
 
     case READING_DELETE:
       return  {

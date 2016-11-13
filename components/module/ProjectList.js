@@ -23,8 +23,8 @@ class ProjectList extends Component {
     dispatch(deleteProject(moduleCode, index));
   }
 
-  handleEdit() {
-    this.refs.project.setState({open: true});
+  handleEdit(index) {
+    this.refs['project' + index].setState({open: true});
   }
 
   handleAdd() {
@@ -57,9 +57,9 @@ class ProjectList extends Component {
               <TableRowColumn>{project.name}</TableRowColumn>
               <TableRowColumn>{project.due}</TableRowColumn>
               <TableRowColumn>
-                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleEdit.bind(this, i)}><ContentCreate /></IconButton>
                 <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
-                <Project ref="project" index={i} project={project} dispatch={dispatch} />
+                <Project ref={'project' + i} index={i} project={project} dispatch={dispatch} moduleCode={moduleCode} />
               </TableRowColumn>
             </TableRow>
           )}

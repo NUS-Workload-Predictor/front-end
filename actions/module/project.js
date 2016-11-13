@@ -16,6 +16,7 @@ export function editProject(moduleCode, index, project) {
   return {
     type: PROJECT_EDIT,
     payload: {
+      moduleCode: moduleCode,
       index: index,
       project: project
     }

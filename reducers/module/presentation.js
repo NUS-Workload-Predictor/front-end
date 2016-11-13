@@ -15,6 +15,10 @@ export default function presentation(state = {}, action) {
       }
 
     case PRESENTATION_EDIT:
+      return {
+        ...state,
+        presentations: [...state.presentations.slice(0, index), presentation, ...state.presentations.slice(index + 1)]
+      };
 
     case PRESENTATION_DELETE:
       return {

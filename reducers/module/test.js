@@ -15,6 +15,10 @@ export default function test(state = {}, action) {
       }
 
     case TEST_EDIT:
+      return  {
+        ...state,
+        tests: [...state.tests.slice(0, index), test, ...state.tests.slice(index + 1)]
+      };
 
     case TEST_DELETE:
       return  {

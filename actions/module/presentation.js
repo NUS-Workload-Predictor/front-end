@@ -16,6 +16,7 @@ export function editPresentation(moduleCode, index, presentation) {
   return {
     type: PRESENTATION_EDIT,
     payload: {
+      moduleCode: moduleCode,
       index: index,
       presentation: presentation
     }
