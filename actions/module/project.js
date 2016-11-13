@@ -22,9 +22,12 @@ export function editProject(moduleCode, index, project) {
   };
 }
 
-export function deleteProject(index) {
+export function deleteProject(moduleCode, index) {
   return {
     type: PROJECT_DELETE,
-    payload: index
+    payload: {
+      moduleCode: moduleCode,
+      index: index
+    }
   };
 }

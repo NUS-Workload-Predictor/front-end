@@ -1,24 +1,28 @@
 import { PROJECT_ADD, PROJECT_EDIT, PROJECT_DELETE } from '../../actions/module/project';
 
 export default function project(state = {}, action) {
-    switch (action.type) {
-      case PROJECT_ADD:
-        const { moduleCode, project } = action.payload;
+  const { moduleCode, project, index } = action.payload;
 
-        if (moduleCode !== state.code) {
-          return state;
-        }
+  if (moduleCode !== state.code) {
+    return state;
+  }
 
-        return {
-          ...state,
-          projects: state.projects ? [...state.projects, project] : [project]
-        }
+  switch (action.type) {
+    case PROJECT_ADD:
+      return {
+        ...state,
+        projects: state.projects ? [...state.projects, project] : [project]
+      };
 
-      case PROJECT_EDIT:
+    case PROJECT_EDIT:
 
-      case PROJECT_DELETE:
+    case PROJECT_DELETE:
+      return {
+        ...state,
+        projects: [...state.projects.slice(0, index), ...state.projects.slice(index + 1)]
+      };
 
-      default:
-        return state;
-    }
+    default:
+      return state;
+  }
 }
