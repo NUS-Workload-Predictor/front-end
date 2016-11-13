@@ -2,14 +2,17 @@ export const EXAM_ADD = "EXAM_ADD";
 export const EXAM_EDIT = "EXAM_EDIT";
 export const EXAM_DELETE = "EXAM_DELETE";
 
-export function addExam(exam) {
+export function addExam(moduleCode, exam) {
   return {
     type: EXAM_ADD,
-    payload: exam
+    payload: {
+      moduleCode: moduleCode, 
+      exam: exam
+    }
   };
 }
 
-export function editExam(index, exam) {
+export function editExam(moduleCode, index, exam) {
   return {
     type: EXAM_EDIT,
     payload: {
