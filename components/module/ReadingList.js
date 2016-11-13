@@ -6,6 +6,7 @@ import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Reading from './Reading';
 import ReadingAdd from './ReadingAdd';
+import { deleteReading } from '../../actions/module/reading';
 
 class ReadingList extends Component {
   constructor(props) {
@@ -16,8 +17,10 @@ class ReadingList extends Component {
     this.handleAdd = this.handleAdd.bind(this);
   }
 
-  handleDelete() {
+  handleDelete(index) {
+    const { dispatch, moduleCode } = this.props;
 
+    dispatch(deleteReading(moduleCode, index));
   }
 
   handleEdit() {
@@ -55,7 +58,7 @@ class ReadingList extends Component {
               <TableRowColumn>{reading.week}</TableRowColumn>
               <TableRowColumn>
                 <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
-                <IconButton onTouchTap={this.handleDelete}><ContentClear /></IconButton>
+                <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
                 <Reading ref="reading" index={i} reading={reading} dispatch={dispatch} />
               </TableRowColumn>
             </TableRow>

@@ -1,24 +1,28 @@
 import { READING_ADD, READING_EDIT, READING_DELETE } from '../../actions/module/reading';
 
 export default function reading(state = {}, action) {
-    switch (action.type) {
-      case READING_ADD:
-        const { moduleCode, reading } = action.payload;
+  const { moduleCode, reading, index } = action.payload;
 
-        if (moduleCode !== state.code) {
-          return state;
-        }
+  if (moduleCode !== state.code) {
+    return state;
+  }
 
-        return {
-          ...state,
-          readings: state.readings ? [...state.readings, reading] : [reading]
-        }
+  switch (action.type) {
+    case READING_ADD:
+      return {
+        ...state,
+        readings: state.readings ? [...state.readings, reading] : [reading]
+      }
 
-      case READING_EDIT:
+    case READING_EDIT:
 
-      case READING_DELETE:
+    case READING_DELETE:
+      return  {
+        ...state,
+        readings: [...state.readings.slice(0, index), ...state.readings.slice(index + 1)]
+      };
 
-      default:
-        return state;
-    }
+    default:
+      return state;
+  }
 }

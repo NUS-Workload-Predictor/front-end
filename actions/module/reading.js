@@ -22,9 +22,12 @@ export function editReading(moduleCode, index, reading) {
   };
 }
 
-export function deleteReading(index) {
+export function deleteReading(moduleCode, index) {
   return {
     type: READING_DELETE,
-    payload: index
+    payload: {
+      moduleCode: moduleCode,
+      index: index
+    }
   };
 }
