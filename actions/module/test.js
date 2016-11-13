@@ -22,9 +22,12 @@ export function editTest(moduleCode, index, test) {
   };
 }
 
-export function deleteTest(index) {
+export function deleteTest(moduleCode, index) {
   return {
     type: TEST_DELETE,
-    payload: index
+    payload: {
+      moduleCode: moduleCode,
+      index: index
+    }
   };
 }

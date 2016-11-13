@@ -1,24 +1,28 @@
 import { TEST_ADD, TEST_EDIT, TEST_DELETE } from '../../actions/module/test';
 
 export default function test(state = {}, action) {
-    switch (action.type) {
-      case TEST_ADD:
-        const { moduleCode, test } = action.payload;
+  const { moduleCode, test, index } = action.payload;
 
-        if (moduleCode !== state.code) {
-          return state;
-        }
+  if (moduleCode !== state.code) {
+    return state;
+  }
 
-        return {
-          ...state,
-          tests: state.tests ? [...state.tests, test] : [test]
-        }
+  switch (action.type) {
+    case TEST_ADD:
+      return {
+        ...state,
+        tests: state.tests ? [...state.tests, test] : [test]
+      }
 
-      case TEST_EDIT:
+    case TEST_EDIT:
 
-      case TEST_DELETE:
+    case TEST_DELETE:
+      return  {
+        ...state,
+        tests: [...state.tests.slice(0, index), ...state.tests.slice(index + 1)]
+      };
 
-      default:
-        return state;
-    }
+    default:
+      return state;
+  }
 }

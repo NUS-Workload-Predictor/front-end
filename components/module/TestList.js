@@ -6,6 +6,7 @@ import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Test from './Test';
 import TestAdd from './TestAdd';
+import { deleteTest } from '../../actions/module/test';
 
 class TestList extends Component {
   constructor(props) {
@@ -16,8 +17,10 @@ class TestList extends Component {
     this.handleAdd = this.handleAdd.bind(this);
   }
 
-  handleDelete() {
+  handleDelete(index) {
+    const { dispatch, moduleCode } = this.props;
 
+    dispatch(deleteTest(moduleCode, index));
   }
 
   handleEdit() {
@@ -55,7 +58,7 @@ class TestList extends Component {
               <TableRowColumn>{test.date}</TableRowColumn>
               <TableRowColumn>
                 <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
-                <IconButton onTouchTap={this.handleDelete}><ContentClear /></IconButton>
+                <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
                 <Test ref="test" index={i} test={test} dispatch={dispatch} />
               </TableRowColumn>
             </TableRow>
