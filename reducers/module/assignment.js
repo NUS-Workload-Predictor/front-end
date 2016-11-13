@@ -12,9 +12,13 @@ export default function assignment(state = {}, action) {
       return {
         ...state,
         assignments: state.assignments ? [...state.assignments, assignment] : [assignment]
-      }
+      };
 
     case ASSIGNMENT_EDIT:
+      return {
+        ...state,
+        assignments: [...state.assignments.slice(0, index), assignment, ...state.assignments.slice(index + 1)]
+      };
 
     case ASSIGNMENT_DELETE:
       return {

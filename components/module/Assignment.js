@@ -1,14 +1,47 @@
 import React, { Component, PropTypes } from 'react';
 import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
 
+import { editAssignment } from '../../actions/module/assignment';
+
 class Assignment extends Component {
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    const { assignment } = this.props;
 
+    this.state = {
+      open: false,
+      assignment: assignment
+    };
+
+    this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  formatDate(date) {
+    if (date) {
+      let year = date.getFullYear();
+      let month = date.getMonth() < 9 ? '0' + date.getMonth() : date.getMonth() + 1;
+      let day = date.getDate() <= 9 ? '0' + date.getDate() : date.getDate();
+
+      return year + '-' + month + '-' + day;
+    }
+
+    return '';
+  }
+
+  handleChange() {
+    this.setState({
+      assignment: {
+        name: this.refs.name.getValue(),
+        released: this.formatDate(this.refs.released.state.date),
+        due: this.formatDate(this.refs.due.state.date),
+        percentage: this.refs.percentage.getValue(),
+        coverage: this.refs.coverage.getValue(),
+        people: this.refs.people.getValue()
+      }
+    });
   }
 
   handleOpen() {
@@ -20,7 +53,10 @@ class Assignment extends Component {
   }
 
   handleSubmit() {
+    const { moduleCode, dispatch, index } = this.props;
+    dispatch(editAssignment(moduleCode, index, {...this.state.assignment}));
 
+    this.setState({open: false});
   }
 
   render() {
@@ -54,17 +90,35 @@ class Assignment extends Component {
           floatingLabelText="Assignment Name"
           floatingLabelFixed={true}
           defaultValue={assignment.name}
+          onChange={this.handleChange}
+          ref="name"
         />
         <br />
-        <DatePicker autoOk={true} defaultDate={releasedDate} hintText="Select released date" floatingLabelText="Released Date" />
+        <DatePicker
+          autoOk={true}
+          defaultDate={releasedDate}
+          hintText="Select released date"
+          floatingLabelText="Released Date"
+          onChange={this.handleChange}
+          ref="released"
+        />
         <br />
-        <DatePicker autoOk={true} defaultDate={dueDate} hintText="Select due date" floatingLabelText="Due Date" />
+        <DatePicker
+          autoOk={true}
+          defaultDate={dueDate}
+          hintText="Select due date"
+          floatingLabelText="Due Date"
+          onChange={this.handleChange}
+          ref="due"
+        />
         <br />
         <TextField
           hintText="Enter assignment percentage"
           floatingLabelText="Assignment Percentage"
           floatingLabelFixed={true}
           defaultValue={assignment.percentage}
+          onChange={this.handleChange}
+          ref="percentage"
         />
         <br />
         <TextField
@@ -72,6 +126,8 @@ class Assignment extends Component {
           floatingLabelText="Assignment Coverage"
           floatingLabelFixed={true}
           defaultValue={assignment.coverage}
+          onChange={this.handleChange}
+          ref="coverage"
         />
         <br />
         <TextField
@@ -79,6 +135,8 @@ class Assignment extends Component {
           floatingLabelText="Assignment People"
           floatingLabelFixed={true}
           defaultValue={assignment.people}
+          onChange={this.handleChange}
+          ref="people"
         />
         <br />
       </Dialog>

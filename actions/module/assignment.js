@@ -16,6 +16,7 @@ export function editAssignment(moduleCode, index, assignment) {
   return {
     type: ASSIGNMENT_EDIT,
     payload: {
+      moduleCode: moduleCode,
       index: index,
       assignment: assignment
     }

@@ -23,8 +23,8 @@ class AssignmentList extends Component {
     dispatch(deleteAssignment(moduleCode, index));
   }
 
-  handleEdit() {
-    this.refs.assignment.setState({open: true});
+  handleEdit(index) {
+    this.refs['assignment'+index].setState({open: true});
   }
 
   handleAdd() {
@@ -57,9 +57,9 @@ class AssignmentList extends Component {
               <TableRowColumn>{assignment.name}</TableRowColumn>
               <TableRowColumn>{assignment.due}</TableRowColumn>
               <TableRowColumn>
-                <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
+                <IconButton onTouchTap={this.handleEdit.bind(this, i)}><ContentCreate /></IconButton>
                 <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
-                <Assignment ref="assignment" index={i} assignment={assignment} dispatch={dispatch} />
+                <Assignment ref={'assignment' + i} index={i} assignment={assignment} dispatch={dispatch} moduleCode={moduleCode} />
               </TableRowColumn>
             </TableRow>
           )}
