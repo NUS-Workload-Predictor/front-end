@@ -22,9 +22,12 @@ export function editAssignment(moduleCode, index, assignment) {
   };
 }
 
-export function deleteAssignment(index) {
+export function deleteAssignment(moduleCode, index) {
   return {
     type: ASSIGNMENT_DELETE,
-    payload: index
+    payload: {
+      moduleCode: moduleCode,
+      index: index
+    }
   };
 }

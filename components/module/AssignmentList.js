@@ -6,6 +6,7 @@ import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 
 import Assignment from './Assignment';
 import AssignmentAdd from './AssignmentAdd';
+import { deleteAssignment } from '../../actions/module/assignment'
 
 class AssignmentList extends Component {
   constructor(props) {
@@ -16,8 +17,10 @@ class AssignmentList extends Component {
     this.handleAdd = this.handleAdd.bind(this);
   }
 
-  handleDelete() {
+  handleDelete(index) {
+    const { dispatch, moduleCode } = this.props;
 
+    dispatch(deleteAssignment(moduleCode, index));
   }
 
   handleEdit() {
@@ -55,7 +58,7 @@ class AssignmentList extends Component {
               <TableRowColumn>{assignment.due}</TableRowColumn>
               <TableRowColumn>
                 <IconButton onTouchTap={this.handleEdit}><ContentCreate /></IconButton>
-                <IconButton onTouchTap={this.handleDelete}><ContentClear /></IconButton>
+                <IconButton onTouchTap={this.handleDelete.bind(this, i)}><ContentClear /></IconButton>
                 <Assignment ref="assignment" index={i} assignment={assignment} dispatch={dispatch} />
               </TableRowColumn>
             </TableRow>
