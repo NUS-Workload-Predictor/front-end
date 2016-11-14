@@ -5,6 +5,7 @@ import { DragDropContext, DropTarget } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import Widget from './Widget';
+import { moveWidget } from '../actions/widget';
 
 const styles = {
   width: '100%',
@@ -20,7 +21,8 @@ const testSpec = {
     const left = Math.round(item.left + delta.x);
     const top = Math.round(item.top + delta.y);
 
-    component.moveBox(item.id, left, top);
+    const { dispatch } = props;
+    dispatch(moveWidget(item.index, top, left));
   }
 };
 
@@ -40,45 +42,21 @@ function collect(connect, monitor) {
 class WidgetBoard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      boxes: {
-        'a': { top: 20, left: 80, title: 'Drag me around' },
-        'b': { top: 180, left: 20, title: 'Drag me too' }
-      }
-    };
-  }
-
-  moveBox(id, left, top) {
-    this.setState(update(this.state, {
-      boxes: {
-        [id]: {
-          $merge: {
-            left: left,
-            top: top
-          }
-        }
-      }
-    }));
   }
 
   render() {
-    const { hideSourceOnDrag, connectDropTarget } = this.props;
-    const { boxes } = this.state;
+    const { connectDropTarget, widgets } = this.props;
 
     return connectDropTarget(
       // <div style={{paddingTop: '80px', paddingLeft: '20px'}}>
       <div style={styles}>
-        {Object.keys(boxes).map(key => {
-          const { left, top, title } = boxes[key];
+        {widgets.map((widget, i) => {
           return (
-            <Widget key={key}
-                 id={key}
-                 left={left}
-                 top={top}
-                 hideSourceOnDrag={hideSourceOnDrag}>
-              {title}
-            </Widget>
-          );
+            <Widget
+              key={i}
+              index={i}
+              widget={widget}
+          />);
         })}
       </div>
     );

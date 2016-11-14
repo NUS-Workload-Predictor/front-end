@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../components/Header'
@@ -8,13 +9,19 @@ injectTapEventPlugin();
 
 class App extends Component {
   render() {
+    const { dispatch } = this.props;
+
     return (
       <div style={{height: '100%'}}>
         <Header />
-        <Dashboard />
+        <Dashboard dispatch={dispatch} />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  widgets: state.widgets
+});
+
+export default connect(mapStateToProps)(App);
