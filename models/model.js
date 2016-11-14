@@ -84,6 +84,4 @@ widget = {
 
   // Optional
   moduleCode: MODULE_CODE
-
-  }
 }
