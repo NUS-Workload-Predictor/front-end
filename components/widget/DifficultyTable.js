@@ -20,11 +20,13 @@ class DifficultyTable extends Component {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>John Smith</TableRowColumn>
-            <TableRowColumn>Employed</TableRowColumn>
-          </TableRow>
+          {modules.map((module, i) =>
+            <TableRow>
+              <TableRowColumn>{i + 1}</TableRowColumn>
+              <TableRowColumn>{module.code}</TableRowColumn>
+              <TableRowColumn>4.44</TableRowColumn>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     );
