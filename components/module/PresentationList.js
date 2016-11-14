@@ -44,7 +44,12 @@ class PresentationList extends Component {
             <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Present Date</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
+            <TableHeaderColumn>
+              <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleAdd} style={{marginLeft: '25px'}}>
+                <ActionNoteAdd />
+              </FloatingActionButton>
+              <PresentationAdd ref="presentationAdd" dispatch={dispatch} moduleCode={moduleCode} />
+            </TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody

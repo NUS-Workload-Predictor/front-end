@@ -44,7 +44,12 @@ class ExamList extends Component {
             <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Exam Date</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
+            <TableHeaderColumn>
+              <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleAdd} style={{marginLeft: '25px'}}>
+                <ActionNoteAdd />
+              </FloatingActionButton>
+              <ExamAdd ref="examAdd" dispatch={dispatch} moduleCode={moduleCode} />
+            </TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody

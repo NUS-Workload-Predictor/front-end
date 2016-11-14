@@ -44,7 +44,12 @@ class TestList extends Component {
             <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Test Date</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
+            <TableHeaderColumn>
+              <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleAdd} style={{marginLeft: '25px'}}>
+                <ActionNoteAdd />
+              </FloatingActionButton>
+              <TestAdd ref="testAdd" dispatch={dispatch} moduleCode={moduleCode} />
+            </TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody

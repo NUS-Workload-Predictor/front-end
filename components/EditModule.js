@@ -21,7 +21,6 @@ class EditModule extends Component {
 
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleOpen() {
@@ -30,10 +29,6 @@ class EditModule extends Component {
 
   handleClose() {
     this.setState({open: false});
-  }
-
-  handleSubmit() {
-    const { dispatch } = this.props;
   }
 
   render() {
@@ -45,22 +40,12 @@ class EditModule extends Component {
         <Dialog
           title="Edit Module Details"
           contentStyle={{width: '80%', maxWidth: 'none'}}
-          actions={[<FlatButton
-            label="Add New"
+          actions={[
+          <FlatButton
+            label="OK"
             primary={true}
             keyboardFocused={true}
-            onTouchTap={this.handleSubmit}
-          />,
-          <FlatButton
-            label="Cancel"
-            primary={true}
             onTouchTap={this.handleClose}
-          />,
-          <FlatButton
-            label="Save"
-            primary={true}
-            keyboardFocused={true}
-            onTouchTap={this.handleSubmit}
           />]}
           modal={false}
           open={this.state.open}

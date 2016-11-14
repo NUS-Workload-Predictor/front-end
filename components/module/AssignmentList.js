@@ -44,7 +44,12 @@ class AssignmentList extends Component {
             <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Deadline</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
+            <TableHeaderColumn>
+              <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleAdd} style={{marginLeft: '25px'}}>
+                <ActionNoteAdd />
+              </FloatingActionButton>
+              <AssignmentAdd ref="assignmentAdd" dispatch={dispatch} moduleCode={moduleCode} />
+            </TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody
