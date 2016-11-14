@@ -45,10 +45,9 @@ const chartOptions = {
 
 const style = {
   position: 'absolute',
-  border: '1px dashed gray',
+  border: '1px solid gray',
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
-  cursor: 'move',
 };
 
 const testSpec = {
@@ -74,15 +73,11 @@ class Widget extends Component {
   }
 
   render() {
-    const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children } = this.props;
-
-    if (isDragging) {
-      return null;
-    }
+    const { hideSourceOnDrag, left, top, connectDragSource, isDragging } = this.props;
 
     return connectDragSource(
       <div style={{...style, left, top}}>
-        {/* <Line data={chartData} options={chartOptions} width="600" height="250"/> */}{children}
+        <Line data={chartData} options={chartOptions} width="600" height="250"/>
       </div>
     );
   }

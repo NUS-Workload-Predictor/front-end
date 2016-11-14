@@ -74,3 +74,16 @@ exam = {
   coverage: EXAM_COVERED_LECTURE_AMOUNT,
   duration: EXAM_DURATION
 }
+
+widget = {
+  type: WIDGET_TYPE,
+  left: WIDGET_LEFT,
+  top: WIDGET_TOP,
+  width: WIDGET_WIDTH,
+  height: WIDGET_HEIGHT,
+
+  // Optional
+  moduleCode: MODULE_CODE
+
+  }
+}
