@@ -45,10 +45,9 @@ class WidgetBoard extends Component {
   }
 
   render() {
-    const { connectDropTarget, widgets } = this.props;
+    const { connectDropTarget, widgets, modules } = this.props;
 
     return connectDropTarget(
-      // <div style={{paddingTop: '80px', paddingLeft: '20px'}}>
       <div style={styles}>
         {widgets.map((widget, i) => {
           return (
@@ -56,6 +55,7 @@ class WidgetBoard extends Component {
               key={i}
               index={i}
               widget={widget}
+              modules={modules}
           />);
         })}
       </div>

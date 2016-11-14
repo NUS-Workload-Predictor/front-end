@@ -40,35 +40,35 @@ class Widget extends Component {
   }
 
   render() {
-    const { widget, connectDragSource, isDragging } = this.props;
+    const { widget, modules, connectDragSource, isDragging } = this.props;
     const { left, top } = widget;
 
     switch(widget.type) {
       case WIDGET_TIME_TABLE:
         return connectDragSource(
           <div style={{...style, left, top}}>
-            <TimeTable widget={widget} />
+            <TimeTable widget={widget} modules={modules} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_TABLE:
         return connectDragSource(
           <div style={{...style, left, top}}>
-            <ModuleTimeTable widget={widget} />
+            <ModuleTimeTable widget={widget} modules={modules} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_LINE_CHART:
         return connectDragSource(
           <div style={{...style, left, top}}>
-            <ModuleTimeLineChart widget={widget} />
+            <ModuleTimeLineChart widget={widget} modules={modules} />
           </div>
         );
 
       case WIDGET_DIFFICULTY_TABLE:
         return connectDragSource(
           <div style={{...style, left, top}}>
-            <DifficultyTable widget={widget} />
+            <DifficultyTable widget={widget} modules={modules} />
           </div>
         );
 
