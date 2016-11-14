@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   modules: [
     {
       code: 'CS1010',
+      title: 'Programming Methodology',
       credit: '4',
       level: '1',
       prerequisites: [],

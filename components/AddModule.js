@@ -25,9 +25,16 @@ class AddModule extends Component {
 
   handleSubmit() {
     const { dispatch } = this.props;
+    let self = this;
 
-    dispatch(addModule(this.state.code));
-    this.setState({open: false});
+    fetch("http://api.nusmods.com/2016-2017/1/modules/" + this.state.code + ".json")
+    .then(function(response) {
+      response.json().then(function(json) {
+        console.log(json);
+        dispatch(addModule(json));
+        self.setState({open: false});
+      });
+    });
   }
 
   handleChange(event) {

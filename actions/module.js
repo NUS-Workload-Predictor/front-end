@@ -1,10 +1,10 @@
 export const MODULE_ADD = "MODULE_ADD";
 export const MODULE_DELETE = "MODULE_DELETE";
 
-export function addModule(code) {
+export function addModule(module) {
   return {
     type: MODULE_ADD,
-    payload: code
+    payload: module
   };
 }
 

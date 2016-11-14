@@ -15,9 +15,20 @@ import assignment from './module/assignment';
 export default function modules(state = [], action) {
   switch (action.type) {
     case MODULE_ADD:
+      const workload = action.payload.Workload.split('-').map(s => parseInt(s, 10));
+      
       return [ ...state,
         {
-          code: action.payload,
+          code: action.payload.ModuleCode,
+          title: action.payload.ModuleTitle,
+          credit: action.payload.ModuleCredit,
+          prerequisites: action.payload.Prerequisite,
+          workload: action.payload.Workload,
+          lecture: workload[0],
+          tutorial: workload[1],
+          lab: workload[2],
+          project: workload[3],
+          preparation: workload[4],
           assignments: [],
           projects: [],
           presentations: [],

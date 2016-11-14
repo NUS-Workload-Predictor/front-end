@@ -37,7 +37,7 @@ class Module extends Component {
           primaryText={module.code}
           secondaryText={
             <p>
-              Test
+              {module.title}
             </p>
           }
         />
