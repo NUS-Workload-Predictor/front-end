@@ -55,6 +55,7 @@ class WidgetBoard extends Component {
               key={i}
               index={i}
               widget={widget}
+              module={widget.module}
               modules={modules}
           />);
         })}

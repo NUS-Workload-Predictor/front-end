@@ -46,12 +46,12 @@ class ModuleTimeLineChart extends Component {
   }
 
   render() {
-    const { moduleCode, widget } = this.props;
-    const { width, height } = widget;
+    const { widget } = this.props;
+    const { width, height, moduleCode } = widget;
     const newChartOptions = {
       ...chartOptions,
       title: {
-        dispatch: chartOptions.title.display,
+        display: chartOptions.title.display,
         text: 'Working Time Line-Chart for ' + moduleCode
       }
     };

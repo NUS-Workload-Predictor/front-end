@@ -9,19 +9,19 @@ injectTapEventPlugin();
 
 class App extends Component {
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, modules } = this.props;
 
     return (
       <div style={{height: '100%'}}>
         <Header />
-        <Dashboard dispatch={dispatch} />
+        <Dashboard dispatch={dispatch} modules={modules} />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  widgets: state.widgets
+  modules: state.modules
 });
 
 export default connect(mapStateToProps)(App);

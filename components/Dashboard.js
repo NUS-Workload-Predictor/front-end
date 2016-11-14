@@ -5,12 +5,12 @@ import AddWidget from './AddWidget';
 
 class Dashboard extends Component {
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, modules } = this.props;
 
     return (
       <div style={{height: '100%'}}>
         <WidgetBoardContainer />
-        <AddWidget dispatch={dispatch} />
+        <AddWidget dispatch={dispatch} modules={modules} />
       </div>
     );
   }

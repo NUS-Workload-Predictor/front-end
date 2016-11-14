@@ -45,9 +45,11 @@ class Widget extends Component {
 
     switch(widget.type) {
       case WIDGET_TIME_TABLE:
+        const module = modules.reduce((x, y) => x.moduleCode === widget.moduleCode ? x : y);
+
         return connectDragSource(
           <div style={{...style, left, top}}>
-            <TimeTable widget={widget} modules={modules} />
+            <TimeTable widget={widget} module={module} />
           </div>
         );
 
