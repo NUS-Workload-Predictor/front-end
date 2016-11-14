@@ -9,7 +9,7 @@ import App from './containers/App';
 render(
   <Provider store={store}>
     <MuiThemeProvider>
-      <App />
+      <App style={{width: '100%', height: '100%'}} />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')

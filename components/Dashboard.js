@@ -6,7 +6,7 @@ import AddWidget from './AddWidget';
 class Dashboard extends Component {
   render() {
     return (
-      <div>
+      <div style={{height: '100%'}}>
         <WidgetBoardContainer />
         <AddWidget />
       </div>

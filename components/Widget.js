@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Line } from 'react-chartjs';
+import { DragSource } from 'react-dnd';
 
 import 'style!css!../stylesheets/style.css';
 
@@ -42,15 +43,46 @@ const chartOptions = {
   }
 };
 
+const style = {
+  position: 'absolute',
+  border: '1px dashed gray',
+  backgroundColor: 'white',
+  padding: '0.5rem 1rem',
+  cursor: 'move',
+};
+
+const testSpec = {
+  beginDrag(props) {
+    const { id, left, top } = props;
+    return { id, left, top };
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    // Call this function inside render()
+    // to let React DnD handle the drag events:
+    connectDragSource: connect.dragSource(),
+    // You can ask the monitor about the current drag state:
+    isDragging: monitor.isDragging()
+  };
+}
+
 class Widget extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    return (
-      <div style={{width: '50%', height: '50%', border: 'solid 1px black'}}>
-        <Line data={chartData} options={chartOptions} width="600" height="250"/>
+    const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children } = this.props;
+
+    if (isDragging) {
+      return null;
+    }
+
+    return connectDragSource(
+      <div style={{...style, left, top}}>
+        {/* <Line data={chartData} options={chartOptions} width="600" height="250"/> */}{children}
       </div>
     );
   }
@@ -60,4 +92,4 @@ Widget.propTypes = {
 
 };
 
-export default Widget;
+export default DragSource('widget', testSpec, collect)(Widget);
