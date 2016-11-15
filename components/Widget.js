@@ -46,7 +46,7 @@ class Widget extends Component {
 
   handleClose() {
     const { dispatch, index } = this.props;
-
+    
     dispatch(deleteWidget(index));
   }
 

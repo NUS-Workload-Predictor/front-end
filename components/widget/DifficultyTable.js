@@ -24,7 +24,7 @@ class DifficultyTable extends Component {
           showRowHover={false}
         >
           {modules.map((module, i) =>
-            <TableRow>
+            <TableRow key={i}>
               <TableRowColumn>{i + 1}</TableRowColumn>
               <TableRowColumn>{module.code}</TableRowColumn>
               <TableRowColumn>4.44</TableRowColumn>
