@@ -11,15 +11,18 @@ class DifficultyTable extends Component {
     const { width, height } = widget;
 
     return (
-      <Table style={{width, height}}>
+      <Table fixedHeader={true} selectable={false} style={{width, height}}>
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn>No.</TableHeaderColumn>
+            <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Module</TableHeaderColumn>
             <TableHeaderColumn>Difficulty</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody
+          deselectOnClickaway={false}
+          showRowHover={false}
+        >
           {modules.map((module, i) =>
             <TableRow>
               <TableRowColumn>{i + 1}</TableRowColumn>

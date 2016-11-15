@@ -15,6 +15,7 @@ const style = {
   border: '1px solid gray',
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
+  cursor: 'pointer'
 };
 
 const testSpec = {
