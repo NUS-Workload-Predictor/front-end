@@ -12,7 +12,7 @@ import 'style!css!../stylesheets/style.css';
 
 const style = {
   position: 'absolute',
-  border: '1px solid gray',
+  boxShadow: "2px 2px 10px #888888",
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
   cursor: 'pointer'
