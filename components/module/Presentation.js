@@ -36,7 +36,9 @@ class Presentation extends Component {
       presentation: {
         name: this.refs.name.getValue(),
         released: this.formatDate(this.refs.released.state.date),
+        releasedWeek: this.refs.releasedWeek.getValue(),
         due: this.formatDate(this.refs.due.state.date),
+        dueWeek: this.refs.dueWeek.getValue(),
         percentage: this.refs.percentage.getValue(),
         coverage: this.refs.coverage.getValue(),
         people: this.refs.people.getValue(),
@@ -104,6 +106,15 @@ class Presentation extends Component {
           ref="released"
         />
         <br />
+        <TextField
+          hintText="Enter presentation released week"
+          floatingLabelText="Presentation Released Week"
+          floatingLabelFixed={true}
+          defaultValue={presentation.releasedWeek}
+          onChange={this.handleChange}
+          ref="releasedWeek"
+        />
+        <br />
         <DatePicker
           autoOk={true}
           defaultDate={dueDate}
@@ -111,6 +122,15 @@ class Presentation extends Component {
           floatingLabelText="Due Date"
           onChange={this.handleChange}
           ref="due"
+        />
+        <br />
+        <TextField
+          hintText="Enter presentation due week"
+          floatingLabelText="Presentation Due Week"
+          floatingLabelFixed={true}
+          defaultValue={presentation.dueWeek}
+          onChange={this.handleChange}
+          ref="dueWeek"
         />
         <br />
         <TextField

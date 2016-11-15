@@ -19,7 +19,9 @@ const INITIAL_STATE = {
         {
           name: 'Assignment 1',
           released: '2016-11-01',
+          releasedWeek: 3,
           due: '2016-11-10',
+          dueWeek: 4,
           percentage: 5,
           coverage: 3,
           people: 1
@@ -27,7 +29,9 @@ const INITIAL_STATE = {
         {
           name: 'Assignment 2',
           released: '2016-11-11',
+          releasedWeek: 5,
           due: '2016-11-20',
+          dueWeek: 6,
           percentage: 5,
           coverage: 5,
           people: 1
@@ -35,7 +39,9 @@ const INITIAL_STATE = {
         {
           name: 'Assignment 3',
           released: '2016-11-11',
+          releasedWeek: 7,
           due: '2016-11-20',
+          dueWeek: 9,
           percentage: 5,
           coverage: 5,
           people: 1
@@ -54,7 +60,9 @@ const INITIAL_STATE = {
         {
           name: 'Project 1',
           released: '2016-10-26',
+          releasedWeek: 5,
           due: '2016-11-08',
+          dueWeek: 10,
           percentage: 5,
           coverage: 5,
           people: 4
@@ -64,7 +72,9 @@ const INITIAL_STATE = {
         {
           name: 'Presentation 1',
           released: '2016-10-23',
+          releasedWeek: 6,
           due: '2016-11-02',
+          dueWeek: 12,
           percentage: 4,
           coverage: 4,
           people: 4,
@@ -75,11 +85,19 @@ const INITIAL_STATE = {
         {
           name: 'Reading 1',
           week: 3,
-          amount: 10,
+          amount: 5,
           difficulty: 3
         }
       ],
-      tests: [],
+      tests: [
+        {
+          name: 'Test 1',
+          date: '2016-10-09',
+          percentage: 10,
+          coverage: 5,
+          duration: 2
+        }
+      ],
       exams: [
         {
           name: 'Exam 1',

@@ -36,7 +36,9 @@ class Assignment extends Component {
       assignment: {
         name: this.refs.name.getValue(),
         released: this.formatDate(this.refs.released.state.date),
+        releasedWeek: this.refs.releasedWeek.getValue(),
         due: this.formatDate(this.refs.due.state.date),
+        dueWeek: this.refs.dueWeek.getValue(),
         percentage: this.refs.percentage.getValue(),
         coverage: this.refs.coverage.getValue(),
         people: this.refs.people.getValue()
@@ -103,6 +105,15 @@ class Assignment extends Component {
           ref="released"
         />
         <br />
+        <TextField
+          hintText="Enter assignment released week"
+          floatingLabelText="Assignment Released Week"
+          floatingLabelFixed={true}
+          defaultValue={assignment.releasedWeek}
+          onChange={this.handleChange}
+          ref="releasedWeek"
+        />
+        <br />
         <DatePicker
           autoOk={true}
           defaultDate={dueDate}
@@ -110,6 +121,15 @@ class Assignment extends Component {
           floatingLabelText="Due Date"
           onChange={this.handleChange}
           ref="due"
+        />
+        <br />
+        <TextField
+          hintText="Enter assignment due week"
+          floatingLabelText="Assignment Due Week"
+          floatingLabelFixed={true}
+          defaultValue={assignment.dueWeek}
+          onChange={this.handleChange}
+          ref="dueWeek"
         />
         <br />
         <TextField

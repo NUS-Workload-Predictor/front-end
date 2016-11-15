@@ -40,7 +40,6 @@ class SelectModule extends Component {
     const { modules, dispatch } = this.props;
 
     for (let i = 0; i < modules.length; i++) {
-      console.log(this.refs['checkbox' + i]);
       if (this.refs['checkbox' + i].state.switched) {
         dispatch(addWidget({
           type: WIDGET_MODULE_TIME_LINE_CHART,
