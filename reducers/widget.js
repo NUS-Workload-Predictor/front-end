@@ -24,7 +24,7 @@ export default function widgets(state = INITIAL_STATE, action) {
       ];
 
     case WIDGET_DELETE:
-      return state;
+      return [...state.slice(0, action.payload), ...state.slice(action.payload + 1)];
 
     default:
       return state;

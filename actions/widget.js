@@ -25,6 +25,9 @@ export function moveWidget(index, top, left) {
   };
 }
 
-export function deleteWidget() {
-
+export function deleteWidget(index) {
+  return {
+    type: WIDGET_MOVE,
+    payload: index
+  };
 }
