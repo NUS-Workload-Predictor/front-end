@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Line } from 'react-chartjs';
 import { DragSource } from 'react-dnd';
+import { FloatingActionButton } from 'material-ui';
+import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 
 import TimeTable from './widget/TimeTable';
 import ModuleTimeTable from './widget/ModuleTimeTable';
 import ModuleTimeLineChart from './widget/ModuleTimeLineChart';
 import DifficultyTable from './widget/DifficultyTable';
-import { WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
+import { deleteWidget, WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
 
 import 'style!css!../stylesheets/style.css';
 
@@ -38,6 +40,14 @@ function collect(connect, monitor) {
 class Widget extends Component {
   constructor(props) {
     super(props);
+
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    const { dispatch, index } = this.props;
+
+    dispatch(deleteWidget(index));
   }
 
   render() {
@@ -64,6 +74,9 @@ class Widget extends Component {
       case WIDGET_MODULE_TIME_LINE_CHART:
         return connectDragSource(
           <div style={{...style, left, top}}>
+            <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose} style={{position: 'absolute', right: 10, top: 10}}>
+              <ActionHighlightOff />
+            </FloatingActionButton>
             <ModuleTimeLineChart widget={widget} modules={modules} />
           </div>
         );
@@ -71,6 +84,9 @@ class Widget extends Component {
       case WIDGET_DIFFICULTY_TABLE:
         return connectDragSource(
           <div style={{...style, left, top}}>
+            <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose} style={{position: 'absolute', right: 10, top: 10}}>
+              <ActionHighlightOff />
+            </FloatingActionButton>
             <DifficultyTable widget={widget} modules={modules} />
           </div>
         );

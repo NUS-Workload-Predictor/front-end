@@ -10,7 +10,6 @@ import { moveWidget } from '../actions/widget';
 const styles = {
   width: '100%',
   height: '100%',
-  border: '1px solid black',
   position: 'relative'
 };
 
@@ -45,7 +44,7 @@ class WidgetBoard extends Component {
   }
 
   render() {
-    const { connectDropTarget, widgets, modules } = this.props;
+    const { connectDropTarget, widgets, modules, dispatch } = this.props;
 
     return connectDropTarget(
       <div style={styles}>
@@ -57,6 +56,7 @@ class WidgetBoard extends Component {
               widget={widget}
               module={widget.module}
               modules={modules}
+              dispatch={dispatch}
           />);
         })}
       </div>

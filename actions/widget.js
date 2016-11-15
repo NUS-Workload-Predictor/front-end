@@ -27,7 +27,7 @@ export function moveWidget(index, top, left) {
 
 export function deleteWidget(index) {
   return {
-    type: WIDGET_MOVE,
+    type: WIDGET_DELETE,
     payload: index
   };
 }
