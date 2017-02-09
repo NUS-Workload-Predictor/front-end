@@ -57,7 +57,7 @@ class ModuleTimeLineChart extends Component {
     return 6;
   }
 
-  getParams(module, assessment) {
+  getWorkloadParams(module, assessment) {
     let url = workloadApi + assessment + '/' + module;
     return fetch(url).then(function(response) {
       return response.json();
@@ -79,7 +79,7 @@ class ModuleTimeLineChart extends Component {
     }
 
     // Assignment
-    let assignmentPromise = this.getParams(module.code, 'assignment').then(function(coefficients) {
+    let assignmentPromise = this.getWorkloadParams(module.code, 'assignment').then(function(coefficients) {
       for (let i = 0; i < module.assignments.length; i++) {
         let assignment = module.assignments[i];
         let temp = 0.0;
@@ -101,7 +101,7 @@ class ModuleTimeLineChart extends Component {
     }.bind(this));
 
     // Presentation
-    let presentationPromise = this.getParams(module.code, 'presentation').then(function(coefficients) {
+    let presentationPromise = this.getWorkloadParams(module.code, 'presentation').then(function(coefficients) {
       for (let i = 0; i < module.presentations.length; i++) {
         let presentation = module.presentations[i];
         let temp = 0;
@@ -124,7 +124,7 @@ class ModuleTimeLineChart extends Component {
     }.bind(this));
 
     // Project
-    let projectPromise = this.getParams(module.code, 'project').then(function(coefficients) {
+    let projectPromise = this.getWorkloadParams(module.code, 'project').then(function(coefficients) {
       for (let i = 0; i < module.projects.length; i++) {
         let project = module.projects[i];
         let temp = 0;
@@ -146,7 +146,7 @@ class ModuleTimeLineChart extends Component {
     }.bind(this));
 
     // Reading
-    let readingPromise = this.getParams(module.code, 'reading').then(function(coefficients) {
+    let readingPromise = this.getWorkloadParams(module.code, 'reading').then(function(coefficients) {
       for (let i = 0; i < module.readings.length; i++) {
         let reading = module.readings[i];
         let temp = 0;
@@ -164,7 +164,7 @@ class ModuleTimeLineChart extends Component {
     }.bind(this));
 
     // Test
-    let testPromise = this.getParams(module.code, 'test').then(function(coefficients) {
+    let testPromise = this.getWorkloadParams(module.code, 'test').then(function(coefficients) {
       for (let i = 0; i < module.tests.length; i++) {
         let test = module.tests[i];
         let temp = 0;
@@ -183,7 +183,7 @@ class ModuleTimeLineChart extends Component {
     }.bind(this));
 
     // Exam
-    let examPromise = this.getParams(module.code, 'exam').then(function(coefficients) {
+    let examPromise = this.getWorkloadParams(module.code, 'exam').then(function(coefficients) {
       for (let i = 0; i < module.exams.length; i++) {
         let exam = module.exams[i];
         let temp = 0;
