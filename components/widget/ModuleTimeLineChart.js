@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Line } from 'react-chartjs';
 
+const workloadApi = 'http://127.0.0.1:5000/workload/';
+
 const chartData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
   datasets: [{
     label: 'Working Time',
-    data: [3.5, 4.2, 4.7, 7.2, 8.0, 12.0, 8.5, 14.2, 10.1, 11.3, 9.3, 9.0, 7.2, 9.0, 9.2],
+    data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     borderWidth: 1
   }]
 };
@@ -18,7 +20,7 @@ const chartOptions = {
   scales: {
     yAxes: [{
       ticks: {
-        beginAtZero: false
+        beginAtZero: true
       }
     }]
   }
@@ -27,6 +29,39 @@ const chartOptions = {
 class ModuleTimeLineChart extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { chartData: chartData, chartOptions: chartOptions };
+  }
+
+  getAssignmentWorkloadDefault(assignment) {
+    return assignment.coverage * (100 + assignment.percentage) / (100 * (assignment.dueWeek - assignment.releasedWeek));
+  }
+
+  getProjectWorkloadDefault(project) {
+    return project.people * project.coverage * (100 + project.percentage) / (100 * (project.dueWeek - project.releasedWeek));
+  }
+
+  getPresentationWorkloadDefault(presentation) {
+    return presentation.people * presentation.coverage * (100 + presentation.percentage) / (100 * (presentation.dueWeek - presentation.releasedWeek));
+  }
+
+  getReadingWorkloadDefault(reading) {
+    return reading.amount / reading.difficulty;
+  }
+
+  getTestWorkloadDefault(test) {
+    return 4;
+  }
+
+  getExamWorkloadDefault(exam) {
+    return 6;
+  }
+
+  getParams(module, assessment) {
+    let url = workloadApi + assessment + '/' + module;
+    return fetch(url).then(function(response) {
+      return response.json();
+    });
   }
 
   createDataArray(module) {
@@ -44,60 +79,152 @@ class ModuleTimeLineChart extends Component {
     }
 
     // Assignment
-    for (let i = 0; i < module.assignments.length; i++) {
-      let assignment = module.assignments[i];
+    let assignmentPromise = this.getParams(module.code, 'assignment').then(function(coefficients) {
+      for (let i = 0; i < module.assignments.length; i++) {
+        let assignment = module.assignments[i];
+        let temp = 0.0;
 
-      for (let j = assignment.releasedWeek - 1; j <= assignment.dueWeek; j++) {
-        // Mistake here
-        data[j] += assignment.coverage * (100 + assignment.percentage) / (100 * (assignment.dueWeek - assignment.releasedWeek));
+        if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+          temp = this.getAssignmentWorkloadDefault(assignment);
+        } else {
+          temp = (assignment.dueWeek - assignment.releasedWeek) * coefficients.time
+            + assignment.percentage * coefficients.percentage
+            + assignment.coverage * coefficients.coverage
+            + assignment.people * coefficients.people
+            + coefficients.intercept;
+        }
+
+        for (let j = assignment.releasedWeek - 1; j <= assignment.dueWeek; j++) {
+          data[j] += temp;
+        }
       }
-    }
+    }.bind(this));
 
     // Presentation
-    for (let i = 0; i < module.presentations.length; i++) {
-      let presentation = module.presentations[i];
+    let presentationPromise = this.getParams(module.code, 'presentation').then(function(coefficients) {
+      for (let i = 0; i < module.presentations.length; i++) {
+        let presentation = module.presentations[i];
+        let temp = 0;
 
-      for (let j = presentation.releasedWeek - 1; j <= presentation.dueWeek; j++) {
-        // Mistake here
-        data[j] += presentation.people * presentation.coverage * (100 + presentation.percentage) / (100 * (presentation.dueWeek - presentation.releasedWeek));
+        if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+          temp = this.getPresentationWorkloadDefault(presentation);
+        } else {
+          temp = (presentation.dueWeek - presentation.releasedWeek) * coefficients.time
+            + presentation.percentage * coefficients.percentage
+            + presentation.coverage * coefficients.coverage
+            + presentation.people * coefficients.people
+            + presentation.duration * coefficients.duration
+            + coefficients.intercept;
+        }
+
+        for (let j = presentation.releasedWeek - 1; j <= presentation.dueWeek; j++) {
+          data[j] += temp;
+        }
       }
-    }
+    }.bind(this));
 
     // Project
-    for (let i = 0; i < module.projects.length; i++) {
-      let project = module.projects[i];
+    let projectPromise = this.getParams(module.code, 'project').then(function(coefficients) {
+      for (let i = 0; i < module.projects.length; i++) {
+        let project = module.projects[i];
+        let temp = 0;
 
-      for (let j = project.releasedWeek - 1; j <= project.dueWeek; j++) {
-        // Mistake here
-        data[j] += project.people * project.coverage * (100 + project.percentage) / (100 * (project.dueWeek - project.releasedWeek));
+        if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+          temp = this.getProjectWorkloadDefault(project);
+        } else {
+          temp = (project.dueWeek - project.releasedWeek) * coefficients.time
+            + project.percentage * coefficients.percentage
+            + project.coverage * coefficients.coverage
+            + project.people * coefficients.people
+            + coefficients.intercept;
+        }
+
+        for (let j = project.releasedWeek - 1; j <= project.dueWeek; j++) {
+          data[j] += temp;
+        }
       }
-    }
+    }.bind(this));
 
     // Reading
-    for (let i = 0; i < module.readings.length; i++) {
-      let reading = module.readings[i];
+    let readingPromise = this.getParams(module.code, 'reading').then(function(coefficients) {
+      for (let i = 0; i < module.readings.length; i++) {
+        let reading = module.readings[i];
+        let temp = 0;
 
-      data[reading.week < 6 ? reading.week - 1 : reading.week] += reading.amount;
-    }
+        if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+          temp = this.getReadingWorkloadDefault(reading);
+        } else {
+          temp = reading.amount * coefficients.amount
+            + reading.difficulty * coefficients.difficulty
+            + coefficients.intercept;
+        }
+
+        data[reading.week < 6 ? reading.week - 1 : reading.week] += temp;
+      }
+    }.bind(this));
 
     // Test
-    for (let i = 0; i < module.tests.length; i++) {
-      data[6] += 4;
-    }
+    let testPromise = this.getParams(module.code, 'test').then(function(coefficients) {
+      for (let i = 0; i < module.tests.length; i++) {
+        let test = module.tests[i];
+        let temp = 0;
+
+        if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+          temp = this.getTestWorkloadDefault(test);
+        } else {
+          temp = test.percentage * coefficients.percentage
+            + test.coverage * coefficients.coverage
+            + test.duration * coefficients.duration
+            + coefficients.intercept;
+        }
+
+        data[6] += temp;
+      }
+    }.bind(this));
 
     // Exam
-    for (let i = 0; i < module.exams.length; i++) {
-      data[14] += 6;
-    }
+    let examPromise = this.getParams(module.code, 'exam').then(function(coefficients) {
+      for (let i = 0; i < module.exams.length; i++) {
+        let exam = module.exams[i];
+        let temp = 0;
 
-    return {
-      labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
-      datasets: [{
-        label: 'Working Time',
-        data: data,
-        borderWidth: 1
-      }]
-    };
+        if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+          temp = this.getExamWorkloadDefault(exam);
+        } else {
+          temp = exam.percentage * coefficients.percentage
+            + exam.coverage * coefficients.coverage
+            + exam.duration * coefficients.duration
+            + coefficients.intercept;
+        }
+
+        data[14] += temp;
+      }
+    }.bind(this));
+
+    return Promise.all([assignmentPromise, presentationPromise, projectPromise, readingPromise, testPromise, examPromise]).then(function() {
+      for (let i = 0; i < data.length; i++) {
+        data[i] = data[i].toFixed(2);
+      }
+
+      this.setState({
+        chartData: {
+          labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
+          datasets: [{
+            label: 'Working Time',
+            data: data,
+            borderWidth: 1
+          }]
+        }
+      });
+    }.bind(this));
+  }
+
+  componentDidMount() {
+    const { widget, modules } = this.props;
+    const { moduleCode } = widget;
+
+    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
+    this.createDataArray(module);
   }
 
   render() {
@@ -106,11 +233,12 @@ class ModuleTimeLineChart extends Component {
 
     const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
 
-    const newChartData = this.createDataArray(module);
+    // const newChartData = this.createDataArray(module);
+    const newChartData = this.state.chartData;
     const newChartOptions = {
-      ...chartOptions,
+      ...this.state.chartOptions,
       title: {
-        display: chartOptions.title.display,
+        display: this.state.chartOptions.title.display,
         text: 'Working Time Line-Chart for ' + moduleCode
       }
     };

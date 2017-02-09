@@ -45,14 +45,6 @@ const INITIAL_STATE = {
           percentage: 5,
           coverage: 5,
           people: 1
-        },
-        {
-          name: 'Assignment 4',
-          released: '2016-11-11',
-          due: '2016-11-20',
-          percentage: 5,
-          coverage: 5,
-          people: 1
         }
       ],
 
