@@ -179,7 +179,7 @@ class DifficultyTable extends Component {
   componentDidMount() {
     const { modules } = this.props;
     modules.map((module) => {
-      getDifficulty(module);
+      this.getDifficulty(module);
     });
   }
 
