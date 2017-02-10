@@ -31,7 +31,7 @@ class AddWidget extends Component {
     } else {
       dispatch(addWidget({
         type: value,
-        top: 50,
+        top: 100,
         left: 50,
         width: '600px',
         height: '250px'

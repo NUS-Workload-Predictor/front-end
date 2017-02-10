@@ -84,7 +84,7 @@ class Widget extends Component {
       case WIDGET_DIFFICULTY_TABLE:
         return connectDragSource(
           <div style={{...style, left, top}}>
-            <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose} style={{position: 'absolute', right: 10, top: 10}}>
+            <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose} style={{position: 'absolute', right: 10, top: 10, zIndex: 1}}>
               <ActionHighlightOff />
             </FloatingActionButton>
             <DifficultyTable widget={widget} modules={modules} />

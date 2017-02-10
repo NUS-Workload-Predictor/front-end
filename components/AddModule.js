@@ -30,7 +30,6 @@ class AddModule extends Component {
     fetch("http://api.nusmods.com/2016-2017/1/modules/" + this.state.code + ".json")
     .then(function(response) {
       response.json().then(function(json) {
-        console.log(json);
         dispatch(addModule(json));
         self.setState({open: false});
       });
