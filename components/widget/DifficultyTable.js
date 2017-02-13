@@ -7,7 +7,11 @@ class DifficultyTable extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { difficulty: [] };
+    let difficulty = [];
+    for (let i = 0; i < props.modules.length; i++) {
+      difficulty.push(0.0);
+    }
+    this.state = { difficulty: difficulty };
   }
 
   getAssignmentDifficultyDefault(assignment) {
@@ -41,7 +45,7 @@ class DifficultyTable extends Component {
     });
   }
 
-  getDifficulty(module) {
+  getDifficulty(module, index) {
     let difficulty = 0.0;
 
     // Base difficulty
@@ -172,24 +176,51 @@ class DifficultyTable extends Component {
     return Promise.all([assignmentPromise, presentationPromise, projectPromise, readingPromise, testPromise, examPromise]).then(function() {
       difficulty = difficulty.toFixed(2);
 
-      this.setState({ difficulty: [...this.state, difficulty] });
+      return difficulty;
     }.bind(this));
   }
 
   componentDidMount() {
     const { modules } = this.props;
-    modules.map((module) => {
-      this.getDifficulty(module);
-    });
+    let difficultyList = [];
+
+    modules.reduce((promise, module, index) => {
+      return promise.then(() => {
+        return this.getDifficulty(module, index).then((difficulty) => {
+          difficultyList[index] = difficulty;
+        });
+      });
+    }, Promise.resolve()).then(
+      () => {
+        this.setState({ difficulty: difficultyList });
+      }
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { modules } = nextProps;
+    let difficultyList = [];
+
+    modules.reduce((promise, module, index) => {
+      return promise.then(() => {
+        return this.getDifficulty(module, index).then((difficulty) => {
+          difficultyList[index] = difficulty;
+        });
+      });
+    }, Promise.resolve()).then(
+      () => {
+        this.setState({ difficulty: difficultyList });
+      }
+    );
   }
 
   render() {
     const { widget, modules } = this.props;
-    const { width, height } = widget;
+    const { height, width } = widget;
     const { difficulty } = this.state;
 
     return (
-      <Table fixedHeader={true} selectable={false} style={{width, height}}>
+      <Table fixedHeader={true} selectable={false} style={{width: width, height: height}}>
         <TableHeader>
           <TableRow>
             <TableHeaderColumn>No</TableHeaderColumn>
