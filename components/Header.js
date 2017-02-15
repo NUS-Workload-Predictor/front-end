@@ -6,6 +6,11 @@ import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 
 import ModuleListContainer from '../containers/ModuleListContainer';
 
+const ivleAPIKey = 'CA3dTiFowfpySNZK0Tu8s';
+const redirect = 'http://localhost:9999';
+const ivleApi = 'https://ivle.nus.edu.sg/api/Lapi.svc/';
+const ivleLogin = 'https://ivle.nus.edu.sg/api/login/?apikey=' + ivleAPIKey + '&url=' + redirect;
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +21,7 @@ class Header extends Component {
   }
 
   handleLogin() {
-    this.setState({logged: !this.state.logged});
+    window.location.href = ivleLogin;
   }
 
   handleToggle() {
