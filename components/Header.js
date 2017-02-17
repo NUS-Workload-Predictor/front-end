@@ -6,10 +6,8 @@ import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 
 import ModuleListContainer from '../containers/ModuleListContainer';
 
-const ivleAPIKey = 'CA3dTiFowfpySNZK0Tu8s';
-const redirect = 'http://localhost:9999';
-const ivleApi = 'https://ivle.nus.edu.sg/api/Lapi.svc/';
-const ivleLogin = 'https://ivle.nus.edu.sg/api/login/?apikey=' + ivleAPIKey + '&url=' + redirect;
+import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL } from '../constants/constants';
+const ivleLogin = 'https://ivle.nus.edu.sg/api/login/?apikey=' + IVLE_API_KEY + '&url=' + REDIRECT_URL;
 
 class Header extends Component {
   constructor(props) {
