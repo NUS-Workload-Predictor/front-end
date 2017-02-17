@@ -30,6 +30,7 @@ class Header extends Component {
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   getTokenFromUrl() {
@@ -89,6 +90,12 @@ class Header extends Component {
     window.location.href = ivleLogin;
   }
 
+  handleLogout() {
+    this.removeCookie(tokenName);
+    this.setState({logged: false});
+    window.location.href = REDIRECT_URL;
+  }
+
   handleToggle() {
     this.setState({open: !this.state.open});
   }
@@ -112,7 +119,7 @@ class Header extends Component {
               style={{color: grey50}}>
                 <MenuItem primaryText="Refresh" />
                 <MenuItem primaryText="Help" />
-                <MenuItem onTouchTap={this.handleLogin} primaryText="Sign out" />
+                <MenuItem onTouchTap={this.handleLogout} primaryText="Logout" />
               </IconMenu>
             : <FlatButton onTouchTap={this.handleLogin} style={{color: grey50}} label="Login" />
           }
