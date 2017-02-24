@@ -25,6 +25,7 @@ class Header extends Component {
       if (token) {
         this.state = { ...this.state, logged: true };
         this.saveTokenToCookie(token);
+        window.location.href = REDIRECT_URL;
       }
     }
 
