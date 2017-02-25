@@ -49,9 +49,9 @@ class Header extends Component {
     let self = this;
 
     fetchJsonp(url).then(function(response) {
-      response.json().then(function(json) {
-        json.Results.map((module) => self.addModule(module.CourseCode, dispatch));
-      });
+      return response.json();
+    }).then(function(json) {
+      json.Results.map((module) => self.addModule(module.CourseCode, dispatch));
     });
   }
 
@@ -64,9 +64,9 @@ class Header extends Component {
     let url = NUSMODS_API_BASE_URL + ACADEMIC_YEAR + '/' + SEMESTER + '/modules/' + moduleCode + ".json";
 
     fetch(url).then(function(response) {
-      response.json().then(function(json) {
-        dispatch(addModule(json));
-      });
+      return response.json();
+    }).then(function(json) {
+      dispatch(addModule(json));
     });
   }
 
@@ -74,9 +74,9 @@ class Header extends Component {
     let url = NUSMODS_API_BASE_URL + ACADEMIC_YEAR + '/' + SEMESTER + '/moduleList.json';
 
     fetch(url).then(function(response) {
-      response.json().then(function(json) {
-        dispatch(setModuleList(json));
-      });
+      return response.json();
+    }).then(function(json) {
+      dispatch(setModuleList(json));
     });
   }
 

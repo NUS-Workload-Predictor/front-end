@@ -30,10 +30,10 @@ class AddModule extends Component {
 
     fetch(NUSMODS_API_BASE_URL + ACADEMIC_YEAR + '/' + SEMESTER + '/modules/' + this.state.code + ".json")
     .then(function(response) {
-      response.json().then(function(json) {
-        dispatch(addModule(json));
-        self.setState({open: false});
-      });
+      return response.json();
+    }).then(function(json) {
+      dispatch(addModule(json));
+      self.setState({open: false});
     });
   }
 
