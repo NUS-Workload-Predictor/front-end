@@ -21,7 +21,11 @@ class Header extends Component {
     this.state = {logged: false, open: false};
 
     let token = this.getCookie(tokenName);
+
+    // for test purpose
+    // should be removed after test
     console.log(token);
+
     if (token) {
       this.state = { ...this.state, logged: true };
     } else {
