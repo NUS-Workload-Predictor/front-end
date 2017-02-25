@@ -3,9 +3,11 @@ import { AppBar, Drawer, FlatButton, IconButton, IconMenu, MenuItem, Toggle } fr
 import { deepOrangeA400, grey50, grey400 } from 'material-ui/styles/colors';
 import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
+import fetchJsonp from 'fetch-jsonp';
 
 import ModuleListContainer from '../containers/ModuleListContainer';
 import { setModuleList } from '../actions/moduleList';
+import { addModule } from '../actions/module';
 
 import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER } from '../constants/constants';
 
@@ -31,11 +33,41 @@ class Header extends Component {
       }
     }
 
+    if (token) {
+      this.getModules(token, this.props.dispatch);
+    }
+
     this.getModuleList(this.props.dispatch);
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  getModules(token, dispatch) {
+    let url = IVLE_API_BASE_URL + 'Modules?APIKey=' + IVLE_API_KEY + '&AuthToken=' + token + '&Duration=10&IncludeAllInfo=false&output=json';
+    let self = this;
+
+    fetchJsonp(url).then(function(response) {
+      response.json().then(function(json) {
+        json.Results.map((module) => self.addModule(module.CourseCode, dispatch));
+      });
+    });
+  }
+
+  addModule(moduleCode, dispatch) {
+    let moduleList = this.props.moduleList;
+    if (!moduleList[moduleCode]) {
+      return;
+    }
+
+    let url = NUSMODS_API_BASE_URL + ACADEMIC_YEAR + '/' + SEMESTER + '/modules/' + moduleCode + ".json";
+
+    fetch(url).then(function(response) {
+      response.json().then(function(json) {
+        dispatch(addModule(json));
+      });
+    });
   }
 
   getModuleList(dispatch) {
