@@ -44,7 +44,6 @@ class Header extends Component {
     fetch(url).then(function(response) {
       response.json().then(function(json) {
         dispatch(setModuleList(json));
-        console.log(json);
       });
     });
   }

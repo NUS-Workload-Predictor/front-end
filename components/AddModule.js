@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Dialog, FlatButton, FloatingActionButton, TextField } from 'material-ui';
+import { connect } from 'react-redux';
+import { AutoComplete, Dialog, FlatButton, FloatingActionButton, TextField } from 'material-ui';
 import FileCreateNewFolder from 'material-ui/svg-icons/file/create-new-folder';
 
 import { addModule } from '../actions/module';
@@ -12,16 +13,15 @@ class AddModule extends Component {
 
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleOpen() {
-    this.setState({open: true});
+    this.setState({ open: true, code: '' });
   }
 
   handleClose() {
-    this.setState({open: false});
+    this.setState({open: false, code: '' });
   }
 
   handleSubmit() {
@@ -37,11 +37,9 @@ class AddModule extends Component {
     });
   }
 
-  handleChange(event) {
-    this.setState({code: event.target.value});
-  }
-
   render() {
+    const moduleList = Object.entries(this.props.moduleList).map((module) => module[0] + ' ' + module[1]);
+
     return (
       <div>
         <FloatingActionButton onTouchTap={this.handleOpen} mini={true} style={{position: 'absolute', right: '20px', bottom: '20px'}}>
@@ -64,10 +62,21 @@ class AddModule extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <TextField
-            hintText="Enter module code here ..."
+          <AutoComplete
             floatingLabelText="Module Code"
-            onChange={this.handleChange}
+            hintText="Enter module code here ..."
+            searchText={this.state.code}
+            onUpdateInput={() => {
+
+            }}
+            onNewRequest={(chosenRequest) => {
+              this.setState({ code: chosenRequest.split(' ')[0] });
+            }}
+            dataSource={moduleList}
+            filter={AutoComplete.fuzzyFilter}
+            openOnFocus={false}
+            fullWidth={true}
+            maxSearchResults={20}
           />
           <br />
         </Dialog>
@@ -80,4 +89,8 @@ AddModule.propTypes = {
 
 };
 
-export default AddModule;
+const mapStateToProps = (state) => ({
+  moduleList: state.moduleList
+});
+
+export default connect(mapStateToProps)(AddModule);
