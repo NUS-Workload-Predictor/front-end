@@ -5,8 +5,9 @@ import MoreHorizIcon from 'material-ui/svg-icons/navigation/more-horiz';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 
 import ModuleListContainer from '../containers/ModuleListContainer';
+import { setModuleList } from '../actions/moduleList';
 
-import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL } from '../constants/constants';
+import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER } from '../constants/constants';
 
 const ivleLogin = 'https://ivle.nus.edu.sg/api/login/?apikey=' + IVLE_API_KEY + '&url=' + REDIRECT_URL;
 const defaultExpire = 30;
@@ -18,6 +19,7 @@ class Header extends Component {
     this.state = {logged: false, open: false};
 
     let token = this.getCookie(tokenName);
+    console.log(token);
     if (token) {
       this.state = { ...this.state, logged: true };
     } else {
@@ -29,9 +31,22 @@ class Header extends Component {
       }
     }
 
+    this.getModuleList(this.props.dispatch);
+
     this.handleLogin = this.handleLogin.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  getModuleList(dispatch) {
+    let url = NUSMODS_API_BASE_URL + ACADEMIC_YEAR + '/' + SEMESTER + '/moduleList.json';
+
+    fetch(url).then(function(response) {
+      response.json().then(function(json) {
+        dispatch(setModuleList(json));
+        console.log(json);
+      });
+    });
   }
 
   getTokenFromUrl() {

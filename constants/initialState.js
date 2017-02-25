@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
     modules: [],
-    widgets: []
+    widgets: [],
+    moduleList: []
 };
 
 export default INITIAL_STATE;

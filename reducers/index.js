@@ -2,11 +2,12 @@ import { combineReducers } from 'redux';
 
 import modules from './module';
 import widgets from './widget';
-import tests from './module/test';
+import moduleList from './moduleList';
 
 const rootReducer = combineReducers({
   modules,
-  widgets
+  widgets,
+  moduleList
 });
 
 export default rootReducer;

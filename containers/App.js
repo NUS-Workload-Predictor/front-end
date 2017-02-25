@@ -13,7 +13,7 @@ class App extends Component {
 
     return (
       <div style={{height: '100%'}}>
-        <Header />
+        <Header dispatch={dispatch} />
         <Dashboard dispatch={dispatch} modules={modules} />
       </div>
     );

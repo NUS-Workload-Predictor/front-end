@@ -3,6 +3,7 @@ import { Dialog, FlatButton, FloatingActionButton, TextField } from 'material-ui
 import FileCreateNewFolder from 'material-ui/svg-icons/file/create-new-folder';
 
 import { addModule } from '../actions/module';
+import { NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER } from '../constants/constants';
 
 class AddModule extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class AddModule extends Component {
     const { dispatch } = this.props;
     let self = this;
 
-    fetch("http://api.nusmods.com/2016-2017/1/modules/" + this.state.code + ".json")
+    fetch(NUSMODS_API_BASE_URL + ACADEMIC_YEAR + '/' + SEMESTER + '/modules/' + this.state.code + ".json")
     .then(function(response) {
       response.json().then(function(json) {
         dispatch(addModule(json));
