@@ -17,7 +17,8 @@ const style = {
   marginLeft: "2.5%",
   boxShadow: "2px 2px 10px #888888",
   backgroundColor: 'white',
-  marginTop: '20px'
+  marginTop: '20px',
+  padding: '10px 10px 10px 10px'
   // padding: '0.5rem 1rem',
   // cursor: 'pointer'
 };

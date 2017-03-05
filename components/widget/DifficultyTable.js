@@ -220,7 +220,7 @@ class DifficultyTable extends Component {
     const { difficulty } = this.state;
 
     return (
-      <Table fixedHeader={true} selectable={false} style={{width: width, height: height}}>
+      <Table fixedHeader={true} selectable={false} style={{width: "100%", height: height}}>
         <TableHeader>
           <TableRow>
             <TableHeaderColumn>No</TableHeaderColumn>
