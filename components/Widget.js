@@ -38,28 +38,28 @@ class Widget extends Component {
 
   render() {
     const { widget, modules, connectDragSource, isDragging } = this.props;
-    const { left, top } = widget;
+    // const { left, top } = widget;
 
     switch(widget.type) {
       case WIDGET_TIME_TABLE:
         // const module = modules.reduce((x, y) => x.moduleCode === widget.moduleCode ? x : y);
 
         return (
-          <div style={{...style, left, top}}>
+          <div style={{...style}}>
             <TimeTable widget={widget} module={module} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_TABLE:
         return (
-          <div style={{...style, left, top}}>
+          <div style={{...style}}>
             <ModuleTimeTable widget={widget} modules={modules} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_LINE_CHART:
         return (
-          <div style={{...style, left, top}}>
+          <div style={{...style}}>
             <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
               <ActionHighlightOff />
             </FloatingActionButton>
@@ -69,7 +69,7 @@ class Widget extends Component {
 
       case WIDGET_DIFFICULTY_TABLE:
         return (
-          <div style={{...style, left, top}}>
+          <div style={{...style}}>
             <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
               <ActionHighlightOff />
             </FloatingActionButton>

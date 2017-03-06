@@ -204,7 +204,7 @@ class Header extends Component {
             onTouchTap={this.handleFeedback}
           />,
           <FlatButton
-            label="OK"
+            label="Send"
             primary={true}
             keyboardFocused={true}
             onTouchTap={this.handleSubmitFeedback}
@@ -223,150 +223,222 @@ class Header extends Component {
                   leftIcon={<ActionAssignment />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ module.assignments.map((assignment, i) => {
+                  nestedItems={ (module.assignments.map((assignment, i) => {
                     return (
                       <ListItem
-                        key={assignment + '-' + i}
+                        key={'assignmnet-' + i}
                         primaryText={assignment.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={assignment + '-' + i + '-0'}>
+                          <ListItem key={ 'assignmnet-' + i + '-0'}>
                             <TextField
-                              id={assignment + '-' + i + '-0-input'}
+                              id={'assignmnet-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
+                              floatingLabelFixed={true}
+                              ref={module.code + '-assignmnet-' + i }
                             />
                           </ListItem>
                         ]}
                       />
                     );
-                  })}
+                  })).concat([
+                    <ListItem key={'assignment-difficulty'}>
+                      <TextField
+                        id={'assignment-difficulty-input'}
+                        hintText=""
+                        floatingLabelText="Actual Assignments Difficulty"
+                        floatingLabelFixed={true}
+                        ref={module.code + '-assignment-difficulty' }
+                      />
+                    </ListItem>
+                  ])}
                 />
                 <ListItem
                   primaryText="Project"
                   leftIcon={<ActionDashboard />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ module.projects.map((project, i) => {
+                  nestedItems={ (module.projects.map((project, i) => {
                     return (
                       <ListItem
-                        key={project + '-' + i}
+                        key={'project-' + i}
                         primaryText={project.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={project + '-' + i + '-0'}>
+                          <ListItem key={'project-' + i + '-0'}>
                             <TextField
-                              id={project + '-' + i + '-0-input'}
+                              id={'project-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
+                              floatingLabelFixed={true}
+                              ref={module.code + '-project-' + i }
                             />
                           </ListItem>
                         ]}
                       />
                     );
-                  })}
+                  })).concat([
+                    <ListItem key={'project-difficulty'}>
+                      <TextField
+                        id={'project-difficulty-input'}
+                        hintText=""
+                        floatingLabelText="Actual Projects Difficulty"
+                        floatingLabelFixed={true}
+                        ref={module.code + '-project-difficulty' }
+                      />
+                    </ListItem>
+                  ])}
                 />
                 <ListItem
                   primaryText="Presentation"
                   leftIcon={<AvMic />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ module.presentations.map((presentation, i) => {
+                  nestedItems={ (module.presentations.map((presentation, i) => {
                     return (
                       <ListItem
-                        key={presentation + '-' + i}
+                        key={'presentation-' + i}
                         primaryText={presentation.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={presentation + '-' + i + '-0'}>
+                          <ListItem key={'presentation-' + i + '-0'}>
                             <TextField
-                              id={presentation + '-' + i + '-0-input'}
+                              id={'presentation-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
+                              floatingLabelFixed={true}
+                              ref={module.code + '-presentation-' + i }
                             />
                           </ListItem>
                         ]}
                       />
                     );
-                  })}
+                  })).concat([
+                    <ListItem key={'presentation-difficulty'}>
+                      <TextField
+                        id={'presentation-difficulty-input'}
+                        hintText=""
+                        floatingLabelText="Actual Presentations Difficulty"
+                        floatingLabelFixed={true}
+                        ref={module.code + '-presentation-difficulty' }
+                      />
+                    </ListItem>
+                  ])}
                  />
                 <ListItem
                   primaryText="Reading"
                   leftIcon={<ActionBook />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ module.readings.map((reading, i) => {
+                  nestedItems={ (module.readings.map((reading, i) => {
                     return (
                       <ListItem
-                        key={reading + '-' + i}
+                        key={'reading-' + i}
                         primaryText={reading.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={reading + '-' + i + '-0'}>
+                          <ListItem key={'reading-' + i + '-0'}>
                             <TextField
-                              id={reading + '-' + i + '-0-input'}
+                              id={'reading-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
+                              floatingLabelFixed={true}
+                              ref={module.code + '-reading-' + i }
                             />
                           </ListItem>
                         ]}
                       />
                     );
-                  })}
+                  })).concat([
+                    <ListItem key={'reading-difficulty'}>
+                      <TextField
+                        id={'reading-difficulty-input'}
+                        hintText=""
+                        floatingLabelText="Actual Readings Difficulty"
+                        floatingLabelFixed={true}
+                        ref={module.code + '-reading-difficulty' }
+                      />
+                    </ListItem>
+                  ])}
                  />
                 <ListItem
                   primaryText="Test"
                   leftIcon={<ActionSpellcheck />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ module.tests.map((test, i) => {
+                  nestedItems={ (module.tests.map((test, i) => {
                     return (
                       <ListItem
-                        key={test + '-' + i}
+                        key={'test-' + i}
                         primaryText={test.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={test + '-' + i + '-0'}>
+                          <ListItem key={'test-' + i + '-0'}>
                             <TextField
-                              id={test + '-' + i + '-0-input'}
+                              id={'test-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
+                              floatingLabelFixed={true}
+                              ref={module.code + '-test-' + i }
                             />
                           </ListItem>
                         ]}
                       />
                     );
-                  })}
+                  })).concat([
+                    <ListItem key={'test-difficulty'}>
+                      <TextField
+                        id={'test-difficulty-input'}
+                        hintText=""
+                        floatingLabelText="Actual Tests Difficulty"
+                        floatingLabelFixed={true}
+                        ref={module.code + '-test-difficulty' }
+                      />
+                    </ListItem>
+                  ])}
                 />
                 <ListItem
                   primaryText="Exam"
                   leftIcon={<AvPlaylistAddCheck />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ module.exams.map((exam, i) => {
+                  nestedItems={ (module.exams.map((exam, i) => {
                     return (
                       <ListItem
-                        key={exam + '-' + i}
+                        key={'exam-' + i}
                         primaryText={exam.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={exam + '-' + i + '-0'}>
+                          <ListItem key={'exam-' + i + '-0'}>
                             <TextField
-                              id={exam + '-' + i + '-0-input'}
+                              id={'exam-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
+                              floatingLabelFixed={true}
+                              ref={module.code + '-exam-' + i }
                             />
                           </ListItem>
                         ]}
                       />
                     );
-                  })}
+                  })).concat([
+                    <ListItem key={'exam-difficulty'}>
+                      <TextField
+                        id={'exam-difficulty-input'}
+                        hintText=""
+                        floatingLabelText="Actual Exams Difficulty"
+                        floatingLabelFixed={true}
+                        ref={module.code + '-exam-difficulty' }
+                      />
+                    </ListItem>
+                  ])}
                 />
               </List>
             );
