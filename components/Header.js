@@ -16,11 +16,13 @@ import ModuleListContainer from '../containers/ModuleListContainer';
 import { setModuleList } from '../actions/moduleList';
 import { addModule } from '../actions/module';
 
-import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER } from '../constants/constants';
+import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER, TRAINING_SERVER_URL } from '../constants/constants';
 
 const ivleLogin = 'https://ivle.nus.edu.sg/api/login/?apikey=' + IVLE_API_KEY + '&url=' + REDIRECT_URL;
 const defaultExpire = 30;
 const tokenName = 'token';
+
+const updateDataUrl = TRAINING_SERVER_URL + '/data/';
 
 class Header extends Component {
   constructor(props) {
@@ -161,7 +163,188 @@ class Header extends Component {
   }
 
   handleSendFeedback() {
+    const { modules } = this.props;
 
+    modules.map((module, i) => {
+      module.assignments.map((assignment, i) => {
+        let truth = parseFloat(this.refs[module.code + '-assignment-' + i].getValue());
+        let url = updateDataUrl + 'workload/assignment/' + module.code;
+
+        if (truth && !isNaN(truth)) {
+          let params = {
+            time: assignment.dueWeek - assignment.releasedWeek + 1,
+            percentage: assignment.percentage,
+            coverage: assignment.coverage,
+            people: assignment.people,
+            result: truth
+          };
+          let body = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }).join('&');
+
+          let config = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: body
+          };
+
+          fetch(url, config).then((response) => {
+            return response.json();
+          }).then((json) => {console.log(json)});
+        }
+      });
+
+      module.projects.map((project, i) => {
+        let truth = parseFloat(this.refs[module.code + '-project-' + i].getValue());
+        let url = updateDataUrl + 'workload/project/' + module.code;
+
+        if (truth && !isNaN(truth)) {
+          let params = {
+            time: project.dueWeek - project.releasedWeek + 1,
+            percentage: project.percentage,
+            coverage: project.coverage,
+            people: project.people,
+            result: truth
+          };
+          let body = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }).join('&');
+
+          let config = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: body
+          };
+
+          fetch(url, config).then((response) => {
+            return response.json();
+          }).then((json) => {console.log(json)});
+        }
+      });
+
+      module.presentations.map((presentation, i) => {
+        let truth = parseFloat(this.refs[module.code + '-presentation-' + i].getValue());
+        let url = updateDataUrl + 'workload/presentation/' + module.code;
+
+        if (truth && !isNaN(truth)) {
+          let params = {
+            time: presentation.dueWeek - presentation.releasedWeek + 1,
+            percentage: presentation.percentage,
+            coverage: presentation.coverage,
+            people: presentation.people,
+            duration: presentation.duration,
+            result: truth
+          };
+          let body = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }).join('&');
+
+          let config = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: body
+          };
+
+          fetch(url, config).then((response) => {
+            return response.json();
+          }).then((json) => {console.log(json)});
+        }
+      });
+
+      module.readings.map((reading, i) => {
+        let truth = parseFloat(this.refs[module.code + '-reading-' + i].getValue());
+        let url = updateDataUrl + 'workload/reading/' + module.code;
+
+        if (truth && !isNaN(truth)) {
+          let params = {
+            amount: reading.amount,
+            difficulty: reading.difficulty,
+            result: truth
+          };
+          let body = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }).join('&');
+
+          let config = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: body
+          };
+
+          fetch(url, config).then((response) => {
+            return response.json();
+          }).then((json) => {console.log(json)});
+        }
+      });
+
+      module.tests.map((test, i) => {
+        let truth = parseFloat(this.refs[module.code + '-test-' + i].getValue());
+        let url = updateDataUrl + 'workload/test/' + module.code;
+
+        if (truth && !isNaN(truth)) {
+          let params = {
+            percentage: test.percentage,
+            coverage: test.coverage,
+            duration: test.duration,
+            result: truth
+          };
+          let body = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }).join('&');
+
+          let config = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: body
+          };
+
+          fetch(url, config).then((response) => {
+            return response.json();
+          }).then((json) => {console.log(json)});
+        }
+      });
+
+      module.exams.map((exam, i) => {
+        let truth = parseFloat(this.refs[module.code + '-exam-' + i].getValue());
+        let url = updateDataUrl + 'workload/exam/' + module.code;
+
+        if (truth && !isNaN(truth)) {
+          let params = {
+            percentage: exam.percentage,
+            coverage: exam.coverage,
+            duration: exam.duration,
+            result: truth
+          };
+          let body = Object.keys(params).map((key) => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }).join('&');
+
+          let config = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+            body: body
+          };
+
+          fetch(url, config).then((response) => {
+            return response.json();
+          }).then((json) => {console.log(json)});
+        }
+      });
+    });
+
+    this.setState({feedback: !this.state.feedback});
   }
 
   handleToggle() {
@@ -226,18 +409,18 @@ class Header extends Component {
                   nestedItems={ (module.assignments.map((assignment, i) => {
                     return (
                       <ListItem
-                        key={'assignmnet-' + i}
+                        key={'assignment-' + i}
                         primaryText={assignment.name}
                         initiallyOpen={true}
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                          <ListItem key={ 'assignmnet-' + i + '-0'}>
+                          <ListItem key={ 'assignment-' + i + '-0'}>
                             <TextField
-                              id={'assignmnet-' + i + '-0-input'}
+                              id={'assignment-' + i + '-0-input'}
                               hintText="Keep empty if prediction is correct"
                               floatingLabelText="Actual Workload (hours/week)"
                               floatingLabelFixed={true}
-                              ref={module.code + '-assignmnet-' + i }
+                              ref={module.code + '-assignment-' + i }
                             />
                           </ListItem>
                         ]}
