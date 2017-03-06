@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Line } from 'react-chartjs';
 
-const workloadApi = 'http://127.0.0.1:5000/workload/';
+import { TRAINING_SERVER_URL } from '../../constants/constants';
+
+const workloadApi = TRAINING_SERVER_URL + '/workload/';
 
 const chartData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],

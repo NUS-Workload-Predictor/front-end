@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { FloatingActionButton, IconButton, Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
 
-const difficultyApi = 'http://127.0.0.1:5000/difficulty/';
+import { TRAINING_SERVER_URL } from '../../constants/constants';
+
+const difficultyApi = TRAINING_SERVER_URL + '/difficulty/';
 
 class DifficultyTable extends Component {
   constructor(props) {
