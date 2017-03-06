@@ -54,7 +54,7 @@ class Header extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleFeedback = this.handleFeedback.bind(this);
-    this.handleSubmitFeedback = this.handleSubmitFeedback.bind(this);
+    this.handleSendFeedback = this.handleSendFeedback.bind(this);
   }
 
   getModules(token, dispatch) {
@@ -160,7 +160,7 @@ class Header extends Component {
     this.setState({feedback: !this.state.feedback});
   }
 
-  handleSubmitFeedback() {
+  handleSendFeedback() {
 
   }
 
@@ -207,7 +207,7 @@ class Header extends Component {
             label="Send"
             primary={true}
             keyboardFocused={true}
-            onTouchTap={this.handleSubmitFeedback}
+            onTouchTap={this.handleSendFeedback}
           />]}
           modal={false}
           open={this.state.feedback}
