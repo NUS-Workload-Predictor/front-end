@@ -227,7 +227,8 @@ class DifficultyTable extends Component {
           <TableRow>
             <TableHeaderColumn>No</TableHeaderColumn>
             <TableHeaderColumn>Module</TableHeaderColumn>
-            <TableHeaderColumn>Difficulty</TableHeaderColumn>
+            <TableHeaderColumn>Simple Est.</TableHeaderColumn>
+            <TableHeaderColumn>Complex Est.</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody
@@ -238,6 +239,7 @@ class DifficultyTable extends Component {
             <TableRow key={i}>
               <TableRowColumn>{i + 1}</TableRowColumn>
               <TableRowColumn>{module.code}</TableRowColumn>
+              <TableRowColumn>{difficulty[i]}</TableRowColumn>
               <TableRowColumn>{difficulty[i]}</TableRowColumn>
             </TableRow>
           )}
