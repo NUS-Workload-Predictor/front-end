@@ -27,7 +27,7 @@ const updateDataUrl = TRAINING_SERVER_URL + '/data/';
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {logged: false, open: false, feedback: false};
+    this.state = {logged: false, open: false, feedback: false, profile: false};
 
     let token = this.getCookie(tokenName);
 
@@ -57,6 +57,7 @@ class Header extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleFeedback = this.handleFeedback.bind(this);
     this.handleSendFeedback = this.handleSendFeedback.bind(this);
+    this.handleProfile = this.handleProfile.bind(this);
   }
 
   getModules(token, dispatch) {
@@ -156,6 +157,10 @@ class Header extends Component {
     this.removeCookie(tokenName);
     this.setState({logged: false});
     window.location.href = REDIRECT_URL;
+  }
+
+  handleProfile() {
+    this.setState({profile: !this.state.profile});
   }
 
   handleFeedback() {
@@ -370,6 +375,7 @@ class Header extends Component {
               targetOrigin={{horizontal: 'right', vertical: 'top'}}
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               style={{color: grey50}}>
+                <MenuItem onTouchTap={this.handleProfile} primaryText="Profile" />
                 <MenuItem onTouchTap={this.handleFeedback} primaryText="Feedback" />
                 <MenuItem onTouchTap={this.handleLogout} primaryText="Logout" />
               </IconMenu>
@@ -379,6 +385,18 @@ class Header extends Component {
         <Drawer docked={false} width={350} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{height: '70%', top: 70}}>
           <ModuleListContainer />
         </Drawer>
+        <Dialog
+          title="Profile"
+          actions={[<FlatButton
+            label="OK"
+            primary={true}
+            onTouchTap={this.handleProfile}
+          />]}
+          modal={false}
+          open={this.state.profile}
+          onRequestClose={this.handleProfile}
+          autoScrollBodyContent={true}
+        ></Dialog>
         <Dialog
           title="Send Feedback"
           actions={[<FlatButton
