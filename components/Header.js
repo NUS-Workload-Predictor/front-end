@@ -406,7 +406,7 @@ class Header extends Component {
                   leftIcon={<ActionAssignment />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ (module.assignments.map((assignment, i) => {
+                  nestedItems={ module.assignments.map((assignment, i) => {
                     return (
                       <ListItem
                         key={'assignment-' + i}
@@ -426,24 +426,14 @@ class Header extends Component {
                         ]}
                       />
                     );
-                  })).concat([
-                    <ListItem key={'assignment-difficulty'}>
-                      <TextField
-                        id={'assignment-difficulty-input'}
-                        hintText=""
-                        floatingLabelText="Actual Assignments Difficulty"
-                        floatingLabelFixed={true}
-                        ref={module.code + '-assignment-difficulty' }
-                      />
-                    </ListItem>
-                  ])}
+                  })}
                 />
                 <ListItem
                   primaryText="Project"
                   leftIcon={<ActionDashboard />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ (module.projects.map((project, i) => {
+                  nestedItems={ module.projects.map((project, i) => {
                     return (
                       <ListItem
                         key={'project-' + i}
@@ -463,24 +453,14 @@ class Header extends Component {
                         ]}
                       />
                     );
-                  })).concat([
-                    <ListItem key={'project-difficulty'}>
-                      <TextField
-                        id={'project-difficulty-input'}
-                        hintText=""
-                        floatingLabelText="Actual Projects Difficulty"
-                        floatingLabelFixed={true}
-                        ref={module.code + '-project-difficulty' }
-                      />
-                    </ListItem>
-                  ])}
+                  })}
                 />
                 <ListItem
                   primaryText="Presentation"
                   leftIcon={<AvMic />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ (module.presentations.map((presentation, i) => {
+                  nestedItems={ module.presentations.map((presentation, i) => {
                     return (
                       <ListItem
                         key={'presentation-' + i}
@@ -500,24 +480,14 @@ class Header extends Component {
                         ]}
                       />
                     );
-                  })).concat([
-                    <ListItem key={'presentation-difficulty'}>
-                      <TextField
-                        id={'presentation-difficulty-input'}
-                        hintText=""
-                        floatingLabelText="Actual Presentations Difficulty"
-                        floatingLabelFixed={true}
-                        ref={module.code + '-presentation-difficulty' }
-                      />
-                    </ListItem>
-                  ])}
+                  })}
                  />
                 <ListItem
                   primaryText="Reading"
                   leftIcon={<ActionBook />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ (module.readings.map((reading, i) => {
+                  nestedItems={ module.readings.map((reading, i) => {
                     return (
                       <ListItem
                         key={'reading-' + i}
@@ -537,24 +507,14 @@ class Header extends Component {
                         ]}
                       />
                     );
-                  })).concat([
-                    <ListItem key={'reading-difficulty'}>
-                      <TextField
-                        id={'reading-difficulty-input'}
-                        hintText=""
-                        floatingLabelText="Actual Readings Difficulty"
-                        floatingLabelFixed={true}
-                        ref={module.code + '-reading-difficulty' }
-                      />
-                    </ListItem>
-                  ])}
+                  })}
                  />
                 <ListItem
                   primaryText="Test"
                   leftIcon={<ActionSpellcheck />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ (module.tests.map((test, i) => {
+                  nestedItems={ module.tests.map((test, i) => {
                     return (
                       <ListItem
                         key={'test-' + i}
@@ -574,24 +534,14 @@ class Header extends Component {
                         ]}
                       />
                     );
-                  })).concat([
-                    <ListItem key={'test-difficulty'}>
-                      <TextField
-                        id={'test-difficulty-input'}
-                        hintText=""
-                        floatingLabelText="Actual Tests Difficulty"
-                        floatingLabelFixed={true}
-                        ref={module.code + '-test-difficulty' }
-                      />
-                    </ListItem>
-                  ])}
+                  })}
                 />
                 <ListItem
                   primaryText="Exam"
                   leftIcon={<AvPlaylistAddCheck />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={ (module.exams.map((exam, i) => {
+                  nestedItems={ module.exams.map((exam, i) => {
                     return (
                       <ListItem
                         key={'exam-' + i}
@@ -611,18 +561,17 @@ class Header extends Component {
                         ]}
                       />
                     );
-                  })).concat([
-                    <ListItem key={'exam-difficulty'}>
-                      <TextField
-                        id={'exam-difficulty-input'}
-                        hintText=""
-                        floatingLabelText="Actual Exams Difficulty"
-                        floatingLabelFixed={true}
-                        ref={module.code + '-exam-difficulty' }
-                      />
-                    </ListItem>
-                  ])}
+                  })}
                 />
+                <ListItem key={'module-difficulty'}>
+                  <TextField
+                    id={'module-difficulty-input'}
+                    hintText="Keep empty if prediction is correct"
+                    floatingLabelText="Actual Module Difficulty"
+                    floatingLabelFixed={true}
+                    ref={module.code + '-difficulty' }
+                  />
+                </ListItem>
               </List>
             );
           })}
