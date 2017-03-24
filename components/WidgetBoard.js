@@ -6,9 +6,12 @@ import Widget from './Widget';
 import { moveWidget } from '../actions/widget';
 
 const styles = {
-  width: '100%',
+  display: 'table-cell',
   height: '100%',
-  paddingTop: '5%'
+  paddingLeft: '2%',
+  paddingRight: '2%',
+  paddingTop: '5%',
+  backgroundColor: '#F5F5F5'
 };
 
 class WidgetBoard extends Component {
@@ -21,7 +24,7 @@ class WidgetBoard extends Component {
 
     return (
       <div style={styles}>
-        {widgets.map((widget, i) => {
+        {widgets.filter(widget => widget.display).map((widget, i) => {
           return (
             <Widget
               key={i}

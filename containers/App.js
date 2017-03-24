@@ -12,7 +12,7 @@ class App extends Component {
     const { dispatch, modules, moduleList } = this.props;
 
     return (
-      <div style={{height: '100%'}}>
+      <div style={{height: '100%', overflowY: 'hidden'}}>
         <Header dispatch={dispatch} moduleList={moduleList} modules={modules} />
         <Dashboard dispatch={dispatch} modules={modules} />
       </div>

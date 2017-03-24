@@ -13,12 +13,9 @@ import 'style!css!../stylesheets/style.css';
 
 const style = {
   // position: 'absolute',
-  width: "95%",
-  marginLeft: "2.5%",
-  boxShadow: "2px 2px 10px #888888",
-  backgroundColor: 'white',
-  marginTop: '20px',
-  padding: '10px 10px 10px 10px'
+  padding: '5px 5px 5px 5px',
+  boxShadow: '1px 1px 10px #EDEDED',
+  backgroundColor: '#FDFDFD'
   // padding: '0.5rem 1rem',
   // cursor: 'pointer'
 };
@@ -60,9 +57,9 @@ class Widget extends Component {
       case WIDGET_MODULE_TIME_LINE_CHART:
         return (
           <div style={{...style}}>
-            <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
+            {/* <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
               <ActionHighlightOff />
-            </FloatingActionButton>
+            </FloatingActionButton> */}
             <ModuleTimeLineChart widget={widget} modules={modules} />
           </div>
         );
@@ -70,9 +67,9 @@ class Widget extends Component {
       case WIDGET_DIFFICULTY_TABLE:
         return (
           <div style={{...style}}>
-            <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
+            {/* <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
               <ActionHighlightOff />
-            </FloatingActionButton>
+            </FloatingActionButton> */}
             <DifficultyTable widget={widget} modules={modules} />
           </div>
         );

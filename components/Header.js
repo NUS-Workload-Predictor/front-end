@@ -363,7 +363,7 @@ class Header extends Component {
       <div>
         <AppBar
           title="NUSWorks"
-          style={{position: 'fixed'}}
+          style={{position: 'fixed', height: '60px'}}
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={<IconButton><NavigationExpandMore /></IconButton>}
           iconElementRight={this.state.logged
@@ -388,6 +388,10 @@ class Header extends Component {
         <Dialog
           title="Profile"
           actions={[<FlatButton
+            label="Cancel"
+            primary={true}
+            onTouchTap={this.handleProfile}
+          />, <FlatButton
             label="OK"
             primary={true}
             onTouchTap={this.handleProfile}
@@ -396,7 +400,42 @@ class Header extends Component {
           open={this.state.profile}
           onRequestClose={this.handleProfile}
           autoScrollBodyContent={true}
-        ></Dialog>
+        >
+          <TextField
+            disabled={true}
+            hintText="Name"
+            defaultValue="Wang Zhipeng"
+            floatingLabelText="Name"
+          />
+          <br />
+          <TextField
+            disabled={true}
+            hintText="e.g. A0123456X"
+            defaultValue="A0119414L"
+            floatingLabelText="Matriculation No."
+          />
+          <br />
+          <TextField
+            hintText="e.g. 4.5"
+            floatingLabelText="CAP"
+            defaultValue="4.21"
+            floatingLabelFixed={true}
+          />
+          <br />
+          <TextField
+            hintText="e.g. 4"
+            floatingLabelText="Experienced Sems"
+            defaultValue="7"
+            floatingLabelFixed={true}
+          />
+          <br />
+          <TextField
+            hintText="e.g. 120"
+            floatingLabelText="Experienced Credits"
+            defaultValue="153"
+            floatingLabelFixed={true}
+          />
+        </Dialog>
         <Dialog
           title="Send Feedback"
           actions={[<FlatButton
