@@ -4,12 +4,14 @@ import WidgetBoardContainer from '../containers/WidgetBoardContainer';
 import WidgetTabBar from './WidgetTabBar';
 import AddWidget from './AddWidget';
 
+import '../stylesheets/Dashboard.scss'
+
 class Dashboard extends Component {
   render() {
     const { dispatch, modules } = this.props;
 
     return (
-      <div style={{height: '100%', display: 'table', width: '100%', paddingTop: '60px'}}>
+      <div id="dashboard-container">
         <WidgetTabBar />
         <WidgetBoardContainer />
         {/* <AddWidget dispatch={dispatch} modules={modules} /> */}

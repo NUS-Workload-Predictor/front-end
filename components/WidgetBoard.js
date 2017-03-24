@@ -5,14 +5,7 @@ import { connect } from 'react-redux';
 import Widget from './Widget';
 import { moveWidget } from '../actions/widget';
 
-const styles = {
-  display: 'table-cell',
-  height: '100%',
-  paddingLeft: '2%',
-  paddingRight: '2%',
-  paddingTop: '5%',
-  backgroundColor: '#F5F5F5'
-};
+import '../stylesheets/WidgetBoard.scss';
 
 class WidgetBoard extends Component {
   constructor(props) {
@@ -23,7 +16,7 @@ class WidgetBoard extends Component {
     const { connectDropTarget, widgets, modules, dispatch } = this.props;
 
     return (
-      <div style={styles}>
+      <div id="widget-board-container">
         {widgets.filter(widget => widget.display).map((widget, i) => {
           return (
             <Widget

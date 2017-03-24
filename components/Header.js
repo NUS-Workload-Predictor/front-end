@@ -18,6 +18,8 @@ import { addModule } from '../actions/module';
 
 import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER, TRAINING_SERVER_URL } from '../constants/constants';
 
+import '../stylesheets/Header.scss';
+
 const ivleLogin = 'https://ivle.nus.edu.sg/api/login/?apikey=' + IVLE_API_KEY + '&url=' + REDIRECT_URL;
 const defaultExpire = 30;
 const tokenName = 'token';
@@ -363,18 +365,17 @@ class Header extends Component {
       <div>
         <AppBar
           title="NUSWorks"
-          style={{position: 'fixed', height: '60px'}}
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={<IconButton><NavigationExpandMore /></IconButton>}
           iconElementRight={this.state.logged
-            ? <IconMenu iconButtonElement={
-                <IconButton>
-                  <MoreHorizIcon />
-                </IconButton>
-              }
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-              style={{color: grey50}}>
+            ? <IconMenu
+                iconButtonElement={
+                  <IconButton>
+                    <MoreHorizIcon />
+                  </IconButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}>
                 <MenuItem onTouchTap={this.handleProfile} primaryText="Profile" />
                 <MenuItem onTouchTap={this.handleFeedback} primaryText="Feedback" />
                 <MenuItem onTouchTap={this.handleLogout} primaryText="Logout" />
@@ -382,7 +383,7 @@ class Header extends Component {
             : <FlatButton onTouchTap={this.handleLogin} style={{color: grey50}} label="Login" />
           }
         />
-        <Drawer docked={false} width={350} open={this.state.open} onRequestChange={(open) => this.setState({open})} containerStyle={{height: '70%', top: 70}}>
+        <Drawer docked={false} width={350} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
           <ModuleListContainer />
         </Drawer>
         <Dialog

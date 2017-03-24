@@ -3,16 +3,7 @@ import { connect } from 'react-redux';
 
 import WidgetTab from './WidgetTab';
 
-const style = {
-  display: 'table-cell',
-  backgroundColor: 'black',
-  color: 'white',
-  height: '100%',
-  width: '60px',
-  minWidth: '60px',
-  verticalAlign: 'top',
-  paddingTop: '15px'
-};
+import '../stylesheets/WidgetTabBar.scss';
 
 class WidgetTabBar extends Component {
   constructor(props) {
@@ -23,7 +14,7 @@ class WidgetTabBar extends Component {
     const { widgets } = this.props;
 
     return (
-      <div style={style}>
+      <div id="widget-tab-bar-container">
         {
           widgets.map((widget, i) => {
             return (

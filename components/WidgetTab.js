@@ -6,39 +6,7 @@ import ActionEvent from 'material-ui/svg-icons/action/event';
 
 import { WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
 
-const style = {
-  color: 'white',
-  textAlign: 'center',
-  height: '35px',
-  position: 'relative',
-  cursor: 'pointer',
-  marginTop: '5px',
-  marginBottom: '5px'
-};
-
-const innerStyle = {
-  color: '#9D9D9D',
-  margin: 'auto auto',
-  width: '30px',
-  height: '30px',
-  position: 'absolute',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  right: '0'
-};
-
-const innerStyleDisplay = {
-  color: '#EEEEEE',
-  margin: 'auto auto',
-  width: '30px',
-  height: '30px',
-  position: 'absolute',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  right: '0'
-};
+import '../stylesheets/WidgetTab.scss';
 
 class WidgetTab extends Component {
   constructor(props) {
@@ -51,29 +19,29 @@ class WidgetTab extends Component {
     switch (widget.type) {
       case WIDGET_TIME_TABLE:
         return (
-          <div style={{...style}}>
-            <ActionEvent style={{...innerStyle}} />
+          <div className={widget.display ? 'widget-tab-container-selected' : 'widget-tab-container'}>
+            <ActionEvent className={widget.display ? 'widget-tab-selected' : 'widget-tab'} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_TABLE:
         return (
-          <div style={{...style}}>
-            <AvAvTimer style={{...innerStyle}} />
+          <div className={widget.display ? 'widget-tab-container-selected' : 'widget-tab-container'}>
+            <AvAvTimer className={widget.display ? 'widget-tab-selected' : 'widget-tab'} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_LINE_CHART:
         return (
-          <div style={{...style}}>
-            <ActionTimeline style={{...innerStyle}} />
+          <div className={widget.display ? 'widget-tab-container-selected' : 'widget-tab-container'}>
+            <ActionTimeline className={widget.display ? 'widget-tab-selected' : 'widget-tab'} />
           </div>
         );
 
       case WIDGET_DIFFICULTY_TABLE:
         return (
-          <div style={{...style}}>
-            <EditorFormatListNumbered style={{...innerStyle}} />
+          <div className={widget.display ? 'widget-tab-container-selected' : 'widget-tab-container'}>
+            <EditorFormatListNumbered className={widget.display ? 'widget-tab-selected' : 'widget-tab'} />
           </div>
         );
 
