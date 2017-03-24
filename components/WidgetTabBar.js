@@ -11,14 +11,14 @@ class WidgetTabBar extends Component {
   }
 
   render() {
-    const { widgets } = this.props;
+    const { widgets, dispatch } = this.props;
 
     return (
       <div id="widget-tab-bar-container">
         {
           widgets.map((widget, i) => {
             return (
-              <WidgetTab widget={widget} key={i} />
+              <WidgetTab dispatch={dispatch} widget={widget} key={i} />
             );
           })
         }

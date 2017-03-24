@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
     return (
       <div id="dashboard-container">
-        <WidgetTabBar />
+        <WidgetTabBar dispatch={dispatch} />
         <WidgetBoardContainer />
         {/* <AddWidget dispatch={dispatch} modules={modules} /> */}
       </div>
