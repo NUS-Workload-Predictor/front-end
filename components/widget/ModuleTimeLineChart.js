@@ -3,7 +3,7 @@ import { Line } from 'react-chartjs';
 
 import { TRAINING_SERVER_URL } from '../../constants/constants';
 
-const workloadApi = TRAINING_SERVER_URL + '/workload/';
+const workloadApi = TRAINING_SERVER_URL + '/workload/simple/';
 
 const chartData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
@@ -36,27 +36,27 @@ class ModuleTimeLineChart extends Component {
   }
 
   getAssignmentWorkloadDefault(assignment) {
-    return assignment.coverage * (100 + assignment.percentage) / (100 * (assignment.dueWeek - assignment.releasedWeek));
+    return (assignment.dueWeek - assignment.releasedWeek) * (assignment.coverage / 2.0) * assignment.people * (assignment.percentage / 5.0)
   }
 
   getProjectWorkloadDefault(project) {
-    return project.people * project.coverage * (100 + project.percentage) / (100 * (project.dueWeek - project.releasedWeek));
+    return ((project.dueWeek - project.releasedWeek) / 2.0) * project.coverage * (project.people / 4.0) * (project.percentage / 10.0);
   }
 
   getPresentationWorkloadDefault(presentation) {
-    return presentation.people * presentation.coverage * (100 + presentation.percentage) / (100 * (presentation.dueWeek - presentation.releasedWeek));
+    return (presentation.dueWeek - presentation.releasedWeek) * (presentation.coverage / 2.0) * (presentation.people / 4.0) * (presentation.percentage / 5.0) * (presentation.duration / 60.0);
   }
 
   getReadingWorkloadDefault(reading) {
-    return reading.amount / reading.difficulty;
+    return reading.amount / 4.0;
   }
 
   getTestWorkloadDefault(test) {
-    return 4;
+    return (test.percentage / 10.0) * test.coverage * test.duration;
   }
 
   getExamWorkloadDefault(exam) {
-    return 6;
+    return (exam.percentage / 10.0) * exam.coverage * exam.duration;
   }
 
   getWorkloadParams(module, assessment) {
