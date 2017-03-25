@@ -104,7 +104,7 @@ const INITIAL_STATE = {
   widgets: [
     {
       type: 1,
-      display: false
+      display: true
     },
     {
       type: 2,
@@ -112,7 +112,7 @@ const INITIAL_STATE = {
     },
     {
       type: 3,
-      display: true
+      display: false
     },
     {
       type: 4,
