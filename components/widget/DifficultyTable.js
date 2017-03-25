@@ -218,11 +218,10 @@ class DifficultyTable extends Component {
 
   render() {
     const { widget, modules } = this.props;
-    const { height, width } = widget;
     const { difficulty } = this.state;
 
     return (
-      <Table fixedHeader={true} selectable={false} style={{width: "100%", height: height}}>
+      <Table fixedHeader={true} selectable={false}>
         <TableHeader>
           <TableRow>
             <TableHeaderColumn>No</TableHeaderColumn>
