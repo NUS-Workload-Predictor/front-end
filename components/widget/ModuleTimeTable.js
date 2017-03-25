@@ -16,13 +16,13 @@ class ModuleTimeTable extends Component {
         <TableHeader>
           <TableRow>
             <TableHeaderColumn className="module-cell">Module</TableHeaderColumn>
-            <TableHeaderColumn>Week 1</TableHeaderColumn>
+            <TableHeaderColumn>1</TableHeaderColumn>
             <TableHeaderColumn>2</TableHeaderColumn>
             <TableHeaderColumn>3</TableHeaderColumn>
             <TableHeaderColumn>4</TableHeaderColumn>
             <TableHeaderColumn>5</TableHeaderColumn>
             <TableHeaderColumn>6</TableHeaderColumn>
-            <TableHeaderColumn>Recess</TableHeaderColumn>
+            <TableHeaderColumn className="no-padding">Recess</TableHeaderColumn>
             <TableHeaderColumn>7</TableHeaderColumn>
             <TableHeaderColumn>8</TableHeaderColumn>
             <TableHeaderColumn>9</TableHeaderColumn>
@@ -30,7 +30,7 @@ class ModuleTimeTable extends Component {
             <TableHeaderColumn>11</TableHeaderColumn>
             <TableHeaderColumn>12</TableHeaderColumn>
             <TableHeaderColumn>13</TableHeaderColumn>
-            <TableHeaderColumn>Reading</TableHeaderColumn>
+            <TableHeaderColumn className="no-padding">Reading</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody

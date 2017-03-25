@@ -35,7 +35,7 @@ class Widget extends Component {
 
         return (
           <div className="widget-container">
-            <TimeTable widget={widget} module={module} />
+            <TimeTable widget={widget} modules={modules} />
           </div>
         );
 
