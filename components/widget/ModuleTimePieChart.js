@@ -40,7 +40,7 @@ class ModuleTimePieChart extends Component {
     const { widget, modules } = this.props;
 
     return (
-      <Pie data={chartData} options={chartOptions} />
+      <Pie data={chartData} options={chartOptions} height="120" />
     );
   }
 }

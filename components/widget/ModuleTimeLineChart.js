@@ -3,6 +3,8 @@ import { Line } from 'react-chartjs';
 
 import { TRAINING_SERVER_URL } from '../../constants/constants';
 
+import '../../stylesheets/widget/ModuleTimeLineChart.scss';
+
 const workloadApi = TRAINING_SERVER_URL + '/workload/simple/';
 
 const chartData = {
@@ -244,7 +246,7 @@ class ModuleTimeLineChart extends Component {
     };
 
     return (
-      <Line data={newChartData} options={newChartOptions} />
+      <Line data={newChartData} options={newChartOptions} height="120" />
     );
   }
 }
