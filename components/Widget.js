@@ -6,8 +6,9 @@ import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import TimeTable from './widget/TimeTable';
 import ModuleTimeTable from './widget/ModuleTimeTable';
 import ModuleTimeLineChart from './widget/ModuleTimeLineChart';
+import ModuleTimePieChart from './widget/ModuleTimePieChart';
 import DifficultyTable from './widget/DifficultyTable';
-import { deleteWidget, WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
+import { deleteWidget, WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_MODULE_TIME_PIE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
 
 import '../stylesheets/Widget.scss';
 
@@ -48,19 +49,20 @@ class Widget extends Component {
       case WIDGET_MODULE_TIME_LINE_CHART:
         return (
           <div className="widget-container">
-            {/* <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
-              <ActionHighlightOff />
-            </FloatingActionButton> */}
             <ModuleTimeLineChart widget={widget} modules={modules} />
+          </div>
+        );
+
+      case WIDGET_MODULE_TIME_PIE_CHART:
+        return (
+          <div className="widget-container">
+            <ModuleTimePieChart widget={widget} modules={modules} />
           </div>
         );
 
       case WIDGET_DIFFICULTY_TABLE:
         return (
           <div className="widget-container">
-            {/* <FloatingActionButton mini={true} secondary={true} onTouchTap={this.handleClose}>
-              <ActionHighlightOff />
-            </FloatingActionButton> */}
             <DifficultyTable widget={widget} modules={modules} />
           </div>
         );

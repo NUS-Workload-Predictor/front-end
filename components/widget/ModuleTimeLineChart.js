@@ -231,9 +231,6 @@ class ModuleTimeLineChart extends Component {
 
   render() {
     const { widget, modules } = this.props;
-    const { width, height, moduleCode } = widget;
-
-    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
 
     // const newChartData = this.createDataArray(module);
     const newChartData = this.state.chartData;
@@ -241,12 +238,13 @@ class ModuleTimeLineChart extends Component {
       ...this.state.chartOptions,
       title: {
         display: this.state.chartOptions.title.display,
-        text: 'Working Time Line-Chart for ' + moduleCode
+        // text: 'Working Time Line-Chart for ' + moduleCode
+        text: 'Working Time Line-Chart for CS1010'
       }
     };
 
     return (
-      <Line data={newChartData} options={newChartOptions} width={width} height={height} />
+      <Line data={newChartData} options={newChartOptions} />
     );
   }
 }

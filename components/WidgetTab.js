@@ -3,8 +3,9 @@ import ActionTimeline from 'material-ui/svg-icons/action/timeline';
 import AvAvTimer from 'material-ui/svg-icons/av/av-timer';
 import EditorFormatListNumbered from 'material-ui/svg-icons/editor/format-list-numbered';
 import ActionEvent from 'material-ui/svg-icons/action/event';
+import ActionDonutSmall from 'material-ui/svg-icons/action/donut-small';
 
-import { changeWidget, WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
+import { changeWidget, WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_MODULE_TIME_PIE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
 
 import '../stylesheets/WidgetTab.scss';
 
@@ -43,6 +44,13 @@ class WidgetTab extends Component {
         return (
           <div className={widget.display ? 'widget-tab-container-selected' : 'widget-tab-container'}>
             <ActionTimeline className={widget.display ? 'widget-tab-selected' : 'widget-tab'} onClick={() => this.handleChangeWidget(WIDGET_MODULE_TIME_LINE_CHART)} />
+          </div>
+        );
+
+      case WIDGET_MODULE_TIME_PIE_CHART:
+        return (
+          <div className={widget.display ? 'widget-tab-container-selected' : 'widget-tab-container'}>
+            <ActionDonutSmall className={widget.display ? 'widget-tab-selected' : 'widget-tab'} onClick={() => this.handleChangeWidget(WIDGET_MODULE_TIME_PIE_CHART)} />
           </div>
         );
 
