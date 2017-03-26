@@ -53,7 +53,7 @@ class ModuleTimePieChart extends Component {
     return (
       <div>
         <SelectField
-          floatingLabelText="Frequency"
+          floatingLabelText="Selected Module"
           value={this.state.display}
           onChange={this.handleChange}
         >

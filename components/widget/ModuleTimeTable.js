@@ -24,7 +24,7 @@ class ModuleTimeTable extends Component {
     return (
       <div>
         <SelectField
-          floatingLabelText="Frequency"
+          floatingLabelText="Selected Model"
           value={this.state.display}
           onChange={this.handleChange}
         >
