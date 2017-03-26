@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Line } from 'react-chartjs';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 
 import { TRAINING_SERVER_URL } from '../../constants/constants';
 
@@ -34,7 +37,9 @@ class ModuleTimeLineChart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { chartData: chartData, chartOptions: chartOptions };
+    this.state = { chartData: chartData, chartOptions: chartOptions, display: this.props.modules.length + 1 };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   getAssignmentWorkloadDefault(assignment) {
@@ -231,6 +236,10 @@ class ModuleTimeLineChart extends Component {
     this.createDataArray(module);
   }
 
+  handleChange(event, index, value) {
+    this.setState({ display: value });
+  }
+
   render() {
     const { widget, modules } = this.props;
 
@@ -246,7 +255,26 @@ class ModuleTimeLineChart extends Component {
     };
 
     return (
-      <Line data={newChartData} options={newChartOptions} height="120" />
+      <div>
+        <SelectField
+          floatingLabelText="Frequency"
+          value={this.state.display}
+          onChange={this.handleChange}
+        >
+          <MenuItem primaryText="Simple" disabled={true} />
+          <MenuItem value={modules.length + 1} primaryText="All" />
+          {modules.map((module, i) => (
+            <MenuItem key={i + 1} value={i + 1} primaryText={module.code} />
+          ))}
+          <Divider />
+          <MenuItem primaryText="Complex" disabled={true} />
+          <MenuItem value={-(modules.length + 1)} primaryText="All" />
+          {modules.map((module, i) => (
+            <MenuItem key={-(i + 1)} value={-(i + 1)} primaryText={module.code} />
+          ))}
+        </SelectField>
+        <Line data={newChartData} options={newChartOptions} height="120" />
+      </div>
     );
   }
 }
