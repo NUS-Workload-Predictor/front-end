@@ -50,29 +50,6 @@ const chartData = {
   }]
 };
 
-// const chartData = {
-//   labels: [
-//       "Red",
-//       "Blue",
-//       "Yellow"
-//     ],
-//     datasets: [
-//       {
-//         data: [300, 50, 100],
-//         backgroundColor: [
-//           "#FF6384",
-//           "#36A2EB",
-//           "#FFCE56"
-//         ],
-//         hoverBackgroundColor: [
-//           "#FF6384",
-//           "#36A2EB",
-//           "#FFCE56"
-//         ]
-//       }
-//     ]
-// };
-
 const chartOptions = {
   title: {
     display: true,
@@ -334,7 +311,7 @@ class ModuleTimePieChart extends Component {
         data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
         data[i] = data[i].toFixed(2);
       }
-      console.log(data);
+
       // check if changes made
       let isChanged = false;
       for (let i = 0; i < data.length; i++) {
