@@ -74,21 +74,22 @@ class ModuleTimeLineChart extends Component {
   }
 
   createDataArray(module) {
-    let data = [];
+    let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+    let base = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
     // Base time
     for (let i = 0; i < 15; i++) {
-      let hours = module.lecture + module.preparation;
+      base[i] += module.lecture + module.preparation;
 
       if (i > 1 && i < 14 && i !== 6) {
-        hours += module.tutorial + module.lab + module.project;
+        base[i] += module.tutorial + module.lab + module.project;
       }
-
-      data.push(hours);
     }
 
     // Assignment
     let assignmentPromise = this.getWorkloadParams(module.code, 'assignment').then(function(coefficients) {
+      let assignmentHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+
       for (let i = 0; i < module.assignments.length; i++) {
         let assignment = module.assignments[i];
         let temp = 0.0;
@@ -104,13 +105,17 @@ class ModuleTimeLineChart extends Component {
         }
 
         for (let j = assignment.releasedWeek - 1; j <= assignment.dueWeek; j++) {
-          data[j] += temp;
+          assignmentHours[j] += temp;
         }
       }
+
+      return assignmentHours;
     }.bind(this));
 
     // Presentation
     let presentationPromise = this.getWorkloadParams(module.code, 'presentation').then(function(coefficients) {
+      let presentationHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+
       for (let i = 0; i < module.presentations.length; i++) {
         let presentation = module.presentations[i];
         let temp = 0;
@@ -127,13 +132,17 @@ class ModuleTimeLineChart extends Component {
         }
 
         for (let j = presentation.releasedWeek - 1; j <= presentation.dueWeek; j++) {
-          data[j] += temp;
+          presentationHours[j] += temp;
         }
       }
+
+      return presentationHours;
     }.bind(this));
 
     // Project
     let projectPromise = this.getWorkloadParams(module.code, 'project').then(function(coefficients) {
+      let projectHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+
       for (let i = 0; i < module.projects.length; i++) {
         let project = module.projects[i];
         let temp = 0;
@@ -149,13 +158,17 @@ class ModuleTimeLineChart extends Component {
         }
 
         for (let j = project.releasedWeek - 1; j <= project.dueWeek; j++) {
-          data[j] += temp;
+          projectHours[j] += temp;
         }
       }
+
+      return projectHours;
     }.bind(this));
 
     // Reading
     let readingPromise = this.getWorkloadParams(module.code, 'reading').then(function(coefficients) {
+      let readingHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+
       for (let i = 0; i < module.readings.length; i++) {
         let reading = module.readings[i];
         let temp = 0;
@@ -168,12 +181,16 @@ class ModuleTimeLineChart extends Component {
             + coefficients.intercept;
         }
 
-        data[reading.week < 6 ? reading.week - 1 : reading.week] += temp;
+        readingHours[reading.week < 6 ? reading.week - 1 : reading.week] += temp;
       }
+
+      return readingHours;
     }.bind(this));
 
     // Test
     let testPromise = this.getWorkloadParams(module.code, 'test').then(function(coefficients) {
+      let testHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+
       for (let i = 0; i < module.tests.length; i++) {
         let test = module.tests[i];
         let temp = 0;
@@ -187,12 +204,16 @@ class ModuleTimeLineChart extends Component {
             + coefficients.intercept;
         }
 
-        data[6] += temp;
+        testHours[6] += temp;
       }
+
+      return testHours;
     }.bind(this));
 
     // Exam
     let examPromise = this.getWorkloadParams(module.code, 'exam').then(function(coefficients) {
+      let examHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+
       for (let i = 0; i < module.exams.length; i++) {
         let exam = module.exams[i];
         let temp = 0;
@@ -206,25 +227,17 @@ class ModuleTimeLineChart extends Component {
             + coefficients.intercept;
         }
 
-        data[14] += temp;
+        examHours[14] += temp;
       }
+
+      return examHours;
     }.bind(this));
 
-    return Promise.all([assignmentPromise, presentationPromise, projectPromise, readingPromise, testPromise, examPromise]).then(function() {
+    return Promise.all([assignmentPromise, presentationPromise, projectPromise, readingPromise, testPromise, examPromise]).then(function(result) {
       for (let i = 0; i < data.length; i++) {
-        data[i] = data[i].toFixed(2);
+        data[i] += result.reduce((sum, array) => (sum + array[i]), 0) + base[i];
       }
-
-      this.setState({
-        chartData: {
-          labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
-          datasets: [{
-            label: 'Working Time',
-            data: data,
-            borderWidth: 1
-          }]
-        }
-      });
+      return data;
     }.bind(this));
   }
 
@@ -233,7 +246,71 @@ class ModuleTimeLineChart extends Component {
     const { moduleCode } = widget;
 
     const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
-    this.createDataArray(module);
+
+    let promiseList = modules.map((module) => (
+      this.createDataArray(module)
+    ));
+
+    let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+    Promise.all(promiseList).then((result) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
+        data[i] = data[i].toFixed(2);
+      }
+
+      this.setState({
+        chartData: {
+          ...this.state.chartData,
+          datasets: [{
+            label: 'Working Time',
+            data: data,
+            borderWidth: 1
+          }]
+        },
+        display: modules.length + 1
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    const { widget, modules } = this.props;
+    const { moduleCode } = widget;
+
+    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
+
+    let promiseList = modules.map((module) => (
+      this.createDataArray(module)
+    ));
+
+    let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0.0);
+    Promise.all(promiseList).then((result) => {
+      for (let i = 0; i < data.length; i++) {
+        data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
+        data[i] = data[i].toFixed(2);
+      }
+      // check if changes made
+      let isChanged = false;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i] !== this.state.chartData.datasets[0].data[i]) {
+          isChanged = true;
+          break;
+        }
+      }
+
+      if (isChanged) {
+        this.setState({
+          chartData: {
+            ...this.state.chartData,
+            datasets: [{
+              label: 'Working Time',
+              data: data,
+              borderWidth: 1
+            }]
+          },
+          display: modules.length + 1
+        });
+      }
+    });
   }
 
   handleChange(event, index, value) {
