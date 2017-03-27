@@ -272,7 +272,7 @@ class ModuleTimeLineChart extends Component {
     });
   }
 
-  componentDidUpdate() {
+  componentWillUpdate() {
     const { widget, modules } = this.props;
     const { moduleCode } = widget;
 
