@@ -1,12 +1,12 @@
-AppBar {
-  position: fixed;
+.header {
+  background-color: #607D8B !important;
   height: 60px;
 
-  IconMenu {
+  .icon-menu {
     color: #FAFAFA;
   }
 
-  FlatButton {
+  .flat-button {
     color: #FAFAFA;
   }
 }

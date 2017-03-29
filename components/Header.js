@@ -364,11 +364,13 @@ class Header extends Component {
     return (
       <div>
         <AppBar
+          className="header"
           title="NUSWorks"
           onLeftIconButtonTouchTap={this.handleToggle}
           iconElementRight={<IconButton><NavigationExpandMore /></IconButton>}
           iconElementRight={this.state.logged
             ? <IconMenu
+                className="icon-menu"
                 iconButtonElement={
                   <IconButton>
                     <MoreHorizIcon />
@@ -380,7 +382,7 @@ class Header extends Component {
                 <MenuItem onTouchTap={this.handleFeedback} primaryText="Feedback" />
                 <MenuItem onTouchTap={this.handleLogout} primaryText="Logout" />
               </IconMenu>
-            : <FlatButton onTouchTap={this.handleLogin} style={{color: grey50}} label="Login" />
+            : <FlatButton className="flat-button" onTouchTap={this.handleLogin} label="Login" />
           }
         />
         <Drawer docked={false} width={350} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
