@@ -1,11 +1,13 @@
 Table {
-  th.no-padding {
+  th, td {
     padding-left: 0 !important;
     padding-right: 0 !important;
+    text-align: center !important;
+    text-overflow: clip !important;
   }
 
-  th, td {
-    text-align: center !important;
+  th:first-child, td:first-child {
+    display: none;
   }
 
   .module-cell {

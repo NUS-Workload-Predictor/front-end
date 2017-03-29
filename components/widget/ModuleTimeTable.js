@@ -294,7 +294,7 @@ class ModuleTimeTable extends Component {
               <TableHeaderColumn>4</TableHeaderColumn>
               <TableHeaderColumn>5</TableHeaderColumn>
               <TableHeaderColumn>6</TableHeaderColumn>
-              <TableHeaderColumn className="no-padding">Recess</TableHeaderColumn>
+              <TableHeaderColumn>Recess</TableHeaderColumn>
               <TableHeaderColumn>7</TableHeaderColumn>
               <TableHeaderColumn>8</TableHeaderColumn>
               <TableHeaderColumn>9</TableHeaderColumn>
@@ -302,7 +302,7 @@ class ModuleTimeTable extends Component {
               <TableHeaderColumn>11</TableHeaderColumn>
               <TableHeaderColumn>12</TableHeaderColumn>
               <TableHeaderColumn>13</TableHeaderColumn>
-              <TableHeaderColumn className="no-padding">Reading</TableHeaderColumn>
+              <TableHeaderColumn>Reading</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
