@@ -35,7 +35,7 @@ class Header extends Component {
 
     // for test purpose
     // should be removed after test
-    console.log(token);
+    // console.log(token);
 
     if (token) {
       this.state = { ...this.state, logged: true };
@@ -199,7 +199,7 @@ class Header extends Component {
 
           fetch(url, config).then((response) => {
             return response.json();
-          }).then((json) => {console.log(json)});
+          });
         }
       });
 
@@ -229,7 +229,7 @@ class Header extends Component {
 
           fetch(url, config).then((response) => {
             return response.json();
-          }).then((json) => {console.log(json)});
+          });
         }
       });
 
@@ -260,7 +260,7 @@ class Header extends Component {
 
           fetch(url, config).then((response) => {
             return response.json();
-          }).then((json) => {console.log(json)});
+          });
         }
       });
 
@@ -288,7 +288,7 @@ class Header extends Component {
 
           fetch(url, config).then((response) => {
             return response.json();
-          }).then((json) => {console.log(json)});
+          });
         }
       });
 
@@ -317,7 +317,7 @@ class Header extends Component {
 
           fetch(url, config).then((response) => {
             return response.json();
-          }).then((json) => {console.log(json)});
+          });
         }
       });
 
@@ -346,7 +346,7 @@ class Header extends Component {
 
           fetch(url, config).then((response) => {
             return response.json();
-          }).then((json) => {console.log(json)});
+          });
         }
       });
     });
