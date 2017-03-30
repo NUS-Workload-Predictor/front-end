@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './index.js',
@@ -27,7 +28,7 @@ module.exports = {
       historyApiFallback: true,
     },
     resolve: {
-      extensions: ['', '.js', '.jsx'],
+      extensions: ['.js', '.jsx'],
     },
     externals: {
       'cheerio': 'window',

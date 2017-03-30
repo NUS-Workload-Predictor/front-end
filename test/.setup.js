@@ -1,4 +1,6 @@
 require('babel-register')();
+require('isomorphic-fetch');
+require('ignore-styles');
 
 var jsdom = require('jsdom').jsdom;
 
