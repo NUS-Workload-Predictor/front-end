@@ -23,8 +23,7 @@ function setup() {
   const props = {
     modules: [],
     moduleList: [],
-    dispatch: () => {},
-    store: store
+    dispatch: () => {}
   };
 
   const shallowWrapper = shallow(<Header {...props} />);
