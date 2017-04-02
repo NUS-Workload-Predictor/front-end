@@ -13,7 +13,7 @@ const workloadApi = TRAINING_SERVER_URL + '/workload/simple/';
 const chartData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
   datasets: [{
-    label: 'Working Time',
+    label: 'Weekly Working Time',
     data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     borderWidth: 1
   }]
@@ -22,7 +22,7 @@ const chartData = {
 const chartOptions = {
   title: {
     display: true,
-    text: 'Working Time Line-Chart for CS1010'
+    text: ''
   },
   scales: {
     yAxes: [{
@@ -37,7 +37,7 @@ class ModuleTimeLineChart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { chartData: chartData, chartOptions: chartOptions, display: this.props.modules.length + 1 };
+    this.state = { chartData: chartData, chartOptions: chartOptions, display: this.props.modules.length + 1, data: {} };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -237,15 +237,16 @@ class ModuleTimeLineChart extends Component {
       for (let i = 0; i < data.length; i++) {
         data[i] += result.reduce((sum, array) => (sum + array[i]), 0) + base[i];
       }
-      return data;
+
+      let workingTime = {};
+      workingTime[module.code] = data;
+
+      return workingTime;
     }.bind(this));
   }
 
   componentDidMount() {
-    const { widget, modules } = this.props;
-    const { moduleCode } = widget;
-
-    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
+    const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
       this.createDataArray(module)
@@ -253,30 +254,33 @@ class ModuleTimeLineChart extends Component {
 
     let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
     Promise.all(promiseList).then((result) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
-        data[i] = data[i].toFixed(2);
-      }
+      let workingTime = result.reduce((sum, obj) => (Object.assign(sum, obj)), {});
+
+      Object.keys(workingTime).forEach((m, i) => {
+        for (let i = 0; i < data.length; i++) {
+          data[i] += workingTime[m][i];
+        }
+      });
+
+      workingTime.total = data;
 
       this.setState({
         chartData: {
           ...this.state.chartData,
           datasets: [{
-            label: 'Working Time',
-            data: data,
+            label: 'Weekly Working Time',
+            data: workingTime.total,
             borderWidth: 1
           }]
         },
-        display: modules.length + 1
+        display: modules.length + 1,
+        data: workingTime
       });
     });
   }
 
   componentWillUpdate() {
-    const { widget, modules } = this.props;
-    const { moduleCode } = widget;
-
-    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
+    const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
       this.createDataArray(module)
@@ -284,10 +288,15 @@ class ModuleTimeLineChart extends Component {
 
     let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0.0);
     Promise.all(promiseList).then((result) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
-        data[i] = data[i].toFixed(2);
-      }
+      let workingTime = result.reduce((sum, obj) => (Object.assign(sum, obj)), {});
+
+      Object.keys(workingTime).forEach((m, i) => {
+        for (let i = 0; i < data.length; i++) {
+          data[i] += workingTime[m][i];
+        }
+      });
+
+      workingTime.total = data;
       // check if changes made
       let isChanged = false;
       for (let i = 0; i < data.length; i++) {
@@ -302,32 +311,51 @@ class ModuleTimeLineChart extends Component {
           chartData: {
             ...this.state.chartData,
             datasets: [{
-              label: 'Working Time',
-              data: data,
+              label: 'Weekly Working Time',
+              data: workingTime.total,
               borderWidth: 1
             }]
           },
-          display: modules.length + 1
+          chartOptions: {
+            ...this.state.chartOptions,
+            title: {
+              display: true,
+              text: ''
+            }
+          },
+          display: modules.length + 1,
+          data: workingTime
         });
       }
     });
   }
 
   handleChange(event, index, value) {
-    this.setState({ display: value });
+    const { modules } = this.props;
+
+    this.setState({
+      display: value
+    });
   }
 
   render() {
-    const { widget, modules } = this.props;
+    const { modules } = this.props;
 
-    // const newChartData = this.createDataArray(module);
-    const newChartData = this.state.chartData;
+    const newChartData = {
+      ...this.state.chartData,
+      datasets: [{
+        ...this.state.chartData.datasets[0],
+        data: this.state.data
+          ? this.state.data[(modules.length + 1 <= Math.abs(this.state.display) ? 'total' : modules[Math.abs(this.state.display) - 1].code)]
+          : this.state.chartData.datasets[0].data
+      }]
+    };
+
     const newChartOptions = {
       ...this.state.chartOptions,
       title: {
         display: this.state.chartOptions.title.display,
-        // text: 'Working Time Line-Chart for ' + moduleCode
-        text: 'Working Time Line-Chart for CS1010'
+        text: 'Weekly Working Time Line-Chart for ' + (modules.length + 1 <= Math.abs(this.state.display) ? 'All' : modules[Math.abs(this.state.display) - 1].code)
       }
     };
 
@@ -350,7 +378,7 @@ class ModuleTimeLineChart extends Component {
             <MenuItem key={-(i + 1)} value={-(i + 1)} primaryText={module.code} />
           ))}
         </SelectField>
-        <Line data={newChartData} options={newChartOptions} height="120" />
+        <Line data={newChartData} options={newChartOptions} height="120" redraw />
       </div>
     );
   }
