@@ -7,7 +7,8 @@ import { TRAINING_SERVER_URL } from '../../constants/constants';
 
 import '../../stylesheets/widget/ModuleTimeTable.scss';
 
-const workloadApi = TRAINING_SERVER_URL + '/workload/simple/';
+const workloadSimpleApi = TRAINING_SERVER_URL + '/workload/simple/';
+const workloadComplexApi = TRAINING_SERVER_URL + '/workload/complex/';
 
 class ModuleTimeTable extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class ModuleTimeTable extends Component {
   }
 
   getWorkloadParams(module, assessment) {
-    let url = workloadApi + assessment + '/' + module;
+    let url = this.state.display > 0 ? workloadSimpleApi + assessment + '/' + module : workloadComplexApi + assessment + '/' + module;
     return fetch(url).then(function(response) {
       return response.json();
     });
