@@ -283,7 +283,7 @@ class ModuleTimeTable extends Component {
           onChange={this.handleChange}
         >
           <MenuItem primaryText="Simple" value={1} />
-          <MenuItem primaryText="Complex" value={2} />
+          <MenuItem primaryText="Complex" value={-1} />
         </SelectField>
         <Table fixedHeader={true} selectable={false}>
           <TableHeader>
