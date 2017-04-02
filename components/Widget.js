@@ -8,7 +8,16 @@ import ModuleTimeTable from './widget/ModuleTimeTable';
 import ModuleTimeLineChart from './widget/ModuleTimeLineChart';
 import ModuleTimePieChart from './widget/ModuleTimePieChart';
 import DifficultyTable from './widget/DifficultyTable';
-import { deleteWidget, WIDGET_TIME_TABLE, WIDGET_MODULE_TIME_TABLE, WIDGET_MODULE_TIME_LINE_CHART, WIDGET_MODULE_TIME_PIE_CHART, WIDGET_DIFFICULTY_TABLE } from '../actions/widget.js';
+import ModuleTimeBarChart from './widget/ModuleTimeBarChart';
+import {
+  deleteWidget,
+  WIDGET_TIME_TABLE,
+  WIDGET_MODULE_TIME_TABLE,
+  WIDGET_MODULE_TIME_LINE_CHART,
+  WIDGET_MODULE_TIME_PIE_CHART,
+  WIDGET_DIFFICULTY_TABLE,
+  WIDGET_MODULE_TIME_BAR_CHART
+} from '../actions/widget.js';
 
 import '../stylesheets/Widget.scss';
 
@@ -31,8 +40,6 @@ class Widget extends Component {
 
     switch(widget.type) {
       case WIDGET_TIME_TABLE:
-        // const module = modules.reduce((x, y) => x.moduleCode === widget.moduleCode ? x : y);
-
         return (
           <div className="widget-container">
             <TimeTable widget={widget} modules={modules} />
@@ -64,6 +71,13 @@ class Widget extends Component {
         return (
           <div className="widget-container">
             <DifficultyTable widget={widget} modules={modules} />
+          </div>
+        );
+
+      case WIDGET_MODULE_TIME_BAR_CHART:
+        return (
+          <div className="widget-container">
+            <ModuleTimeBarChart widget={widget} modules={modules} />
           </div>
         );
 

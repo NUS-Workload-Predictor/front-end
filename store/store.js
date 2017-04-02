@@ -115,6 +115,10 @@ const INITIAL_STATE = {
       display: false
     },
     {
+      type: 6,
+      display: false
+    },
+    {
       type: 4,
       display: false
     },
