@@ -3,21 +3,20 @@ import { FloatingActionButton, IconButton, Table, TableBody, TableHeader, TableH
 
 import { TRAINING_SERVER_URL } from '../../constants/constants';
 
-const difficultyApi = TRAINING_SERVER_URL + '/workload/simple/difficulty/';
+const simpleDifficultyApi = TRAINING_SERVER_URL + '/workload/simple/difficulty/';
+const complexDifficultyApi = TRAINING_SERVER_URL + '/workload/complex/difficulty/';
 
 class DifficultyTable extends Component {
   constructor(props) {
     super(props);
 
-    let difficulty = [];
-    for (let i = 0; i < props.modules.length; i++) {
-      difficulty.push(0.0);
-    }
-    this.state = { difficulty: difficulty };
+    let simpleDifficulty = Array.apply(null, Array(props.modules.length)).map(Number.prototype.valueOf, 0.0);
+    let complexDifficulty = Array.apply(null, Array(props.modules.length)).map(Number.prototype.valueOf, 0.0);
+    this.state = { simpleDifficulty: simpleDifficulty, complexDifficulty: complexDifficulty };
   }
 
-  getDifficultyParams(module) {
-    let url = difficultyApi + module;
+  getDifficultyParams(module, type) {
+    let url = type === 'simple' ? simpleDifficultyApi + module : complexDifficultyApi + module;
     return fetch(url).then(function(response) {
       return response.json();
     });
@@ -31,10 +30,32 @@ class DifficultyTable extends Component {
     }
   }
 
-  getDifficulty(module, index) {
+  getSimpleDifficulty(module, index) {
     let difficulty = 0.0;
 
-    return this.getDifficultyParams(module.code).then((coefficients) => {
+    return this.getDifficultyParams(module.code, 'simple').then((coefficients) => {
+      if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
+        difficulty = this.getDifficultyDefault(module);
+      } else {
+        difficulty = module.level * coefficients.level
+          + module.mc * coefficients.mc
+          + module.lecture * coefficients.lecture
+          + module.tutorial * coefficients.tutorial
+          + module.lab * coefficients.lab
+          + module.project * coefficients.project
+          + module.preparation * coefficients.preparation
+          + coefficients.intercept;
+      }
+
+      difficulty = difficulty.toFixed(2);
+      return difficulty;
+    });
+  }
+
+  getComplexDifficulty(module, index) {
+    let difficulty = 0.0;
+
+    return this.getDifficultyParams(module.code, 'complex').then((coefficients) => {
       if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
         difficulty = this.getDifficultyDefault(module);
       } else {
@@ -55,41 +76,65 @@ class DifficultyTable extends Component {
 
   componentDidMount() {
     const { modules } = this.props;
-    let difficultyList = [];
+    let simpleDifficultyList = [];
+    let complexDifficultyList = [];
 
-    modules.reduce((promise, module, index) => {
+    let simple = modules.reduce((promise, module, index) => {
       return promise.then(() => {
-        return this.getDifficulty(module, index).then((difficulty) => {
-          difficultyList[index] = difficulty;
+        return this.getSimpleDifficulty(module, index).then((difficulty) => {
+          simpleDifficultyList[index] = difficulty;
         });
       });
-    }, Promise.resolve()).then(
-      () => {
-        this.setState({ difficulty: difficultyList });
-      }
-    );
+    }, Promise.resolve());
+
+    let complex = modules.reduce((promise, module, index) => {
+      return promise.then(() => {
+        return this.getComplexDifficulty(module, index).then((difficulty) => {
+          complexDifficultyList[index] = difficulty;
+        });
+      });
+    }, Promise.resolve());
+
+    Promise.all([simple, complex]).then(() => {
+      this.setState({
+        simpleDifficulty: simpleDifficultyList,
+        complexDifficulty: complexDifficultyList
+      });
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     const { modules } = nextProps;
-    let difficultyList = [];
+    let simpleDifficultyList = [];
+    let complexDifficultyList = [];
 
-    modules.reduce((promise, module, index) => {
+    let simple = modules.reduce((promise, module, index) => {
       return promise.then(() => {
-        return this.getDifficulty(module, index).then((difficulty) => {
-          difficultyList[index] = difficulty;
+        return this.getSimpleDifficulty(module, index).then((difficulty) => {
+          simpleDifficultyList[index] = difficulty;
         });
       });
-    }, Promise.resolve()).then(
-      () => {
-        this.setState({ difficulty: difficultyList });
-      }
-    );
+    }, Promise.resolve());
+
+    let complex = modules.reduce((promise, module, index) => {
+      return promise.then(() => {
+        return this.getComplexDifficulty(module, index).then((difficulty) => {
+          complexDifficultyList[index] = difficulty;
+        });
+      });
+    }, Promise.resolve());
+
+    Promise.all(simple, complex).then(() => {
+      this.setState({
+        simpleDifficulty: simpleDifficultyList,
+        complexDifficulty: complexDifficultyList
+      });
+    });
   }
 
   render() {
     const { widget, modules } = this.props;
-    const { difficulty } = this.state;
+    const { simpleDifficulty, complexDifficulty } = this.state;
 
     return (
       <Table fixedHeader={true} selectable={false}>
@@ -111,10 +156,10 @@ class DifficultyTable extends Component {
             <TableRow key={i}>
               <TableRowColumn>{i + 1}</TableRowColumn>
               <TableRowColumn>{module.code}</TableRowColumn>
-              <TableRowColumn>{difficulty[i]}</TableRowColumn>
-              <TableRowColumn>{difficulty[i]}</TableRowColumn>
-              <TableRowColumn>{difficulty[i]}</TableRowColumn>
-              <TableRowColumn>{difficulty[i]}</TableRowColumn>
+              <TableRowColumn>{simpleDifficulty[i]}</TableRowColumn>
+              <TableRowColumn>{complexDifficulty[i]}</TableRowColumn>
+              <TableRowColumn>{simpleDifficulty[i]}</TableRowColumn>
+              <TableRowColumn>{complexDifficulty[i]}</TableRowColumn>
             </TableRow>
           )}
         </TableBody>
