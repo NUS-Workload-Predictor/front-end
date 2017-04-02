@@ -8,7 +8,8 @@ import { TRAINING_SERVER_URL } from '../../constants/constants';
 
 import '../../stylesheets/widget/ModuleTimeLineChart.scss';
 
-const workloadApi = TRAINING_SERVER_URL + '/workload/simple/';
+const workloadSimpleApi = TRAINING_SERVER_URL + '/workload/simple/';
+const workloadComplexApi = TRAINING_SERVER_URL + '/workload/complex/';
 
 const chartData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
@@ -67,7 +68,7 @@ class ModuleTimeLineChart extends Component {
   }
 
   getWorkloadParams(module, assessment) {
-    let url = workloadApi + assessment + '/' + module;
+    let url = this.state.display > 0 ? workloadSimpleApi + assessment + '/' + module : workloadComplexApi + assessment + '/' + module;
     return fetch(url).then(function(response) {
       return response.json();
     });
