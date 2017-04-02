@@ -6,13 +6,14 @@ import Divider from 'material-ui/Divider';
 
 import { TRAINING_SERVER_URL } from '../../constants/constants';
 
-const workloadApi = TRAINING_SERVER_URL + '/workload/simple/';
+const workloadSimpleApi = TRAINING_SERVER_URL + '/workload/simple/';
+const workloadComplexApi = TRAINING_SERVER_URL + '/workload/complex/';
 
-const chartData = {
-  labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Recess Week", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Reading Week"],
+const chartModuleData = {
+  labels: ["Base", "Assignment", "Presentation", "Project", "Reading", "Test", "Exam"],
   datasets: [{
     label: 'Working Time',
-    data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
     backgroundColor: [
       "#23b4de",
       "#810439",
@@ -21,14 +22,14 @@ const chartData = {
       "#2eb567",
       "#a4f4ec",
       "#b751a9",
-      "#8716df",
-      "#378fd3",
-      "#568cc2",
-      "#fda99e",
-      "#41e2b1",
-      "#ff6384",
-      "#36a2eb",
-      "#ffce56"
+      // "#8716df",
+      // "#378fd3",
+      // "#568cc2",
+      // "#fda99e",
+      // "#41e2b1",
+      // "#ff6384",
+      // "#36a2eb",
+      // "#ffce56"
     ],
     hoverBackgroundColor: [
       "#13a4ce",
@@ -38,14 +39,14 @@ const chartData = {
       "#1ea557",
       "#94e4dc",
       "#a74199",
-      "#7706cf",
-      "#277fc3",
-      "#467cb2",
-      "#ed998e",
-      "#31d2a1",
-      "#ef5374",
-      "#2692db",
-      "#efbe46"
+      // "#7706cf",
+      // "#277fc3",
+      // "#467cb2",
+      // "#ed998e",
+      // "#31d2a1",
+      // "#ef5374",
+      // "#2692db",
+      // "#efbe46"
     ]
   }]
 };
@@ -57,11 +58,47 @@ const chartOptions = {
   }
 };
 
+const colors = [
+  "#23b4de",
+  "#810439",
+  "#bd0950",
+  "#972b9e",
+  "#2eb567",
+  "#a4f4ec",
+  "#b751a9",
+  "#8716df",
+  "#378fd3",
+  "#568cc2",
+  "#fda99e",
+  "#41e2b1",
+  "#ff6384",
+  "#36a2eb",
+  "#ffce56"
+];
+
+const hoverColors = [
+  "#13a4ce",
+  "#710029",
+  "#ad0040",
+  "#871b8e",
+  "#1ea557",
+  "#94e4dc",
+  "#a74199",
+  "#7706cf",
+  "#277fc3",
+  "#467cb2",
+  "#ed998e",
+  "#31d2a1",
+  "#ef5374",
+  "#2692db",
+  "#efbe46"
+];
+
 class ModuleTimePieChart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { chartData: chartData, chartOptions: chartOptions, display: this.props.modules.length + 1 };
+    this.state = { chartData: {}, chartOptions: chartOptions, display: this.props.modules.length + 1, data: {} };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -91,7 +128,7 @@ class ModuleTimePieChart extends Component {
   }
 
   getWorkloadParams(module, assessment) {
-    let url = workloadApi + assessment + '/' + module;
+    let url = this.state.display > 0 ? workloadSimpleApi + assessment + '/' + module : workloadComplexApi + assessment + '/' + module;
     return fetch(url).then(function(response) {
       return response.json();
     });
@@ -258,80 +295,131 @@ class ModuleTimePieChart extends Component {
     }.bind(this));
 
     return Promise.all([assignmentPromise, presentationPromise, projectPromise, readingPromise, testPromise, examPromise]).then(function(result) {
+      let workingTime = {};
+      workingTime[module.code] = {};
+
       for (let i = 0; i < data.length; i++) {
         data[i] += result.reduce((sum, array) => (sum + array[i]), 0) + base[i];
       }
-      return data;
+
+      workingTime[module.code].assignment = result[0];
+      workingTime[module.code].presentation = result[1];
+      workingTime[module.code].project = result[2];
+      workingTime[module.code].reading = result[3];
+      workingTime[module.code].test = result[4];
+      workingTime[module.code].exam = result[5];
+
+      workingTime[module.code].total = data;
+      workingTime[module.code].base = base;
+
+      return workingTime;
     }.bind(this));
   }
 
   componentDidMount() {
-    const { widget, modules } = this.props;
-    const { moduleCode } = widget;
-
-    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
+    const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
       this.createDataArray(module)
     ));
 
-    let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+    let data = [];
     Promise.all(promiseList).then((result) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
-        data[i] = data[i].toFixed(2);
-      }
+      let workingTime = result.reduce((sum, obj) => (Object.assign(sum, obj)), {});
+
+      Object.keys(workingTime).forEach((m, i) => {
+        data.push(workingTime[m].total.reduce((sum, value) => (sum + value), 0.0));
+      });
 
       this.setState({
         chartData: {
-          ...this.state.chartData,
+          labels: modules.map((m, i) => (m.code)),
           datasets: [{
-            ...this.state.chartData.datasets[0],
-            data: data
+            label: 'Working Time',
+            data: data,
+            backgroundColor: colors,
+            hoverBackgroundColor: hoverColors
           }]
         },
-        display: modules.length + 1
+        display: modules.length + 1,
+        data: workingTime
       });
     });
   }
 
   componentWillUpdate() {
-    const { widget, modules } = this.props;
-    const { moduleCode } = widget;
-
-    const module = modules.reduce((x, y) => x.code === moduleCode ? x : y);
+    const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
       this.createDataArray(module)
     ));
 
-    let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0.0);
+    let data = [];
     Promise.all(promiseList).then((result) => {
-      for (let i = 0; i < data.length; i++) {
-        data[i] += result.reduce((sum, array) => (sum + array[i]), 0);
-        data[i] = data[i].toFixed(2);
-      }
-
-      // check if changes made
-      let isChanged = false;
-      for (let i = 0; i < data.length; i++) {
-        if (data[i] !== this.state.chartData.datasets[0].data[i]) {
-          isChanged = true;
-          break;
-        }
-      }
-
-      if (isChanged) {
-        this.setState({
-          chartData: {
-            ...this.state.chartData,
-            datasets: [{
-              ...this.state.chartData.datasets[0],
-              data: data
-            }]
-          },
-          display: modules.length + 1
+      if (modules.length + 1 <= Math.abs(this.state.display)) {
+        let workingTime = result.reduce((sum, obj) => (Object.assign(sum, obj)), {});
+        Object.keys(workingTime).forEach((m, i) => {
+          data.push(workingTime[m].total.reduce((sum, value) => (sum + value), 0.0));
         });
+        let isChanged = false;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i] !== this.state.chartData.datasets[0].data[i]) {
+            isChanged = true;
+            break;
+          }
+        }
+
+        if (isChanged) {
+          this.setState({
+            chartData: {
+              labels: modules.map((m, i) => (m.code)),
+              datasets: [{
+                label: 'Working Time',
+                data: data,
+                backgroundColor: colors,
+                hoverBackgroundColor: hoverColors
+              }]
+            },
+            display: modules.length + 1,
+            data: workingTime
+          });
+        }
+      } else {
+        let workingTime = result.reduce((sum, obj) => (Object.assign(sum, obj)), {});
+        let module = modules[Math.abs(this.state.display) - 1].code;
+        let moduleData = result[Math.abs(this.state.display) - 1][module];
+
+        Object.keys(moduleData).forEach((a, i) => {
+          if (a !== 'total') {
+            data.push(moduleData[a].reduce((sum, value) => (sum + value), 0.0));
+          }
+        });
+
+        let keys = Object.keys(moduleData).filter((a) => (a !== 'total'));
+
+        let isChanged = false;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i] !== this.state.chartData.datasets[0].data[i]) {
+            isChanged = true;
+            break;
+          }
+        }
+
+        if (isChanged) {
+          this.setState({
+            chartData: {
+              labels: keys,
+              datasets: [{
+                label: 'Working Time',
+                data: data,
+                backgroundColor: colors,
+                hoverBackgroundColor: hoverColors
+              }]
+            },
+            display: this.state.display,
+            data: workingTime
+          });
+        }
       }
     });
   }
@@ -343,7 +431,7 @@ class ModuleTimePieChart extends Component {
   render() {
     const { widget, modules } = this.props;
 
-    const { chartData, chartOptions, display } = this.state;
+    const { chartData, chartOptions, display, data } = this.state;
 
     return (
       <div>
