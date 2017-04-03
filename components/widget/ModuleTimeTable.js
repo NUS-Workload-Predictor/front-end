@@ -285,7 +285,7 @@ class ModuleTimeTable extends Component {
           <MenuItem primaryText="Simple" value={1} />
           <MenuItem primaryText="Complex" value={-1} />
         </SelectField>
-        <Table fixedHeader={true} selectable={false}>
+        <Table className="module-time-table" fixedHeader={true} selectable={false}>
           <TableHeader>
             <TableRow>
               <TableHeaderColumn className="module-cell">Module</TableHeaderColumn>
