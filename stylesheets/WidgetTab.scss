@@ -6,6 +6,11 @@ div.widget-tab-container {
   margin-top: 10px;
   margin-bottom: 10px;
 
+  .tab-button {
+    width: 30px !important;
+    height: 35px !important;
+  }
+
   svg.widget-tab {
     color: #9D9D9D !important;
     margin: auto auto;
@@ -27,6 +32,11 @@ div.widget-tab-container-selected {
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 10px;
+
+  .tab-button {
+    width: 30px !important;
+    height: 35px !important;
+  }
 
   svg.widget-tab-selected {
     color: #FEFEFE !important;
