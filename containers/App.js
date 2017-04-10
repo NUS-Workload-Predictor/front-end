@@ -9,11 +9,11 @@ injectTapEventPlugin();
 
 class App extends Component {
   render() {
-    const { dispatch, modules, moduleList } = this.props;
+    const { dispatch, modules, moduleList, profile } = this.props;
 
     return (
       <div style={{height: '100%', overflowY: 'hidden'}}>
-        <Header dispatch={dispatch} moduleList={moduleList} modules={modules} />
+        <Header dispatch={dispatch} moduleList={moduleList} modules={modules} profile={profile} />
         <Dashboard dispatch={dispatch} modules={modules} />
       </div>
     );
@@ -22,7 +22,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   modules: state.modules,
-  moduleList: state.moduleList
+  moduleList: state.moduleList,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps)(App);

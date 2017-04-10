@@ -359,7 +359,7 @@ class Header extends Component {
   }
 
   render() {
-    const { modules } = this.props;
+    const { modules, profile } = this.props;
 
     return (
       <div>
@@ -405,37 +405,35 @@ class Header extends Component {
           autoScrollBodyContent={true}
         >
           <TextField
-            disabled={true}
             hintText="Name"
-            defaultValue="Wang Zhipeng"
+            defaultValue={profile.name}
             floatingLabelText="Name"
           />
           <br />
           <TextField
-            disabled={true}
             hintText="e.g. A0123456X"
-            defaultValue="A0119414L"
+            defaultValue={profile.matricNo}
             floatingLabelText="Matriculation No."
           />
           <br />
           <TextField
             hintText="e.g. 4.5"
             floatingLabelText="CAP"
-            defaultValue="4.21"
+            defaultValue={profile.cap}
             floatingLabelFixed={true}
           />
           <br />
           <TextField
             hintText="e.g. 4"
             floatingLabelText="Experienced Sems"
-            defaultValue="7"
+            defaultValue={profile.experiencedSem}
             floatingLabelFixed={true}
           />
           <br />
           <TextField
             hintText="e.g. 120"
             floatingLabelText="Experienced Credits"
-            defaultValue="153"
+            defaultValue={profile.experiencedMc}
             floatingLabelFixed={true}
           />
         </Dialog>

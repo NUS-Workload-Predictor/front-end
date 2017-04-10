@@ -127,7 +127,14 @@ const INITIAL_STATE = {
       display: false
     }
   ],
-  moduleList: []
+  moduleList: [],
+  profile: {
+    name: '',
+    matricNo: '',
+    cap: 0.0,
+    experiencedMc: 0.0,
+    experiencedSem: 0
+  }
 }
 
 const store = createStore(rootReducer, INITIAL_STATE);
