@@ -15,6 +15,7 @@ import fetchJsonp from 'fetch-jsonp';
 import ModuleListContainer from '../containers/ModuleListContainer';
 import { setModuleList } from '../actions/moduleList';
 import { addModule } from '../actions/module';
+import { addTimeTable } from '../actions/timeTable';
 
 import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER, TRAINING_SERVER_URL } from '../constants/constants';
 
@@ -35,7 +36,7 @@ class Header extends Component {
 
     // for test purpose
     // should be removed after test
-    // console.log(token);
+    console.log(token);
 
     if (token) {
       this.state = { ...this.state, logged: true };
@@ -69,11 +70,22 @@ class Header extends Component {
     fetchJsonp(url).then(function(response) {
       return response.json();
     }).then(function(json) {
-      json.Results.map((module) => self.addModule(module.CourseCode, dispatch));
+      self.getTimeTable(token).then((timetable) => {
+        json.Results.map((module) => self.addModule(timetable, module.CourseCode, dispatch));
+      });
     });
   }
 
-  addModule(moduleCode, dispatch) {
+  getTimeTable(token) {
+    let url = IVLE_API_BASE_URL + 'Timetable_Student?APIKey=' + IVLE_API_KEY + '&AuthToken=' + token + '&AcadYear=2016/2017&Semester=2&output=json';
+    return fetchJsonp(url).then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      return json.Results;
+    });
+  }
+
+  addModule(timetable, moduleCode, dispatch) {
     let moduleList = this.props.moduleList;
     if (!moduleList[moduleCode]) {
       return;
@@ -86,6 +98,7 @@ class Header extends Component {
     }).then(function(json) {
       dispatch(addModule(json));
     });
+    dispatch(addTimeTable(timetable));
   }
 
   getModuleList(dispatch) {

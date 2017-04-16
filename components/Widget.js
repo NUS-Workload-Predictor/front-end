@@ -35,14 +35,14 @@ class Widget extends Component {
   }
 
   render() {
-    const { widget, modules, connectDragSource, isDragging } = this.props;
+    const { widget, modules, timeTable } = this.props;
     // const { left, top } = widget;
 
     switch(widget.type) {
       case WIDGET_TIME_TABLE:
         return (
           <div className="widget-container">
-            <TimeTable widget={widget} modules={modules} />
+            <TimeTable widget={widget} modules={modules} timeTable={timeTable} />
           </div>
         );
 

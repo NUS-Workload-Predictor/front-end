@@ -16,7 +16,7 @@ export default function modules(state = [], action) {
   switch (action.type) {
     case MODULE_ADD:
       const workload = action.payload.Workload.split('-').map(s => parseInt(s, 10));
-      
+
       return [ ...state,
         {
           code: action.payload.ModuleCode,

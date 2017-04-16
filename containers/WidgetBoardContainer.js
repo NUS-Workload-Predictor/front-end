@@ -9,10 +9,10 @@ class WidgetBoardContainer extends Component {
   }
 
   render() {
-    const { widgets, modules, dispatch } = this.props;
+    const { widgets, modules, dispatch, timeTable } = this.props;
 
     return (
-      <WidgetBoard widgets={widgets} modules={modules} dispatch={dispatch}  />
+      <WidgetBoard widgets={widgets} modules={modules} dispatch={dispatch} timeTable={timeTable} />
     );
   }
 }
@@ -23,7 +23,8 @@ WidgetBoardContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
   widgets: state.widgets,
-  modules: state.modules
+  modules: state.modules,
+  timeTable: state.timeTable
 });
 
 export default connect(mapStateToProps)(WidgetBoardContainer);

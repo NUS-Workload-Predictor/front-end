@@ -134,7 +134,8 @@ const INITIAL_STATE = {
     cap: 0.0,
     experiencedMc: 0.0,
     experiencedSem: 0
-  }
+  },
+  timeTable: []
 }
 
 const store = createStore(rootReducer, INITIAL_STATE);

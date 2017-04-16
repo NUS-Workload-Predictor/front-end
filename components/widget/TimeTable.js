@@ -15,32 +15,32 @@ const day = [
   'MON', 'TUE', 'WED', 'THU', 'FRI'
 ];
 
-const timeList = [
-  {
-    info: 'CS3245 Lecture',
-    day: 5,
-    // time: [10, 12]
-    time: [20, 24]
-  },
-  {
-    info: 'CS3245 Tutorial',
-    day: 2,
-    // time: [17, 18]
-    time: [34, 36]
-  },
-  {
-    info: 'CS4218 Lecture',
-    day: 2,
-    // time: [14, 16]
-    time: [28, 32]
-  },
-  {
-    info: 'CS4218 Lab',
-    day: 3,
-    // time: [11, 12]
-    time: [22, 24]
-  }
-];
+// const timeList = [
+//   {
+//     info: 'CS3245 Lecture',
+//     day: 5,
+//     // time: [10, 12]
+//     time: [20, 24]
+//   },
+//   {
+//     info: 'CS3245 Tutorial',
+//     day: 2,
+//     // time: [17, 18]
+//     time: [34, 36]
+//   },
+//   {
+//     info: 'CS4218 Lecture',
+//     day: 2,
+//     // time: [14, 16]
+//     time: [28, 32]
+//   },
+//   {
+//     info: 'CS4218 Lab',
+//     day: 3,
+//     // time: [11, 12]
+//     time: [22, 24]
+//   }
+// ];
 
 class TimeTable extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class TimeTable extends Component {
     this.getTimeTableRows = this.getTimeTableRows.bind(this);
   }
 
-  getTimeTableRows() {
+  getTimeTableRows(timeList) {
     let time = [[], [], [], [], []];
     timeList.map((t, i) => {
       if (t.day >= 1 && t.day <= 5) {
@@ -103,7 +103,7 @@ class TimeTable extends Component {
   }
 
   render() {
-    const { widget } = this.props;
+    const { widget, timeTable } = this.props;
     const { width, height } = widget;
 
     return (
@@ -135,7 +135,7 @@ class TimeTable extends Component {
               </thead>
               <tbody>
                 {
-                  this.getTimeTableRows()
+                  this.getTimeTableRows(timeTable)
                 }
               </tbody>
             </table>
