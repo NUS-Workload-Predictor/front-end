@@ -342,7 +342,7 @@ class ModuleTimeLineChart extends Component {
     });
   }
 
-  componentDidUpdate() {
+  componentWillUpdate() {
     const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
