@@ -1,4 +1,4 @@
-import { PROFILE_UPDATE } from '../actions/widget';
+import { PROFILE_UPDATE } from '../actions/profile';
 
 const INITIAL_STATE = {};
 

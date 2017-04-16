@@ -16,6 +16,7 @@ import ModuleListContainer from '../containers/ModuleListContainer';
 import { setModuleList } from '../actions/moduleList';
 import { addModule } from '../actions/module';
 import { addTimeTable } from '../actions/timeTable';
+import { updateProfile } from '../actions/profile';
 
 import { IVLE_API_KEY, REDIRECT_URL, IVLE_API_BASE_URL, NUSMODS_API_BASE_URL, ACADEMIC_YEAR, SEMESTER, TRAINING_SERVER_URL } from '../constants/constants';
 
@@ -61,6 +62,7 @@ class Header extends Component {
     this.handleFeedback = this.handleFeedback.bind(this);
     this.handleSendFeedback = this.handleSendFeedback.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
+    this.handleSaveProfile = this.handleSaveProfile.bind(this);
   }
 
   getModules(token, dispatch) {
@@ -175,6 +177,20 @@ class Header extends Component {
   }
 
   handleProfile() {
+    this.setState({profile: !this.state.profile});
+  }
+
+  handleSaveProfile() {
+    const { dispatch } = this.props;
+
+    dispatch(updateProfile({
+      name: this.refs.profileName.getValue(),
+      matricNo: this.refs.profileMatricNo.getValue(),
+      cap: parseInt(this.refs.profileCap.getValue()),
+      experiencedSem: parseInt(this.refs.profileExperiencedSem.getValue()),
+      experiencedMc: parseInt(this.refs.profileExperiencedMc.getValue())
+    }));
+
     this.setState({profile: !this.state.profile});
   }
 
@@ -410,7 +426,7 @@ class Header extends Component {
           />, <FlatButton
             label="OK"
             primary={true}
-            onTouchTap={this.handleProfile}
+            onTouchTap={this.handleSaveProfile}
           />]}
           modal={false}
           open={this.state.profile}
@@ -421,12 +437,14 @@ class Header extends Component {
             hintText="Name"
             defaultValue={profile.name}
             floatingLabelText="Name"
+            ref="profileName"
           />
           <br />
           <TextField
             hintText="e.g. A0123456X"
             defaultValue={profile.matricNo}
             floatingLabelText="Matriculation No."
+            ref="profileMatricNo"
           />
           <br />
           <TextField
@@ -434,6 +452,7 @@ class Header extends Component {
             floatingLabelText="CAP"
             defaultValue={profile.cap}
             floatingLabelFixed={true}
+            ref="profileCap"
           />
           <br />
           <TextField
@@ -441,6 +460,7 @@ class Header extends Component {
             floatingLabelText="Experienced Sems"
             defaultValue={profile.experiencedSem}
             floatingLabelFixed={true}
+            ref="profileExperiencedSem"
           />
           <br />
           <TextField
@@ -448,6 +468,7 @@ class Header extends Component {
             floatingLabelText="Experienced Credits"
             defaultValue={profile.experiencedMc}
             floatingLabelFixed={true}
+            ref="profileExperiencedMc"
           />
         </Dialog>
         <Dialog
