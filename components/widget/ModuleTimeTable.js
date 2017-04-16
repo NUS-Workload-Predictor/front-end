@@ -315,7 +315,7 @@ class ModuleTimeTable extends Component {
                 <TableRowColumn className="module-cell">{module.code}</TableRowColumn>
                 {
                   data[module.code] ? data[module.code].map((value, i) => (
-                    <TableRowColumn key={i}>{value}</TableRowColumn>
+                    <TableRowColumn key={i}>{value.toFixed(2)}</TableRowColumn>
                   ))
                   : [...Array(15)].map((_, i) => (
                     <TableRowColumn key={i}>0</TableRowColumn>
@@ -327,7 +327,7 @@ class ModuleTimeTable extends Component {
               <TableRowColumn className="module-cell">Total</TableRowColumn>
               {
                 data.total ? data.total.map((value, i) => (
-                  <TableRowColumn key={i}>{value}</TableRowColumn>
+                  <TableRowColumn key={i}>{value.toFixed(2)}</TableRowColumn>
                 ))
                 : [...Array(15)].map((_, i) => (
                   <TableRowColumn key={i}>0</TableRowColumn>
