@@ -137,6 +137,7 @@ class ModuleTimePieChart extends Component {
   createDataArray(module) {
     let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
     let base = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
+    const { profile } = this.props;
 
     // Base time
     for (let i = 0; i < 15; i++) {
@@ -158,11 +159,22 @@ class ModuleTimePieChart extends Component {
         if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
           temp = this.getAssignmentWorkloadDefault(assignment);
         } else {
-          temp = (assignment.dueWeek - assignment.releasedWeek) * coefficients.time
-            + assignment.percentage * coefficients.percentage
-            + assignment.coverage * coefficients.coverage
-            + assignment.people * coefficients.people
-            + coefficients.intercept;
+          if (coefficients.cap) {
+            temp = (assignment.dueWeek - assignment.releasedWeek) * coefficients.time
+              + assignment.percentage * coefficients.percentage
+              + assignment.coverage * coefficients.coverage
+              + assignment.people * coefficients.people
+              + profile.cap * coefficients.cap
+              + profile.experiencedSem * coefficients.semesters
+              + profile.experiencedMc * coefficients.credits
+              + coefficients.intercept;
+          } else {
+            temp = (assignment.dueWeek - assignment.releasedWeek) * coefficients.time
+              + assignment.percentage * coefficients.percentage
+              + assignment.coverage * coefficients.coverage
+              + assignment.people * coefficients.people
+              + coefficients.intercept;
+          }
         }
 
         for (let j = assignment.releasedWeek - 1; j <= assignment.dueWeek; j++) {
@@ -184,12 +196,24 @@ class ModuleTimePieChart extends Component {
         if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
           temp = this.getPresentationWorkloadDefault(presentation);
         } else {
-          temp = (presentation.dueWeek - presentation.releasedWeek) * coefficients.time
-            + presentation.percentage * coefficients.percentage
-            + presentation.coverage * coefficients.coverage
-            + presentation.people * coefficients.people
-            + presentation.duration * coefficients.duration
-            + coefficients.intercept;
+          if (coefficients.cap) {
+            temp = (presentation.dueWeek - presentation.releasedWeek) * coefficients.time
+              + presentation.percentage * coefficients.percentage
+              + presentation.coverage * coefficients.coverage
+              + presentation.people * coefficients.people
+              + presentation.duration * coefficients.duration
+              + profile.cap * coefficients.cap
+              + profile.experiencedSem * coefficients.semesters
+              + profile.experiencedMc * coefficients.credits
+              + coefficients.intercept;
+          } else {
+            temp = (presentation.dueWeek - presentation.releasedWeek) * coefficients.time
+              + presentation.percentage * coefficients.percentage
+              + presentation.coverage * coefficients.coverage
+              + presentation.people * coefficients.people
+              + presentation.duration * coefficients.duration
+              + coefficients.intercept;
+          }
         }
 
         for (let j = presentation.releasedWeek - 1; j <= presentation.dueWeek; j++) {
@@ -211,11 +235,22 @@ class ModuleTimePieChart extends Component {
         if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
           temp = this.getProjectWorkloadDefault(project);
         } else {
-          temp = (project.dueWeek - project.releasedWeek) * coefficients.time
-            + project.percentage * coefficients.percentage
-            + project.coverage * coefficients.coverage
-            + project.people * coefficients.people
-            + coefficients.intercept;
+          if (coefficients.cap) {
+            temp = (project.dueWeek - project.releasedWeek) * coefficients.time
+              + project.percentage * coefficients.percentage
+              + project.coverage * coefficients.coverage
+              + project.people * coefficients.people
+              + profile.cap * coefficients.cap
+              + profile.experiencedSem * coefficients.semesters
+              + profile.experiencedMc * coefficients.credits
+              + coefficients.intercept;
+          } else {
+            temp = (project.dueWeek - project.releasedWeek) * coefficients.time
+              + project.percentage * coefficients.percentage
+              + project.coverage * coefficients.coverage
+              + project.people * coefficients.people
+              + coefficients.intercept;
+          }
         }
 
         for (let j = project.releasedWeek - 1; j <= project.dueWeek; j++) {
@@ -237,9 +272,16 @@ class ModuleTimePieChart extends Component {
         if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
           temp = this.getReadingWorkloadDefault(reading);
         } else {
-          temp = reading.amount * coefficients.amount
-            + reading.difficulty * coefficients.difficulty
-            + coefficients.intercept;
+          if (coefficients.cap) {
+            temp = reading.amount * coefficients.amount
+              + profile.cap * coefficients.cap
+              + profile.experiencedSem * coefficients.semesters
+              + profile.experiencedMc * coefficients.credits
+              + coefficients.intercept;
+          } else {
+            temp = reading.amount * coefficients.amount
+              + coefficients.intercept;
+          }
         }
 
         readingHours[reading.week < 6 ? reading.week - 1 : reading.week] += temp;
@@ -259,10 +301,20 @@ class ModuleTimePieChart extends Component {
         if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
           temp = this.getTestWorkloadDefault(test);
         } else {
-          temp = test.percentage * coefficients.percentage
-            + test.coverage * coefficients.coverage
-            + test.duration * coefficients.duration
-            + coefficients.intercept;
+          if (coefficients.cap) {
+            temp = test.percentage * coefficients.percentage
+              + test.coverage * coefficients.coverage
+              + test.duration * coefficients.duration
+              + profile.cap * coefficients.cap
+              + profile.experiencedSem * coefficients.semesters
+              + profile.experiencedMc * coefficients.credits
+              + coefficients.intercept;
+          } else {
+            temp = test.percentage * coefficients.percentage
+              + test.coverage * coefficients.coverage
+              + test.duration * coefficients.duration
+              + coefficients.intercept;
+          }
         }
 
         testHours[6] += temp;
@@ -282,10 +334,20 @@ class ModuleTimePieChart extends Component {
         if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
           temp = this.getExamWorkloadDefault(exam);
         } else {
-          temp = exam.percentage * coefficients.percentage
-            + exam.coverage * coefficients.coverage
-            + exam.duration * coefficients.duration
-            + coefficients.intercept;
+          if (coefficients.cap) {
+            temp = exam.percentage * coefficients.percentage
+              + exam.coverage * coefficients.coverage
+              + exam.duration * coefficients.duration
+              + profile.cap * coefficients.cap
+              + profile.experiencedSem * coefficients.semesters
+              + profile.experiencedMc * coefficients.credits
+              + coefficients.intercept;
+          } else {
+            temp = exam.percentage * coefficients.percentage
+              + exam.coverage * coefficients.coverage
+              + exam.duration * coefficients.duration
+              + coefficients.intercept;
+          }
         }
 
         examHours[14] += temp;
@@ -347,7 +409,7 @@ class ModuleTimePieChart extends Component {
     });
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
