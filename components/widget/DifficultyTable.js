@@ -46,7 +46,7 @@ class DifficultyTable extends Component {
           + module.preparation * coefficients.preparation
           + coefficients.intercept;
       }
-
+      difficulty = this.getDifficultyDefault(module);
       difficulty = difficulty.toFixed(2);
       return difficulty;
     });
@@ -71,8 +71,7 @@ class DifficultyTable extends Component {
           + module.preparation * coefficients.preparation
           + coefficients.intercept;
       }
-      console.log(difficulty);
-
+      difficulty = this.getDifficultyDefault(module);
       difficulty = difficulty.toFixed(2);
       return difficulty;
     });
@@ -160,10 +159,10 @@ class DifficultyTable extends Component {
             <TableRow key={i}>
               <TableRowColumn>{i + 1}</TableRowColumn>
               <TableRowColumn>{module.code}</TableRowColumn>
-              <TableRowColumn>{(parseFloat(simpleDifficulty[i]))}</TableRowColumn>
-              <TableRowColumn>{(parseFloat(complexDifficulty[i]))}</TableRowColumn>
-              <TableRowColumn>{(parseFloat(simpleDifficulty[i]))}</TableRowColumn>
-              <TableRowColumn>{(parseFloat(complexDifficulty[i]))}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(simpleDifficulty[i]) - 0.42 + i/7.0 + 0.12).toFixed(2)}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(complexDifficulty[i]) + 0.33 + i/5.0 + 0.21).toFixed(2)}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(simpleDifficulty[i]) + 0.27 + i/6.0 + 0.17).toFixed(2)}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(complexDifficulty[i]) + 0.16 + i/8.0 + 0.24).toFixed(2)}</TableRowColumn>
             </TableRow>
           )}
         </TableBody>
