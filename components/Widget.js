@@ -35,7 +35,7 @@ class Widget extends Component {
   }
 
   render() {
-    const { widget, modules, timeTable } = this.props;
+    const { widget, modules, timeTable, profile } = this.props;
     // const { left, top } = widget;
 
     switch(widget.type) {
@@ -70,7 +70,7 @@ class Widget extends Component {
       case WIDGET_DIFFICULTY_TABLE:
         return (
           <div className="widget-container">
-            <DifficultyTable widget={widget} modules={modules} />
+            <DifficultyTable widget={widget} modules={modules} profile={profile} />
           </div>
         );
 

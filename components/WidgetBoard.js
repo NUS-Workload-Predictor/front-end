@@ -13,7 +13,7 @@ class WidgetBoard extends Component {
   }
 
   render() {
-    const { widgets, modules, dispatch, timeTable } = this.props;
+    const { widgets, modules, dispatch, timeTable, profile } = this.props;
 
     return (
       <div id="widget-board-container">
@@ -27,6 +27,7 @@ class WidgetBoard extends Component {
               modules={modules}
               dispatch={dispatch}
               timeTable={timeTable}
+              profile={profile}
           />);
         })}
       </div>

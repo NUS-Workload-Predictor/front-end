@@ -37,8 +37,8 @@ class DifficultyTable extends Component {
       if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
         difficulty = this.getDifficultyDefault(module);
       } else {
-        difficulty = module.level * coefficients.level
-          + module.mc * coefficients.mc
+        difficulty = parseInt(module.code[/[0-9]/.exec(module.code).index]) * coefficients.level
+          + parseInt(module.credit) * coefficients.mc
           + module.lecture * coefficients.lecture
           + module.tutorial * coefficients.tutorial
           + module.lab * coefficients.lab
@@ -52,15 +52,18 @@ class DifficultyTable extends Component {
     });
   }
 
-  getComplexDifficulty(module, index) {
+  getComplexDifficulty(module, profile, index) {
     let difficulty = 0.0;
 
     return this.getDifficultyParams(module.code, 'complex').then((coefficients) => {
       if (Object.keys(coefficients).length === 0 && coefficients.constructor === Object) {
         difficulty = this.getDifficultyDefault(module);
       } else {
-        difficulty = module.level * coefficients.level
-          + module.mc * coefficients.mc
+        difficulty = profile.cap * coefficients.cap
+          + profile.experiencedMc * coefficients.mc
+          + profile.experiencedSem * coefficients.semesters
+          + parseInt(module.code[/[0-9]/.exec(module.code).index]) * coefficients.level
+          + parseInt(module.credit) * coefficients.mc
           + module.lecture * coefficients.lecture
           + module.tutorial * coefficients.tutorial
           + module.lab * coefficients.lab
@@ -68,6 +71,7 @@ class DifficultyTable extends Component {
           + module.preparation * coefficients.preparation
           + coefficients.intercept;
       }
+      console.log(difficulty);
 
       difficulty = difficulty.toFixed(2);
       return difficulty;
@@ -75,7 +79,7 @@ class DifficultyTable extends Component {
   }
 
   componentDidMount() {
-    const { modules } = this.props;
+    const { modules, profile } = this.props;
     let simpleDifficultyList = [];
     let complexDifficultyList = [];
 
@@ -89,7 +93,7 @@ class DifficultyTable extends Component {
 
     let complex = modules.reduce((promise, module, index) => {
       return promise.then(() => {
-        return this.getComplexDifficulty(module, index).then((difficulty) => {
+        return this.getComplexDifficulty(module, profile, index).then((difficulty) => {
           complexDifficultyList[index] = difficulty;
         });
       });
@@ -104,7 +108,7 @@ class DifficultyTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { modules } = nextProps;
+    const { modules, profile } = nextProps;
     let simpleDifficultyList = [];
     let complexDifficultyList = [];
 
@@ -118,7 +122,7 @@ class DifficultyTable extends Component {
 
     let complex = modules.reduce((promise, module, index) => {
       return promise.then(() => {
-        return this.getComplexDifficulty(module, index).then((difficulty) => {
+        return this.getComplexDifficulty(module, profile, index).then((difficulty) => {
           complexDifficultyList[index] = difficulty;
         });
       });
@@ -133,7 +137,7 @@ class DifficultyTable extends Component {
   }
 
   render() {
-    const { widget, modules } = this.props;
+    const { widget, modules, profile } = this.props;
     const { simpleDifficulty, complexDifficulty } = this.state;
 
     return (
@@ -156,10 +160,10 @@ class DifficultyTable extends Component {
             <TableRow key={i}>
               <TableRowColumn>{i + 1}</TableRowColumn>
               <TableRowColumn>{module.code}</TableRowColumn>
-              <TableRowColumn>{simpleDifficulty[i]}</TableRowColumn>
-              <TableRowColumn>{complexDifficulty[i]}</TableRowColumn>
-              <TableRowColumn>{simpleDifficulty[i]}</TableRowColumn>
-              <TableRowColumn>{complexDifficulty[i]}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(simpleDifficulty[i]))}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(complexDifficulty[i]))}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(simpleDifficulty[i]))}</TableRowColumn>
+              <TableRowColumn>{(parseFloat(complexDifficulty[i]))}</TableRowColumn>
             </TableRow>
           )}
         </TableBody>
