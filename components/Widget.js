@@ -49,21 +49,21 @@ class Widget extends Component {
       case WIDGET_MODULE_TIME_TABLE:
         return (
           <div className="widget-container">
-            <ModuleTimeTable widget={widget} modules={modules} />
+            <ModuleTimeTable widget={widget} modules={modules} profile={profile} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_LINE_CHART:
         return (
           <div className="widget-container">
-            <ModuleTimeLineChart widget={widget} modules={modules} />
+            <ModuleTimeLineChart widget={widget} modules={modules} profile={profile} />
           </div>
         );
 
       case WIDGET_MODULE_TIME_PIE_CHART:
         return (
           <div className="widget-container">
-            <ModuleTimePieChart widget={widget} modules={modules} />
+            <ModuleTimePieChart widget={widget} modules={modules} profile={profile} />
           </div>
         );
 
@@ -77,7 +77,7 @@ class Widget extends Component {
       case WIDGET_MODULE_TIME_BAR_CHART:
         return (
           <div className="widget-container">
-            <ModuleTimeBarChart widget={widget} modules={modules} />
+            <ModuleTimeBarChart widget={widget} modules={modules} profile={profile} />
           </div>
         );
 
