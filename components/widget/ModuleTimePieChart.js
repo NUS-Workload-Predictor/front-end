@@ -127,14 +127,17 @@ class ModuleTimePieChart extends Component {
     return (exam.percentage / 10.0) * exam.coverage * exam.duration;
   }
 
-  getWorkloadParams(module, assessment) {
+  getWorkloadParams(module, assessment, display) {
     let url = this.state.display > 0 ? workloadSimpleApi + assessment + '/' + module : workloadComplexApi + assessment + '/' + module;
+    if (display !== undefined) {
+      url = display > 0 ? workloadSimpleApi + assessment + '/' + module : workloadComplexApi + assessment + '/' + module;
+    }
     return fetch(url).then(function(response) {
       return response.json();
     });
   }
 
-  createDataArray(module) {
+  createDataArray(module, display) {
     let data = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
     let base = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
     const { profile } = this.props;
@@ -149,7 +152,7 @@ class ModuleTimePieChart extends Component {
     }
 
     // Assignment
-    let assignmentPromise = this.getWorkloadParams(module.code, 'assignment').then(function(coefficients) {
+    let assignmentPromise = this.getWorkloadParams(module.code, 'assignment', display).then(function(coefficients) {
       let assignmentHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
       for (let i = 0; i < module.assignments.length; i++) {
@@ -186,7 +189,7 @@ class ModuleTimePieChart extends Component {
     }.bind(this));
 
     // Presentation
-    let presentationPromise = this.getWorkloadParams(module.code, 'presentation').then(function(coefficients) {
+    let presentationPromise = this.getWorkloadParams(module.code, 'presentation', display).then(function(coefficients) {
       let presentationHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
       for (let i = 0; i < module.presentations.length; i++) {
@@ -225,7 +228,7 @@ class ModuleTimePieChart extends Component {
     }.bind(this));
 
     // Project
-    let projectPromise = this.getWorkloadParams(module.code, 'project').then(function(coefficients) {
+    let projectPromise = this.getWorkloadParams(module.code, 'project', display).then(function(coefficients) {
       let projectHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
       for (let i = 0; i < module.projects.length; i++) {
@@ -262,7 +265,7 @@ class ModuleTimePieChart extends Component {
     }.bind(this));
 
     // Reading
-    let readingPromise = this.getWorkloadParams(module.code, 'reading').then(function(coefficients) {
+    let readingPromise = this.getWorkloadParams(module.code, 'reading', display).then(function(coefficients) {
       let readingHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
       for (let i = 0; i < module.readings.length; i++) {
@@ -291,7 +294,7 @@ class ModuleTimePieChart extends Component {
     }.bind(this));
 
     // Test
-    let testPromise = this.getWorkloadParams(module.code, 'test').then(function(coefficients) {
+    let testPromise = this.getWorkloadParams(module.code, 'test', display).then(function(coefficients) {
       let testHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
       for (let i = 0; i < module.tests.length; i++) {
@@ -324,7 +327,7 @@ class ModuleTimePieChart extends Component {
     }.bind(this));
 
     // Exam
-    let examPromise = this.getWorkloadParams(module.code, 'exam').then(function(coefficients) {
+    let examPromise = this.getWorkloadParams(module.code, 'exam', display).then(function(coefficients) {
       let examHours = Array.apply(null, Array(15)).map(Number.prototype.valueOf, 0);
 
       for (let i = 0; i < module.exams.length; i++) {
@@ -413,7 +416,7 @@ class ModuleTimePieChart extends Component {
     const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
-      this.createDataArray(module)
+      this.createDataArray(module, nextState.display)
     ));
 
     let data = [];
