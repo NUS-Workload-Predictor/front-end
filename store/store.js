@@ -77,8 +77,7 @@ const INITIAL_STATE = {
         {
           name: 'Reading 1',
           week: 3,
-          amount: 5,
-          difficulty: 3
+          amount: 5
         }
       ],
       tests: [
