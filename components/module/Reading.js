@@ -25,8 +25,7 @@ class Reading extends Component {
       reading: {
         name: this.refs.name.getValue(),
         week: this.refs.week.getValue(),
-        amount: this.refs.amount.getValue(),
-        difficulty: this.refs.difficulty.getValue()
+        amount: this.refs.amount.getValue()
       }
     });
   }
@@ -118,15 +117,6 @@ class Reading extends Component {
           defaultValue={reading.amount}
           onChange={this.handleChange}
           ref="amount"
-        />
-        <br />
-        <TextField
-          hintText="Enter reading difficulty"
-          floatingLabelText="Reading Difficulty"
-          floatingLabelFixed={true}
-          defaultValue={reading.difficulty}
-          onChange={this.handleChange}
-          ref="difficulty"
         />
         <br />
       </Dialog>

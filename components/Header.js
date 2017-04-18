@@ -300,7 +300,6 @@ class Header extends Component {
         if (truth && !isNaN(truth)) {
           let params = {
             amount: reading.amount,
-            difficulty: reading.difficulty,
             result: truth
           };
           let body = Object.keys(params).map((key) => {
