@@ -58,6 +58,7 @@ class ReadingAdd extends Component {
       this.setState({open: false});
     } else {
       this.setState({openSnackbar: true});
+    }
   }
 
   render() {
