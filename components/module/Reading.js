@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
+import { DatePicker, Dialog, FlatButton, Snackbar, TextField } from 'material-ui';
 
 import { editReading } from '../../actions/module/reading';
 
@@ -10,6 +10,7 @@ class Reading extends Component {
 
     this.state = {
       open: false,
+      openSnackbar: false,
       reading: reading
     };
 
@@ -40,9 +41,21 @@ class Reading extends Component {
 
   handleSubmit() {
     const { moduleCode, dispatch, index } = this.props;
-    dispatch(editReading(moduleCode, index, {...this.state.reading}));
+    let allFilled = true;
+    let reading = this.state.reading;
+    Object.keys(reading).forEach(function(key,index) {
+      if (!reading[key]) {
+        allFilled = false;
+      }
+    });
 
-    this.setState({open: false});
+    if (allFilled) {
+      dispatch(editReading(moduleCode, index, {...this.state.reading}));
+
+      this.setState({open: false});
+    } else {
+      this.setState({openSnackbar: true});
+    }
   }
 
   render() {
@@ -68,6 +81,17 @@ class Reading extends Component {
         onRequestClose={this.handleClose}
         autoScrollBodyContent={true}
       >
+        <Snackbar
+          open={this.state.openSnackbar}
+          message="Must fill in all fields"
+          autoHideDuration={3000}
+          onRequestClose={() => {
+              this.setState({
+                openSnackbar: false,
+              });
+            }
+          }
+        />
         <br />
         <TextField
           hintText="Enter reading name"

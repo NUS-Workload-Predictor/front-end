@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
+import { DatePicker, Dialog, FlatButton, Snackbar, TextField } from 'material-ui';
 
 import { addExam } from '../../actions/module/exam';
 
@@ -8,6 +8,7 @@ class ExamAdd extends Component {
     super(props);
     this.state = {
       open: false,
+      openSnackbar: false,
       exam: {
         name: '',
         date: '',
@@ -57,9 +58,21 @@ class ExamAdd extends Component {
 
   handleSubmit() {
     const { moduleCode, dispatch } = this.props;
-    dispatch(addExam(moduleCode, {...this.state.exam}));
+    let allFilled = true;
+    let exam = this.state.exam;
+    Object.keys(exam).forEach(function(key,index) {
+      if (!exam[key]) {
+        allFilled = false;
+      }
+    });
 
-    this.setState({open: false});
+    if (allFilled) {
+      dispatch(addExam(moduleCode, {...this.state.exam}));
+
+      this.setState({open: false});
+    } else {
+      this.setState({openSnackbar: true});
+    }
   }
 
   render() {
@@ -85,6 +98,17 @@ class ExamAdd extends Component {
         onRequestClose={this.handleClose}
         autoScrollBodyContent={true}
       >
+        <Snackbar
+          open={this.state.openSnackbar}
+          message="Must fill in all fields"
+          autoHideDuration={3000}
+          onRequestClose={() => {
+              this.setState({
+                openSnackbar: false,
+              });
+            }
+          }
+        />
         <br />
         <TextField
           hintText="Enter exam name"

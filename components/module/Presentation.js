@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
+import { DatePicker, Dialog, FlatButton, Snackbar, TextField } from 'material-ui';
 
 import { editPresentation } from '../../actions/module/presentation';
 
@@ -10,6 +10,7 @@ class Presentation extends Component {
 
     this.state = {
       open: false,
+      openSnackbar: false,
       presentation: presentation
     };
 
@@ -57,9 +58,21 @@ class Presentation extends Component {
 
   handleSubmit() {
     const { moduleCode, dispatch, index } = this.props;
-    dispatch(editPresentation(moduleCode, index, {...this.state.presentation}));
+    let allFilled = true;
+    let presentation = this.state.presentation;
+    Object.keys(presentation).forEach(function(key,index) {
+      if (!presentation[key]) {
+        allFilled = false;
+      }
+    });
 
-    this.setState({open: false});
+    if (allFilled) {
+      dispatch(editPresentation(moduleCode, index, {...this.state.presentation}));
+
+      this.setState({open: false});
+    } else {
+      this.setState({openSnackbar: true});
+    }
   }
 
   render() {
@@ -87,6 +100,17 @@ class Presentation extends Component {
         onRequestClose={this.handleClose}
         autoScrollBodyContent={true}
       >
+        <Snackbar
+          open={this.state.openSnackbar}
+          message="Must fill in all fields"
+          autoHideDuration={3000}
+          onRequestClose={() => {
+              this.setState({
+                openSnackbar: false,
+              });
+            }
+          }
+        />
         <br />
         <TextField
           hintText="Enter presentation name"

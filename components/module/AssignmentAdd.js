@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
+import { DatePicker, Dialog, FlatButton, Snackbar, TextField } from 'material-ui';
 
 import { addAssignment } from '../../actions/module/assignment';
 
@@ -8,6 +8,7 @@ class AssignmentAdd extends Component {
     super(props);
     this.state = {
       open: false,
+      openSnackbar: false,
       assignment: {
         name: '',
         released: '',
@@ -63,9 +64,21 @@ class AssignmentAdd extends Component {
 
   handleSubmit() {
     const { moduleCode, dispatch } = this.props;
-    dispatch(addAssignment(moduleCode, {...this.state.assignment}));
+    let allFilled = true;
+    let assignment = this.state.assignment;
+    Object.keys(assignment).forEach(function(key,index) {
+      if (!assignment[key]) {
+        allFilled = false;
+      }
+    });
 
-    this.setState({open: false});
+    if (allFilled) {
+      dispatch(addAssignment(moduleCode, {...this.state.assignment}));
+
+      this.setState({open: false});
+    } else {
+      this.setState({openSnackbar: true});
+    }
   }
 
   render() {
@@ -91,6 +104,17 @@ class AssignmentAdd extends Component {
         onRequestClose={this.handleClose}
         autoScrollBodyContent={true}
       >
+        <Snackbar
+          open={this.state.openSnackbar}
+          message="Must fill in all fields"
+          autoHideDuration={3000}
+          onRequestClose={() => {
+              this.setState({
+                openSnackbar: false,
+              });
+            }
+          }
+        />
         <br />
         <TextField
           hintText="Enter assignment name"

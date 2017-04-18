@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePicker, Dialog, FlatButton, TextField } from 'material-ui';
+import { DatePicker, Dialog, FlatButton, Snackbar, TextField } from 'material-ui';
 
 import { addProject } from '../../actions/module/project';
 
@@ -8,6 +8,7 @@ class ProjectAdd extends Component {
     super(props);
     this.state = {
       open: false,
+      openSnackbar: false,
       project: {
         name: '',
         released: '',
@@ -63,9 +64,20 @@ class ProjectAdd extends Component {
 
   handleSubmit() {
     const { moduleCode, dispatch } = this.props;
-    dispatch(addProject(moduleCode, {...this.state.project}));
+    let allFilled = true;
+    let project = this.state.project;
+    Object.keys(project).forEach(function(key,index) {
+      if (!project[key]) {
+        allFilled = false;
+      }
+    });
 
-    this.setState({open: false});
+    if (allFilled) {
+      dispatch(addProject(moduleCode, {...this.state.project}));
+
+      this.setState({open: false});
+    } else {
+      this.setState({openSnackbar: true});
   }
 
   render() {
@@ -91,6 +103,17 @@ class ProjectAdd extends Component {
         onRequestClose={this.handleClose}
         autoScrollBodyContent={true}
       >
+        <Snackbar
+          open={this.state.openSnackbar}
+          message="Must fill in all fields"
+          autoHideDuration={3000}
+          onRequestClose={() => {
+              this.setState({
+                openSnackbar: false,
+              });
+            }
+          }
+        />
         <br />
         <TextField
           hintText="Enter project name"
