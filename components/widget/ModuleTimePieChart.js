@@ -409,7 +409,7 @@ class ModuleTimePieChart extends Component {
     });
   }
 
-  componentDidUpdate() {
+  componentWillUpdate(nextProp, nextState) {
     const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
@@ -442,7 +442,7 @@ class ModuleTimePieChart extends Component {
                 hoverBackgroundColor: hoverColors
               }]
             },
-            display: modules.length + 1,
+            display: nextState.display,
             data: workingTime
           });
         }

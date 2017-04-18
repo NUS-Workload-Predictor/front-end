@@ -342,7 +342,7 @@ class ModuleTimeLineChart extends Component {
     });
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(nextProp, nextState) {
     const { modules } = this.props;
 
     let promiseList = modules.map((module) => (
@@ -386,7 +386,7 @@ class ModuleTimeLineChart extends Component {
               text: ''
             }
           },
-          display: modules.length + 1,
+          display: nextState.display,
           data: workingTime
         });
       }
